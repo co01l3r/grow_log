@@ -1,0 +1,16 @@
+[
+  {
+    "model": "records.Nutrient",
+    "pk": 1,
+    "fields": {
+      "name": "Nutrient A"
+    }
+  },
+  {
+    "model": "records.Nutrient",
+    "pk": 2,
+    "fields": {
+      "name": "Nutrient B"
+    }
+  }
+]

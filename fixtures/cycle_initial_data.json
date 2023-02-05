@@ -1,0 +1,26 @@
+[
+    {
+        "model": "records.Cycle",
+        "pk": 1,
+        "fields": {
+            "name": "First Cycle",
+            "date": "2022-01-01",
+            "genetics": "Unknown",
+            "seedbank": "XYZ Seeds",
+            "fixture": "400W LED Grow Light",
+            "comments": "Initial cycle, seedlings started."
+        }
+    },
+    {
+        "model": "records.Cycle",
+        "pk": 2,
+        "fields": {
+            "name": "Second Cycle",
+            "date": "2022-02-01",
+            "genetics": "Strain A",
+            "seedbank": "ABC Seeds",
+            "fixture": "600W HPS Grow Light",
+            "comments": "Vegetative stage, plants growing well."
+        }
+    }
+  ]

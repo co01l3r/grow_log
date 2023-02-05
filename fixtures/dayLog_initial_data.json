@@ -1,0 +1,38 @@
+[
+    {
+        "model": "records.DayLog",
+        "pk": 1,
+        "fields": {
+            "cycle": 1,
+            "temperature_day": 72.0,
+            "temperature_night": 68.0,
+            "humidity_day": 60.0,
+            "humidity_night": 65.0,
+            "pH": 6.5,
+            "ec": 1.5,
+            "irrigation": 2.0,
+            "light_height": 18.0,
+            "light_power": 400.0,
+            "calibration": "True",
+            "comment": "Test log"
+        }
+    },
+    {
+        "model": "records.DayLog",
+        "pk": 2,
+        "fields": {
+            "cycle": 2,
+            "temperature_day": 74.0,
+            "temperature_night": 70.0,
+            "humidity_day": 65.0,
+            "humidity_night": 70.0,
+            "pH": 7.0,
+            "ec": 1.8,
+            "irrigation": 2.5,
+            "light_height": 20.0,
+            "light_power": 600.0,
+            "calibration": "False",
+            "comment": "Test log 2"
+        }
+    }
+]
