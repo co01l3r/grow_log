@@ -36,8 +36,9 @@ class Log(models.Model):
     comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        phase_count = Log.objects.filter(cycle=self.cycle, phase=self.phase).count()
-        return f'{self.cycle.name} - {self.get_phase_display()} - Day {phase_count}'
+        logs_of_same_phase = Log.objects.filter(cycle=self.cycle, phase=self.phase)
+        position = list(logs_of_same_phase).index(self) + 1
+        return f"{self.cycle.name} - {self.phase} - Day {position}"
 
 
 class Nutrient(models.Model):
