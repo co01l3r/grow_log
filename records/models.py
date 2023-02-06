@@ -34,6 +34,7 @@ class Log(models.Model):
     light_power = models.IntegerField(blank=True, null=True)
     calibration = models.BooleanField(default=False, blank=True, null=True)
     featured_image = models.ImageField(null=True, blank=True)
+    water = models.IntegerField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
 
     def __str__(self):

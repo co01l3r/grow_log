@@ -16,6 +16,7 @@
       "light_power": 400,
       "calibration": "True",
       "featured_image": "",
+      "water": 50,
       "comment": "Log for seedling phase day 1"
     }
   },
@@ -36,6 +37,7 @@
       "light_power": 450,
       "calibration": "True",
       "featured_image": "",
+      "water": 150,
       "comment": "Log for vegetative phase day 1"
     }
   },
@@ -56,6 +58,7 @@
       "light_power": 375,
       "calibration": "False",
       "featured_image": "",
+      "water": 20,
       "comment": "Log for seedling phase day 1 in cycle 2"
     }
   }

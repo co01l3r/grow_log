@@ -4,6 +4,22 @@
 <body>
 {% block content %}
 
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cycle in cycles %}
+        <tr onclick="location.href='{% url 'record' cycle.pk %}'">
+            <td>{{ cycle.id }}</td>
+            <td>{{ cycle.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}
 </body>

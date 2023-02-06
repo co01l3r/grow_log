@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'main.html' %}
+<body>
+{% block content %}
+
+<div>
+    <div>
+        <h1>{{ cycle.name }}</h1>
+        <h3>{{ cycle.date }}</h3>
+        <p>{{ cycle.genetics }}</p>
+        <p>{{ cycle.seedbank }}</p>
+        <p>{{ cycle.fixture }}</p>
+        <p>{{ cycle.comment }}</p>
+    </div>
+</div>
+
+{% endblock %}
+</body>
+</html>
