@@ -21,18 +21,19 @@ class Log(models.Model):
         ('bloom', 'Bloom'),
     ]
 
-    cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='Logs')
+    cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
+    phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
     temperature_day = models.FloatField(blank=True, null=True)
     temperature_night = models.FloatField(blank=True, null=True)
-    humidity_day = models.FloatField(blank=True, null=True)
-    humidity_night = models.FloatField(blank=True, null=True)
-    pH = models.FloatField(blank=True, null=True)
+    humidity_day = models.IntegerField(blank=True, null=True)
+    humidity_night = models.IntegerField(blank=True, null=True)
+    ph = models.FloatField(blank=True, null=True)
     ec = models.FloatField(blank=True, null=True)
-    phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
-    irrigation = models.FloatField(blank=True, null=True)
-    light_height = models.FloatField(blank=True, null=True)
-    light_power = models.FloatField(blank=True, null=True)
+    irrigation = models.TextField(max_length=20, blank=True, null=True)
+    light_height = models.IntegerField(blank=True, null=True)
+    light_power = models.IntegerField(blank=True, null=True)
     calibration = models.BooleanField(default=False, blank=True, null=True)
+    featured_image = models.ImageField(null=True, blank=True)
     comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -44,7 +45,8 @@ class Log(models.Model):
 class Nutrient(models.Model):
     name = models.CharField(max_length=80)
     brand = models.CharField(max_length=80)
-    comment = models.TextField(blank=True, null=True)
+    featured_image = models.ImageField(null=True, blank=True, default="default_fertilizer.jpg")
+    detail = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -53,7 +55,7 @@ class Nutrient(models.Model):
 class NutrientLog(models.Model):
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='nutrient_logs')
     nutrient = models.ForeignKey(Nutrient, on_delete=models.CASCADE)
-    concentration = models.FloatField()
+    concentration = models.IntegerField()
 
     def __str__(self):
-        return f" {self.log} - {self.nutrient}"
+        return f"{self.nutrient} - {self.concentration}"

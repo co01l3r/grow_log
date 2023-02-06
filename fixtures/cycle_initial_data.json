@@ -8,7 +8,7 @@
             "genetics": "Unknown",
             "seedbank": "XYZ Seeds",
             "fixture": "400W LED Grow Light",
-            "comment": "Initial cycle, seedlings started."
+            "comment": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
         }
     },
     {
@@ -20,7 +20,31 @@
             "genetics": "Strain A",
             "seedbank": "ABC Seeds",
             "fixture": "600W HPS Grow Light",
-            "comment": "Vegetative stage, plants growing well."
+            "comment": ""
+        }
+    },
+    {
+        "model": "records.Cycle",
+        "pk": 3,
+        "fields": {
+            "name": "Third Cycle",
+            "date": "2023-04-02",
+            "genetics": "Strain 89",
+            "seedbank": "Something Seeds",
+            "fixture": "1000W Led Grow Light",
+            "comment": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32"
+        }
+    },
+    {
+        "model": "records.Cycle",
+        "pk": 4,
+        "fields": {
+            "name": "Fourth Cycle",
+            "date": "2035-05-02",
+            "genetics": "Chinese spy balloon",
+            "seedbank": "Joe Bidens seeds",
+            "fixture": "Democratic light",
+            "comment": ""
         }
     }
   ]

@@ -3,14 +3,40 @@
     "model": "records.Nutrient",
     "pk": 1,
     "fields": {
-      "name": "Nutrient A"
+      "name": "Nutrient part A",
+      "brand": "Remo Nutrients",
+      "featured_image": "default_fertilizer.jpg",
+      "detail": ""
     }
   },
   {
     "model": "records.Nutrient",
     "pk": 2,
     "fields": {
-      "name": "Nutrient B"
+      "name": "Nutrient part B",
+      "brand": "Remo Nutrients",
+      "featured_image": "default_fertilizer.jpg",
+      "detail": ""
+    }
+  },
+  {
+    "model": "records.Nutrient",
+    "pk": 3,
+    "fields": {
+      "name": "Piranha",
+      "brand": "Advanced Nutrients",
+      "featured_image": "default_fertilizer.jpg",
+      "detail": ""
+    }
+  },
+  {
+    "model": "records.Nutrient",
+    "pk": 4,
+    "fields": {
+      "name": "CalMag Agent",
+      "brand": "Canna",
+      "featured_image": "default_fertilizer.jpg",
+      "detail": ""
     }
   }
 ]
