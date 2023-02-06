@@ -8,7 +8,7 @@
             "genetics": "Unknown",
             "seedbank": "XYZ Seeds",
             "fixture": "400W LED Grow Light",
-            "comments": "Initial cycle, seedlings started."
+            "comment": "Initial cycle, seedlings started."
         }
     },
     {
@@ -20,7 +20,7 @@
             "genetics": "Strain A",
             "seedbank": "ABC Seeds",
             "fixture": "600W HPS Grow Light",
-            "comments": "Vegetative stage, plants growing well."
+            "comment": "Vegetative stage, plants growing well."
         }
     }
   ]
