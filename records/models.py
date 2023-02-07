@@ -40,7 +40,7 @@ class Log(models.Model):
     def __str__(self):
         logs_of_same_phase = Log.objects.filter(cycle=self.cycle, phase=self.phase)
         position = list(logs_of_same_phase).index(self) + 1
-        return f"{self.cycle.name} - {self.phase} - Day {position}"
+        return str(position)
 
 
 class Nutrient(models.Model):

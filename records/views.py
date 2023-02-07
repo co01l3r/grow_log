@@ -10,4 +10,7 @@ def records(request):
 
 def record(request, pk):
     cycle = get_object_or_404(Cycle, pk=pk)
-    return render(request, 'records/record.html', {'cycle': cycle})
+    logs = Log.objects.filter(cycle=cycle)
+
+    context = {'cycle': cycle, 'logs': logs}
+    return render(request, 'records/record.html', context)
