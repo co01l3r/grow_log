@@ -1,181 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'main.html' %}
+{% load static %}
 <body>
 {% block content %}
+<!--    <div>-->
+<!--        <h1>{{ cycle.name }}</h1>-->
+<!--        <h3>{{ cycle.date }}</h3>-->
+<!--        <p>{{ cycle.genetics }}</p>-->
+<!--        <p>{{ cycle.seedbank }}</p>-->
+<!--        <p>{{ cycle.fixture }}</p>-->
+<!--        <p>{{ cycle.comment }}</p>-->
 
-<div>
-    <div>
-        <h1>{{ cycle.name }}</h1>
-        <h3>{{ cycle.date }}</h3>
-        <p>{{ cycle.genetics }}</p>
-        <p>{{ cycle.seedbank }}</p>
-        <p>{{ cycle.fixture }}</p>
-        <p>{{ cycle.comment }}</p>
+<!--        <p>{{ log}}</p>-->
+<!--    </div>-->
 
-        <p>{{ log}}</p>
-    </div>
-
-    <div>
-        <!--        seedling table          -->
-        <table>
-            <thead>
-            <tr>
-                <th>Day</th>
-                <th>Temperature (Day)</th>
-                <th>Temperature (Night)</th>
-                <th>Humidity (Day)</th>
-                <th>Humidity (Night)</th>
-                <th>pH</th>
-                <th>EC</th>
-                <th>Irrigation</th>
-                <th>Light Height</th>
-                <th>Light Power</th>
-                <th>Calibration</th>
-                <th>Water</th>
-                <th>Comment</th>
-                <th>Nutrients</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for log in cycle.logs.all %}
-            {% if log.phase == 'seedling' %}
-            <tr>
-                <td>{{ log }}</td>
-                <td>{{ log.temperature_day }}</td>
-                <td>{{ log.temperature_night }}</td>
-                <td>{{ log.humidity_day }}</td>
-                <td>{{ log.humidity_night }}</td>
-                <td>{{ log.ph }}</td>
-                <td>{{ log.ec }}</td>
-                <td>{{ log.irrigation }}</td>
-                <td>{{ log.light_height }}</td>
-                <td>{{ log.light_power }}</td>
-                <td>{{ log.calibration }}</td>
-                <td>{{ log.water }}</td>
-                <td>{{ log.comment }}</td>
-                <td>
-                    <div>
-                        <ul>
-                            {% for nutrient_log in log.nutrient_logs.all %}
-                            <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-            </tbody>
-        </table>
-        <!--        /seedling table          -->
-        <!--        vegetative table          -->
-        <table>
-            <thead>
-            <tr>
-                <th>Day</th>
-                <th>Temperature (Day)</th>
-                <th>Temperature (Night)</th>
-                <th>Humidity (Day)</th>
-                <th>Humidity (Night)</th>
-                <th>pH</th>
-                <th>EC</th>
-                <th>Irrigation</th>
-                <th>Light Height</th>
-                <th>Light Power</th>
-                <th>Calibration</th>
-                <th>Water</th>
-                <th>Comment</th>
-                <th>Nutrients</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for log in cycle.logs.all %}
-            {% if log.phase == 'vegetative' %}
-            <tr>
-                <td>{{ log }}</td>
-                <td>{{ log.temperature_day }}</td>
-                <td>{{ log.temperature_night }}</td>
-                <td>{{ log.humidity_day }}</td>
-                <td>{{ log.humidity_night }}</td>
-                <td>{{ log.ph }}</td>
-                <td>{{ log.ec }}</td>
-                <td>{{ log.irrigation }}</td>
-                <td>{{ log.light_height }}</td>
-                <td>{{ log.light_power }}</td>
-                <td>{{ log.calibration }}</td>
-                <td>{{ log.water }}</td>
-                <td>{{ log.comment }}</td>
-                <td>
-                    <div>
-                        <ul>
-                            {% for nutrient_log in log.nutrient_logs.all %}
-                            <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-            </tbody>
-        </table>
-        <!--        /vegetative table          -->
-        <!--        bloom table          -->
-        <table>
-            <thead>
-            <tr>
-                <th>Day</th>
-                <th>Temperature (Day)</th>
-                <th>Temperature (Night)</th>
-                <th>Humidity (Day)</th>
-                <th>Humidity (Night)</th>
-                <th>pH</th>
-                <th>EC</th>
-                <th>Irrigation</th>
-                <th>Light Height</th>
-                <th>Light Power</th>
-                <th>Calibration</th>
-                <th>Water</th>
-                <th>Comment</th>
-                <th>Nutrients</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for log in cycle.logs.all %}
-            {% if log.phase == 'bloom' %}
-            <tr>
-                <td>{{ log }}</td>
-                <td>{{ log.temperature_day }}</td>
-                <td>{{ log.temperature_night }}</td>
-                <td>{{ log.humidity_day }}</td>
-                <td>{{ log.humidity_night }}</td>
-                <td>{{ log.ph }}</td>
-                <td>{{ log.ec }}</td>
-                <td>{{ log.irrigation }}</td>
-                <td>{{ log.light_height }}</td>
-                <td>{{ log.light_power }}</td>
-                <td>{{ log.calibration }}</td>
-                <td>{{ log.water }}</td>
-                <td>{{ log.comment }}</td>
-                <td>
-                    <div>
-                        <ul>
-                            {% for nutrient_log in log.nutrient_logs.all %}
-                            <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-            </tbody>
-        </table>
-        <!--        /bloom table          -->
-    </div>
-
-</div>
+<section>
+  <h1>Fixed Table header</h1>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+      <tr>
+        <th>Day</th>
+        <th>Temperature (Day)</th>
+        <th>Temperature (Night)</th>
+        <th>Humidity (Day)</th>
+        <th>Humidity (Night)</th>
+        <th>pH</th>
+        <th>EC</th>
+        <th>Irrigation</th>
+        <th>Light Height</th>
+        <th>Light Power</th>
+        <th>Calibration</th>
+        <th>Water</th>
+        <th>Comment</th>
+        <th>Nutrients</th>
+      </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+      {% for log in cycle.logs.all %}
+      {% if log.phase == 'vegetative' %}
+      <tr>
+        <td>{{ log }}</td>
+        <td>{{ log.temperature_day }}</td>
+        <td>{{ log.temperature_night }}</td>
+        <td>{{ log.humidity_day }}</td>
+        <td>{{ log.humidity_night }}</td>
+        <td>{{ log.ph }}</td>
+        <td>{{ log.ec }}</td>
+        <td>{{ log.irrigation }}</td>
+        <td>{{ log.light_height }}</td>
+        <td>{{ log.light_power }}</td>
+        <td>{{ log.calibration }}</td>
+        <td>{{ log.water }}</td>
+        <td>{{ log.comment }}</td>
+        <td>
+          <div>
+            <ul>
+              {% for nutrient_log in log.nutrient_logs.all %}
+              <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
 
 {% endblock %}
 </body>
