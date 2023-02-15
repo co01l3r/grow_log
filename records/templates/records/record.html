@@ -4,20 +4,14 @@
 {% load static %}
 <body>
 {% block content %}
-<!--    <div>-->
-<!--        <h1>{{ cycle.name }}</h1>-->
-<!--        <h3>{{ cycle.date }}</h3>-->
-<!--        <p>{{ cycle.genetics }}</p>-->
-<!--        <p>{{ cycle.seedbank }}</p>-->
-<!--        <p>{{ cycle.fixture }}</p>-->
-<!--        <p>{{ cycle.comment }}</p>-->
-
-<!--        <p>{{ log}}</p>-->
-<!--    </div>-->
-
 <section>
-  <h1>{{ cycle.name }}</h1>
-  <h1>{{ cycle.date }}</h1>
+  <div class="cycle-info">
+        <h1>{{ cycle.name }}</h1>
+        <h2>{{ cycle.date }}</h2>
+        <p class="p-cycle-info">{{ cycle.genetics }}</p>
+        <p class="p-cycle-info">{{ cycle.seedbank }}</p>
+        <p class="p-cycle-info">{{ cycle.fixture }}</p>
+  </div>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>

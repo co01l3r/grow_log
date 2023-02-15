@@ -7,6 +7,22 @@ h1{
   text-align: center;
   margin-bottom: 15px;
 }
+h2{
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.p-cycle-info{
+  font-size: 15px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
 table{
   width:100%;
   table-layout: fixed;
@@ -14,8 +30,15 @@ table{
 .tbl-header{
   background-color: rgba(255,255,255,0.3);
  }
+
+.cycle-info{
+  text-align: left;
+  color: #fff;
+  overflow-x:auto;
+}
+
 .tbl-content{
-  height:300px;
+  height:350px;
   overflow-x:auto;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
