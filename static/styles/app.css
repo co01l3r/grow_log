@@ -32,6 +32,7 @@ table{
  }
 
 .cycle-info{
+  padding: 5px;
   text-align: left;
   color: #fff;
   overflow-x:auto;
@@ -44,19 +45,18 @@ table{
   border: 1px solid rgba(255,255,255,0.3);
 }
 th{
-  padding: 20px 15px;
+  padding: 15px 10px;
   text-align: left;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 15px;
   color: #fff;
-  text-transform: uppercase;
 }
 td{
-  padding: 15px;
+  padding: 5px;
   text-align: left;
   vertical-align:middle;
-  font-weight: 300;
-  font-size: 12px;
+  font-weight: 400;
+  font-size: 13px;
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }

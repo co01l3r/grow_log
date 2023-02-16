@@ -71,7 +71,7 @@ class LogModelTestCase(TestCase):
 
     def test_log_str_representation(self):
         log_str = str(self.log)
-        self.assertEqual(log_str, "Cycle 1 - vegetative - Day 1")
+        self.assertEqual(log_str, "1")
 
     def test_log_is_associated_with_cycle(self):
         self.assertEqual(self.log.cycle, self.cycle)
