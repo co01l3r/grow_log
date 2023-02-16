@@ -2,7 +2,7 @@ from django.db.models import Avg
 from records.models import Log
 
 
-def calculate_average_veg_temp(cycle):
+def calculate_average_veg_day_temp(cycle):
     veg_logs = Log.objects.filter(cycle=cycle, phase='vegetative')
     veg_day_temp_logs = veg_logs.exclude(temperature_day=None)
     if veg_day_temp_logs.exists():

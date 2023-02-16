@@ -40,28 +40,28 @@
       {% for log in cycle.logs.all %}
       {% if log.phase == 'vegetative' %}
       <tr>
-        <td>{{ log }}</td>
-        <td>{{ log.temperature_day }}</td>
-        <td>{{ log.temperature_night }}</td>
-        <td>{{ log.humidity_day }}</td>
-        <td>{{ log.humidity_night }}</td>
-        <td>{{ log.ph }}</td>
-        <td>{{ log.ec }}</td>
-        <td>{{ log.light_height }}</td>
-        <td>{{ log.light_power }}</td>
-        <td>{{ log.calibration }}</td>
-        <td>{{ log.water }}</td>
-        <td>{{ log.irrigation }}</td>
+        <td>{{ log|default_if_none:'' }}</td>
+        <td>{{ log.temperature_day|default_if_none:'' }}</td>
+        <td>{{ log.temperature_night|default_if_none:'' }}</td>
+        <td>{{ log.humidity_day|default_if_none:'' }}</td>
+        <td>{{ log.humidity_night|default_if_none:'' }}</td>
+        <td>{{ log.ph|default_if_none:'' }}</td>
+        <td>{{ log.ec|default_if_none:'' }}</td>
+        <td>{{ log.light_height|default_if_none:'' }}</td>
+        <td>{{ log.light_power|default_if_none:'' }}</td>
+        <td>{{ log.calibration|default_if_none:'' }}</td>
+        <td>{{ log.water|default_if_none:'' }}</td>
+        <td>{{ log.irrigation|default_if_none:'' }}</td>
         <td>
           <div>
             <ul>
               {% for nutrient_log in log.nutrient_logs.all %}
-              <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration }}</li>
+              <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}</li>
               {% endfor %}
             </ul>
           </div>
         </td>
-        <td>{{ log.comment|truncatewords:10 }}</td>
+        <td>{{ log.comment|truncatewords:10|default_if_none:'' }}</td>
       </tr>
       {% endif %}
       {% endfor %}
@@ -71,7 +71,7 @@
 </section>
 
 {% if avg_day_temp %}
-    <p>The average day temperature in veg phase is: {{ avg_day_temp|floatformat:2 }}</p>
+    <p>The average day temperature in veg phase was: {{ avg_day_temp|floatformat:2 }}</p>
 {% else %}
     <p></p>
 {% endif %}
