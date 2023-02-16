@@ -29,8 +29,8 @@ class Log(models.Model):
     ]
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
     phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
-    temperature_day = models.FloatField(blank=True, null=True)
-    temperature_night = models.FloatField(blank=True, null=True)
+    temperature_day = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    temperature_night = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     humidity_day = models.IntegerField(blank=True, null=True)
     humidity_night = models.IntegerField(blank=True, null=True)
     ph = models.FloatField(blank=True, null=True)
