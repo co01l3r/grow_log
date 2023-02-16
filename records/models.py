@@ -20,7 +20,13 @@ class Log(models.Model):
         ('vegetative', 'Vegetative'),
         ('bloom', 'Bloom'),
     ]
-
+    LIGHT_POWER_CHOICES = [
+        ('0', 'Darkness'),
+        ('25', '25%'),
+        ('50', '50%'),
+        ('75', '75%'),
+        ('100', '100%'),
+    ]
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
     phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
     temperature_day = models.FloatField(blank=True, null=True)
@@ -31,7 +37,7 @@ class Log(models.Model):
     ec = models.FloatField(blank=True, null=True)
     irrigation = models.TextField(max_length=20, blank=True, null=True)
     light_height = models.IntegerField(blank=True, null=True)
-    light_power = models.IntegerField(blank=True, null=True)
+    light_power = models.IntegerField(blank=True, null=True, choices=LIGHT_POWER_CHOICES)
     calibration = models.BooleanField(default=False, blank=True, null=True)
     featured_image = models.ImageField(null=True, blank=True)
     water = models.IntegerField(blank=True, null=True)

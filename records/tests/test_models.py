@@ -65,7 +65,7 @@ class LogModelTestCase(TestCase):
             ec=1.0,
             irrigation="Test Irrigation",
             light_height=100,
-            light_power=250,
+            light_power=25,
             calibration=True
         )
 
@@ -96,7 +96,7 @@ class LogModelTestCase(TestCase):
 
     def test_log_has_correct_light_height_and_power(self):
         self.assertEqual(self.log.light_height, 100)
-        self.assertEqual(self.log.light_power, 250)
+        self.assertEqual(self.log.light_power, 25)
 
 
 class NutrientTestCase(TestCase):
