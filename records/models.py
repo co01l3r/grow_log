@@ -34,7 +34,7 @@ class Log(models.Model):
     humidity_day = models.IntegerField(blank=True, null=True)
     humidity_night = models.IntegerField(blank=True, null=True)
     ph = models.FloatField(blank=True, null=True)
-    ec = models.FloatField(blank=True, null=True)
+    ec = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     irrigation = models.TextField(max_length=20, blank=True, null=True)
     light_height = models.IntegerField(blank=True, null=True)
     light_power = models.IntegerField(blank=True, null=True, choices=LIGHT_POWER_CHOICES)
