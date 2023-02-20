@@ -7,11 +7,21 @@
 <section>
   <div class="cycle-info">
         <h1>{{ cycle.name }}</h1>
-        <h2>{{ cycle.date }}</h2>
-        <p class="p-cycle-info">{{ cycle.genetics }}</p>
-        <p class="p-cycle-info">{{ cycle.seedbank }}</p>
-        <p class="p-cycle-info">{{ cycle.fixture }}</p>
   </div>
+
+  <div class="tbl-header">
+    <thead>
+    <th><strong>Genetics:</strong> {{ cycle.genetics }},</th>
+    <th><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }},</th>
+    {% if cycle.seedbank %}
+    <th><strong>Seedbank:</strong> {{ cycle.seedbank }},</th>
+    {% else %}
+    <th><strong>Seedbank:</strong> Unknown,</th>
+    {% endif %}
+    <th><strong>Fixture:</strong> {{ cycle.fixture }}</th>
+    </thead>
+  </div>
+
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
