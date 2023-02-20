@@ -15,9 +15,9 @@ class Cycle(models.Model):
 
         if self.name:
             name = self.name if quarter in self.name else f"{self.name} - {quarter}"
-            return f"{name} {year}"
+            return f"{name}/{year}"
         else:
-            return f"{self.genetics} - {quarter} {year}"
+            return f"{self.genetics} - {quarter}/{year}"
 
 
 class Log(models.Model):

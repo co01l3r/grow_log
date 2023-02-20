@@ -19,11 +19,11 @@ class CycleModelTestCase(TestCase):
 
     def test_str_representation_with_name(self):
         cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
-        self.assertEqual(str(cycle1), "Cycle 1 - Q1 2023")
+        self.assertEqual(str(cycle1), "Cycle 1 - Q1/2023")
 
     def test_str_representation_without_name(self):
         cycle2 = Cycle.objects.create(genetics="Indica")
-        self.assertEqual(str(cycle2), "Indica - Q1 2023")
+        self.assertEqual(str(cycle2), "Indica - Q1/2023")
 
     def test_date_auto_now_add(self):
         cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")

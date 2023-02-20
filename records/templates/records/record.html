@@ -26,9 +26,9 @@
         <th>Light Height</th>
         <th>Light Power</th>
         <th>Calibration</th>
-        <th>Water</th>
+        <th>Reservoir</th>
         <th>Irrigation</th>
-        <th>Nutrients</th>
+        <th>Recipe</th>
         <th>Comment</th>
       </tr>
       </thead>
@@ -71,12 +71,13 @@
 </section>
 
 {% if avg_day_temp %}
-    <p>The average day temperature in veg phase was: {{ avg_day_temp|floatformat:2 }}</p>
+    <p>Average day temperature in veg phase: {{ avg_day_temp|floatformat:2 }}</p>
 {% else %}
     <p></p>
 {% endif %}
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
+
 
 {% endblock %}
 </body>
