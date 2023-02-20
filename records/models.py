@@ -6,8 +6,8 @@ class Cycle(models.Model):
     date = models.DateField(auto_now_add=True)
     genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
-    fixture = models.CharField(max_length=200, blank=True, null=True)
-    name = models.CharField(max_length=255, blank=True)
+    fixture = models.CharField(max_length=200)
+    name = models.CharField(max_length=80, blank=True)
 
     def __str__(self):
         quarter = "Q" + str((self.date.month - 1) // 3 + 1)
