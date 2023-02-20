@@ -1,46 +1,55 @@
 from django.test import TestCase
 from records.models import Cycle, Log, Nutrient, NutrientLog
+from django.core.exceptions import ValidationError
 
 
 class CycleModelTestCase(TestCase):
     def setUp(self):
-        Cycle.objects.create(name="Cycle 1", genetics="Sativa", seedbank="Seed Co.", fixture="Indoor grow tent")
-        Cycle.objects.create(name="Cycle 2", genetics="Indica", seedbank="Seed Co.", fixture="Greenhouse")
+        Cycle.objects.create(
+            name="Cycle 1 - Q1",
+            genetics="Sativa",
+            seedbank="Seed Co.",
+            fixture="Indoor grow tent",
+        )
 
     def test_cycle_created(self):
-        cycle1 = Cycle.objects.get(name="Cycle 1")
-        cycle2 = Cycle.objects.get(name="Cycle 2")
+        cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
         self.assertEqual(cycle1.genetics, "Sativa")
-        self.assertEqual(cycle2.fixture, "Greenhouse")
+        self.assertEqual(cycle1.fixture, "Indoor grow tent")
 
-    def test_str_representation(self):
-        cycle1 = Cycle.objects.get(name="Cycle 1")
-        self.assertEqual(str(cycle1), "Cycle 1")
+    def test_str_representation_with_name(self):
+        cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
+        self.assertEqual(str(cycle1), "Cycle 1 - Q1 2023")
+
+    def test_str_representation_without_name(self):
+        cycle2 = Cycle.objects.create(genetics="Indica")
+        self.assertEqual(str(cycle2), "Indica - Q1 2023")
 
     def test_date_auto_now_add(self):
-        cycle1 = Cycle.objects.get(name="Cycle 1")
+        cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
         self.assertIsNotNone(cycle1.date)
 
     def test_name_field_max_length(self):
-        cycle = Cycle(name="a" * 151)
-        with self.assertRaises(Exception) as context:
+        max_length = Cycle._meta.get_field('name').max_length
+        cycle = Cycle(name='a' * (max_length + 1))
+        with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
-        self.assertIn("Ensure this value has at most 150 characters", str(context.exception))
+        self.assertIn('Ensure this value has at most', str(context.exception))
 
     def test_genetics_field_max_length(self):
-        cycle = Cycle(name="Cycle 1", genetics="a" * 201)
+        cycle = Cycle(name="Cycle 1 - Q1", genetics="a" * 201)
         with self.assertRaises(Exception) as context:
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
 
     def test_seedbank_field_max_length(self):
-        cycle = Cycle(name="Cycle 1", seedbank="a" * 81)
+        cycle = Cycle(name="Cycle 1 - Q1", seedbank="a" * 81)
         with self.assertRaises(Exception) as context:
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 80 characters", str(context.exception))
 
     def test_fixture_field_max_length(self):
-        cycle = Cycle(name="Cycle 1", fixture="a" * 201)
+        cycle = Cycle(name="Cycle 1 - Q1", fixture="a" * 201)
         with self.assertRaises(Exception) as context:
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 200 characters", str(context.exception))

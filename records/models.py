@@ -3,15 +3,20 @@ from django.db import models
 
 class Cycle(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=150)
     date = models.DateField(auto_now_add=True)
-    genetics = models.CharField(max_length=200, blank=True, null=True)
+    genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
     fixture = models.CharField(max_length=200, blank=True, null=True)
-    comment = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.name
+        quarter = "Q" + str((self.date.month - 1) // 3 + 1)
+        year = str(self.date.year)
+        if self.name:
+            name = self.name if quarter in self.name else f"{self.name} - {quarter}"
+            return f"{name} {year}"
+        else:
+            return f"{self.genetics} - {quarter} {year}"
 
 
 class Log(models.Model):
@@ -33,7 +38,7 @@ class Log(models.Model):
     temperature_night = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     humidity_day = models.IntegerField(blank=True, null=True)
     humidity_night = models.IntegerField(blank=True, null=True)
-    ph = models.FloatField(blank=True, null=True)
+    ph = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     ec = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     irrigation = models.TextField(max_length=20, blank=True, null=True)
     light_height = models.IntegerField(blank=True, null=True)
