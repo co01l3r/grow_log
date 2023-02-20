@@ -12,6 +12,7 @@ class Cycle(models.Model):
     def __str__(self):
         quarter = "Q" + str((self.date.month - 1) // 3 + 1)
         year = str(self.date.year)
+
         if self.name:
             name = self.name if quarter in self.name else f"{self.name} - {quarter}"
             return f"{name} {year}"

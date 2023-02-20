@@ -16,7 +16,7 @@
     {% for cycle in cycles %}
     <tr onclick="location.href='{% url 'record' cycle.pk %}'">
         <td>{{ cycle.id }}</td>
-        <td>{{ cycle.name }}</td>
+        <td>{{ cycle }}</td>
     </tr>
     {% endfor %}
     </tbody>
