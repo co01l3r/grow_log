@@ -8,15 +8,15 @@
 <table>
     <thead>
     <tr>
-        <th>#</th>
-        <th>Your Grow Logs</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     {% for cycle in cycles %}
     <tr onclick="location.href='{% url 'record' cycle.pk %}'">
-        <td>{{ cycle.id }}</td>
-        <td>{{ cycle }}</td>
+        <td></td>
+        <td>{{ cycle|title }}</td>
     </tr>
     {% endfor %}
     </tbody>

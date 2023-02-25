@@ -51,6 +51,20 @@ th{
   font-size: 15px;
   color: #fff;
 }
+.sec-head{
+  padding: 5px 15px;
+  text-align: match-parent;
+  font-weight: 400;
+  font-size: 11px;
+  color: #fff;
+}
+.cyc-info{
+  padding: 5px 15px;
+  text-align: left;
+  font-weight: 400;
+  font-size: 30px;
+  color: #fff;
+}
 td{
   padding: 5px;
   text-align: left;

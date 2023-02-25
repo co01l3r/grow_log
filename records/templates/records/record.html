@@ -11,13 +11,24 @@
 
   <div class="tbl-header">
     <thead>
-    <th><strong>Genetics:</strong> {{ cycle.genetics }},</th>
-    <th><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }},</th>
-    <th><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|default_if_none:"Unknown" }},</th>
-    <th><strong>Fixture:</strong> {{ cycle.fixture }}</th>
+    <tr>
+    <th class="cyc-info"><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }}</th>
+    <th class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</th>
+    <th class="cyc-info"><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|title }},</th>
+    {% if cycle.behavioral_response %}
+    <th class="cyc-info">{{ cycle.behavioral_response|title }},</th>
+    {% endif %}
+    {% if cycle.seed_type %}
+    <th class="cyc-info">{{ cycle.seed_type|title }}</th>
+    {% endif %}
+    {% if cycle.grow_medium %}
+    <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
+    {% endif %}
+    <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
+    </tr>
     </thead>
   </div>
-
+<br>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -32,14 +43,32 @@
         <th>Light Height</th>
         <th>Light Power</th>
         <th>Calibration</th>
-        <th>Reservoir</th>
+        <th>Water</th>
         <th>Irrigation</th>
         <th>Recipe</th>
         <th>Comment</th>
       </tr>
       </thead>
+
+      <div class="tbl-header">
+        <thead>
+        <th class="sec-head">#</th>
+        <th class="sec-head">°C</th>
+        <th class="sec-head">°C</th>
+        <th class="sec-head">%</th>
+        <th class="sec-head">%</th>
+        <th class="sec-head">ions</th>
+        <th class="sec-head">mS/cm</th>
+        <th class="sec-head">cm</th>
+        <th class="sec-head">%</th>
+        <th class="sec-head"></th>
+        <th class="sec-head">litres</th>
+        </thead>
+      </div>
+
     </table>
   </div>
+
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
@@ -55,7 +84,11 @@
         <td>{{ log.ec|default_if_none:'' }}</td>
         <td>{{ log.light_height|default_if_none:'' }}</td>
         <td>{{ log.light_power|default_if_none:'' }}</td>
-        <td>{{ log.calibration|default_if_none:'' }}</td>
+        {% if log.calibration %}
+        <td><i class="fa-solid fa-check"></i></td>
+        {% else %}
+        <td><i class="fa-solid fa-xmark"></i></td>
+        {% endif %}
         <td>{{ log.water|default_if_none:'' }}</td>
         <td>{{ log.irrigation|default_if_none:'' }}</td>
         <td>
@@ -83,6 +116,7 @@
 {% endif %}
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
+
 
 
 {% endblock %}

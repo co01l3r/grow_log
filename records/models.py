@@ -2,11 +2,24 @@ from django.db import models
 
 
 class Cycle(models.Model):
+    # TODO: update test cases
+    BEHAVIORAL_RESPONSE_CHOICES = [
+        ('auto-flowering', 'Auto-flowering'),
+        ('photoperiodic', 'Photoperiodic'),
+    ]
+    SEED_TYPE_CHOICES = [
+        ('regular', 'Regular'),
+        ('feminized', 'Feminized'),
+        ('clones', 'Clones'),
+    ]
     id = models.AutoField(primary_key=True)
     date = models.DateField(auto_now_add=True)
     genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
     fixture = models.CharField(max_length=200)
+    behavioral_response = models.CharField(max_length=80, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
+    seed_type = models.CharField(max_length=80, blank=True, null=True, choices=SEED_TYPE_CHOICES)
+    grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
 
     def __str__(self):
@@ -27,11 +40,11 @@ class Log(models.Model):
         ('bloom', 'Bloom'),
     ]
     LIGHT_POWER_CHOICES = [
-        ('0', 'Darkness'),
-        ('25', '25%'),
-        ('50', '50%'),
-        ('75', '75%'),
-        ('100', '100%'),
+        (0, 'Darkness'),
+        (25, '25%'),
+        (50, '50%'),
+        (75, '75%'),
+        (100, '100%'),
     ]
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
     phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
