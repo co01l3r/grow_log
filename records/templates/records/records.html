@@ -4,7 +4,7 @@
 <body>
 {% block content %}
 <div class="container card records-container">
-  <h2 class="text-center mb-4">List of Records</h2>
+  <h2 class="text-center mb-4">Grow Logs:</h2>
   {% if cycles %}
     <ul class="list-group">
       {% for cycle in cycles %}
@@ -14,7 +14,7 @@
   {% else %}
     <p>No records found.</p>
   {% endif %}
-  <button class="btn btn-primary mt-3" onclick="location.href='{% url 'new_cycle' %}'">Create New Record</button>
+  <button class="btn btn-primary mt-3" onclick="location.href='{% url 'new_cycle' %}'">Create New</button>
 </div>
 {% endblock %}
 </body>

@@ -18,6 +18,7 @@ def record(request, pk):
 
 
 def new_cycle(request):
+    # TODO: tests
     if request.method == 'POST':
         form = CycleForm(request.POST)
         if form.is_valid():
