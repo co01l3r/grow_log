@@ -25,6 +25,7 @@
     <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
     {% endif %}
     <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
+      <th><a class="edit-link" href="{% url 'edit_record' cycle.pk %}"><i class="fa-solid fa-pen"></i></a></th>
     </tr>
     </thead>
   </div>

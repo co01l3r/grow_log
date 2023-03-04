@@ -8,15 +8,18 @@
   {% if cycles %}
     <ul class="list-group">
       {% for cycle in cycles %}
-        <li class="list-group-item" onclick="location.href='{% url 'record' cycle.pk %}'">{{ cycle|title }}</li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" onclick="location.href='{% url 'record' cycle.pk %}'">
+          <span>{{ cycle|title }}</span>
+        </li>
       {% endfor %}
     </ul>
   {% else %}
     <p>No records found.</p>
   {% endif %}
-  <button class="btn btn-primary mt-3" onclick="location.href='{% url 'new_cycle' %}'">Create New</button>
+  <button class="btn btn-primary mt-3" onclick="location.href='{% url 'create_record' %}'">Create New</button>
 </div>
 {% endblock %}
 </body>
 </html>
+
 
