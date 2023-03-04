@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Cycle(models.Model):
-    # TODO: update test cases
     BEHAVIORAL_RESPONSE_CHOICES = [
         ('auto-flowering', 'Auto-flowering'),
         ('photoperiodic', 'Photoperiodic'),

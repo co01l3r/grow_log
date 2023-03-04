@@ -17,6 +17,18 @@ def record(request, pk):
     return render(request, 'records/record.html', context)
 
 
+def new_cycle(request):
+    if request.method == 'POST':
+        form = CycleForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = CycleForm()
+
+    context = {'form': form}
+    return render(request, 'records/new_cycle.html', context)
+
+
 def phase_summary(request, pk):
     # TODO: dont forget add TESTS or delete it
     cycle = Cycle.objects.get(id=pk)
