@@ -38,21 +38,39 @@ class CycleModelTestCase(TestCase):
 
     def test_genetics_field_max_length(self):
         cycle = Cycle(name="Cycle 1 - Q1", genetics="a" * 201)
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
 
     def test_seedbank_field_max_length(self):
         cycle = Cycle(name="Cycle 1 - Q1", seedbank="a" * 81)
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 80 characters", str(context.exception))
 
     def test_fixture_field_max_length(self):
         cycle = Cycle(name="Cycle 1 - Q1", fixture="a" * 201)
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
+
+    def test_behavioral_response_choices(self):
+        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="Indoor grow tent", behavioral_response="not-a-valid-choice")
+        with self.assertRaises(ValidationError) as context:
+            cycle.full_clean()
+        self.assertIn("is not a valid choice", str(context.exception))
+
+    def test_seed_type_choices(self):
+        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="Indoor grow tent", seed_type="not-a-valid-choice")
+        with self.assertRaises(ValidationError) as context:
+            cycle.full_clean()
+        self.assertIn("is not a valid choice", str(context.exception))
+
+    def test_grow_medium_max_length(self):
+        cycle = Cycle(name="Cycle 1 - Q1", grow_medium="a" * 31)
+        with self.assertRaises(ValidationError) as context:
+            cycle.full_clean()
+        self.assertIn("Ensure this value has at most 30 characters", str(context.exception))
 
 
 class LogModelTestCase(TestCase):
