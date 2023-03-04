@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Cycle, Log, Nutrient, NutrientLog
 from .utils import calculate_average_veg_day_temp
 from .forms import CycleForm
+from django.shortcuts import redirect
 
 
 def records(request):
@@ -22,7 +23,8 @@ def new_cycle(request):
     if request.method == 'POST':
         form = CycleForm(request.POST)
         if form.is_valid():
-            form.save()
+            cycle = form.save()
+            return redirect('record', pk=cycle.pk)
     else:
         form = CycleForm()
 
@@ -31,7 +33,7 @@ def new_cycle(request):
 
 
 def phase_summary(request, pk):
-    # TODO: dont forget add TESTS or delete it
+    # TODO: tests or delete it
     cycle = Cycle.objects.get(id=pk)
     avg_day_temp = calculate_average_veg_day_temp(cycle)
 
