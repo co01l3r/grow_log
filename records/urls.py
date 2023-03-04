@@ -8,6 +8,7 @@ urlpatterns = [
     path('record/<str:pk>/', views.record, name='record'),
     path('new/', views.create_or_edit_record, name='create_record'),
     path('edit/<str:pk>/', views.create_or_edit_record, name='edit_record'),
+    path('delete/<str:pk>/', views.delete_record, name='delete_record'),
     path('record/phase_summary/<str:pk>/', views.phase_summary, name='phase_summary'),
 ]
 

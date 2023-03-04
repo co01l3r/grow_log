@@ -29,12 +29,19 @@ def create_or_edit_record(request, pk=None):
         form = CycleForm(request.POST, instance=cycle)
         if form.is_valid():
             cycle = form.save()
-            # return redirect('record', pk=cycle.pk)
+            return redirect('record', pk=cycle.pk)
     else:
         form = CycleForm(instance=cycle)
 
     context = {'form': form, 'cycle': cycle}
     return render(request, 'records/new_record.html', context)
+
+
+def delete_record(request, pk):
+    # TODO: tests
+    cycle = get_object_or_404(Cycle, pk=pk)
+    cycle.delete()
+    return redirect('records')
 
 
 def phase_summary(request, pk):
