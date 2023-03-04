@@ -3,28 +3,20 @@
 {% extends 'main.html' %}
 <body>
 {% block content %}
-
-{% if cycles %}
-<table>
-    <thead>
-    <tr>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for cycle in cycles %}
-    <tr onclick="location.href='{% url 'record' cycle.pk %}'">
-        <td></td>
-        <td>{{ cycle|title }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-{% else %}
-<p>No records found</p>
-{% endif %}
-
+<div class="container card records-container">
+  <h2 class="text-center mb-4">List of Records</h2>
+  {% if cycles %}
+    <ul class="list-group">
+      {% for cycle in cycles %}
+        <li class="list-group-item" onclick="location.href='{% url 'record' cycle.pk %}'">{{ cycle|title }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No records found.</p>
+  {% endif %}
+  <button class="btn btn-primary mt-3" onclick="location.href='{% url 'new_cycle' %}'">Create New Record</button>
+</div>
 {% endblock %}
 </body>
 </html>
+
