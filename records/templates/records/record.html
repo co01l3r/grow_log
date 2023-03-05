@@ -102,7 +102,7 @@
               <td><i class="fa-solid fa-xmark"></i></td>
             {% endif %}
             <td>{{ log.water|default_if_none:'' }}</td>
-            <td>{{ log.irrigation|default_if_none:'' }}</td>
+              <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
             <td>
               <div>
                 <ul>
@@ -112,7 +112,7 @@
                 </ul>
               </div>
             </td>
-            <td>{{ log.comment|truncatewords:1|default_if_none:'' }}</td>
+            <td style="font-size: 8px">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
           </tr>
         {% endif %}
       {% endfor %}

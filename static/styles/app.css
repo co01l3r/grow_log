@@ -297,6 +297,9 @@ tr:nth-child(2) td {
   text-decoration: none;
   color: black;
 }
+.small-text {
+  font-size: 2px;
+}
 
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
