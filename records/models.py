@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# Record model
 class Cycle(models.Model):
     BEHAVIORAL_RESPONSE_CHOICES = [
         ('auto-flowering', 'Auto-flowering'),
@@ -32,6 +33,7 @@ class Cycle(models.Model):
             return f"{self.genetics} - {quarter}/{year}"
 
 
+# Log model
 class Log(models.Model):
     PHASE_CHOICES = [
         ('seedling', 'Seedling'),
@@ -67,6 +69,7 @@ class Log(models.Model):
         return str(day_in_phase)
 
 
+# Nutrient model
 class Nutrient(models.Model):
     name = models.CharField(max_length=80)
     brand = models.CharField(max_length=80)
@@ -77,6 +80,7 @@ class Nutrient(models.Model):
         return self.name
 
 
+# NutrientLog model
 class NutrientLog(models.Model):
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='nutrient_logs')
     nutrient = models.ForeignKey(Nutrient, on_delete=models.CASCADE)

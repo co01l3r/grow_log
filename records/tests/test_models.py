@@ -3,6 +3,7 @@ from records.models import Cycle, Log, Nutrient, NutrientLog
 from django.core.exceptions import ValidationError
 
 
+# Cycle model test cases
 class CycleModelTestCase(TestCase):
     def setUp(self):
         Cycle.objects.create(
@@ -73,6 +74,7 @@ class CycleModelTestCase(TestCase):
         self.assertIn("Ensure this value has at most 30 characters", str(context.exception))
 
 
+# Log model test cases
 class LogModelTestCase(TestCase):
     def setUp(self):
         self.cycle = Cycle.objects.create(
@@ -126,6 +128,7 @@ class LogModelTestCase(TestCase):
         self.assertEqual(self.log.light_power, 25)
 
 
+# Nutrient model test cases
 class NutrientTestCase(TestCase):
     def setUp(self):
         self.nutrient = Nutrient.objects.create(
@@ -143,6 +146,7 @@ class NutrientTestCase(TestCase):
         self.assertEqual(str(self.nutrient), 'NPK Fertilizer')
 
 
+# NutrientLog model test cases
 class NutrientLogTestCase(TestCase):
     def setUp(self):
         cycle = Cycle.objects.create(name="Test Cycle")

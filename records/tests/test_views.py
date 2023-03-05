@@ -5,6 +5,7 @@ from records.forms import CycleForm
 from django.utils import timezone
 
 
+# record views test cases
 class RecordsViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
@@ -106,6 +107,7 @@ class CreateOrEditRecordViewTestCase(TestCase):
         self.assertIsNone(response.context['cycle'])
         self.assertEqual(Cycle.objects.count(), 1)
 
+
 class DeleteRecordViewTestCase(TestCase):
 
     def setUp(self):
@@ -120,3 +122,9 @@ class DeleteRecordViewTestCase(TestCase):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Cycle.objects.filter(pk=self.cycle.pk).exists())
+
+
+# log views test cases
+# nutrient views test cases
+# nutrientLog views test cases
+# other views test cases

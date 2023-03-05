@@ -5,6 +5,7 @@ from .forms import CycleForm
 from django.shortcuts import redirect
 
 
+# record views
 def records(request):
     cycles = Cycle.objects.all()
     return render(request, 'records/records.html', {'cycles': cycles})
@@ -38,6 +39,10 @@ def delete_record(request, pk):
     return redirect('records')
 
 
+# log views
+# nutrient views
+# nutrientLog views
+# other views
 def phase_summary(request, pk):
     # TODO: tests or delete it
     cycle = Cycle.objects.get(id=pk)
