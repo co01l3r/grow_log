@@ -19,7 +19,6 @@ def record(request, pk):
 
 
 def create_or_edit_record(request, pk=None):
-    # TODO: tests
     cycle = get_object_or_404(Cycle, pk=pk) if pk else None
 
     if request.method == 'POST':
@@ -34,7 +33,6 @@ def create_or_edit_record(request, pk=None):
 
 
 def delete_record(request, pk):
-    # TODO: tests
     cycle = get_object_or_404(Cycle, pk=pk)
     cycle.delete()
     return redirect('records')
