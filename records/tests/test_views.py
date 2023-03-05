@@ -36,7 +36,6 @@ class RecordsViewTestCase(TestCase):
         self.assertIsNone(response.context['cycle'])
 
     def test_view_returns_correct_data(self):
-        # Test records view
         Cycle.objects.create(
             name='Cycle 2', genetics='Unknown', seedbank='Unknown',
             fixture='Fixture 2', behavioral_response='photoperiodic',
@@ -45,12 +44,10 @@ class RecordsViewTestCase(TestCase):
         response = self.client.get(self.url_records)
         self.assertEqual(len(response.context['cycles']), 2)
 
-        # Test record view
         response = self.client.get(self.url_record)
         self.assertEqual(response.context['cycle'], self.cycle)
 
     def test_view_returns_error_when_no_records(self):
-        # Test records view
         Cycle.objects.all().delete()
         response = self.client.get(self.url_records)
         self.assertEqual(response.status_code, 200)
