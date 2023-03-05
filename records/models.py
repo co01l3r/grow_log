@@ -12,6 +12,10 @@ class Cycle(models.Model):
         ('feminized', 'Feminized'),
         ('clones', 'Clones'),
     ]
+    BEGINNING_PHASE_CHOICES = [
+        ('seedling', 'Seedling'),
+        ('vegetative', 'Vegetative'),
+    ]
     id = models.AutoField(primary_key=True)
     date = models.DateField(auto_now_add=True)
     genetics = models.CharField(max_length=200)
@@ -21,6 +25,8 @@ class Cycle(models.Model):
     seed_type = models.CharField(max_length=80, blank=True, null=True, choices=SEED_TYPE_CHOICES)
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
+    beginning_phase = models.CharField(max_length=80, blank=True, null=True, choices=BEGINNING_PHASE_CHOICES, default='vegetative')
+    is_submitted = models.BooleanField(default=False)
 
     def __str__(self):
         quarter = "Q" + str((self.date.month - 1) // 3 + 1)

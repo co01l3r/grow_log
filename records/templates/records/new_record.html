@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'main.html' %}
-
 <body>
 {% block content %}
 <section>
@@ -11,10 +10,17 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        <div class="form__field">
-          <label for="{{field.id_for_label}}">{{field.label}}</label>
-          {{field}}
-        </div>
+          {% if not is_editing and field.name == 'beginning_phase' %}
+            <div class="form__field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+            </div>
+          {% else %}
+            <div class="form__field">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+            </div>
+          {% endif %}
         {% endfor %}
         <div class="form-group">
           {% if request.resolver_match.url_name == 'edit_record' %}

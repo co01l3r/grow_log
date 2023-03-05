@@ -73,6 +73,13 @@ class CycleModelTestCase(TestCase):
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 30 characters", str(context.exception))
 
+    def test_beginning_phase_choices(self):
+        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="Indoor grow tent",
+                                     beginning_phase="not-a-valid-choice")
+        with self.assertRaises(ValidationError) as context:
+            cycle.full_clean()
+        self.assertIn("is not a valid choice", str(context.exception))
+
 
 # Log model test cases
 class LogModelTestCase(TestCase):
