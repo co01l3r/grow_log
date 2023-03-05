@@ -20,10 +20,7 @@ def record(request, pk):
 
 def create_or_edit_record(request, pk=None):
     # TODO: tests
-    if pk:
-        cycle = get_object_or_404(Cycle, pk=pk)
-    else:
-        cycle = None
+    cycle = get_object_or_404(Cycle, pk=pk) if pk else None
 
     if request.method == 'POST':
         form = CycleForm(request.POST, instance=cycle)
@@ -33,8 +30,7 @@ def create_or_edit_record(request, pk=None):
     else:
         form = CycleForm(instance=cycle)
 
-    context = {'form': form, 'cycle': cycle}
-    return render(request, 'records/new_record.html', context)
+    return render(request, 'records/new_record.html', {'form': form, 'cycle': cycle})
 
 
 def delete_record(request, pk):
