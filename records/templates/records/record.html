@@ -101,7 +101,7 @@
                 </ul>
               </div>
             </td>
-            <td>{{ log.comment|truncatewords:10|default_if_none:'' }}</td>
+            <td>{{ log.comment|truncatewords:1|default_if_none:'' }}</td>
           </tr>
         {% endif %}
       {% endfor %}
