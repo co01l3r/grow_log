@@ -84,8 +84,18 @@
             <td>{{ log.ph|default_if_none:'' }}</td>
             <td>{{ log.ec|default_if_none:'' }}</td>
             <td>{{ log.light_height|default_if_none:'' }}</td>
-            <td>{{ log.light_power|default_if_none:'' }}</td>
-            {% if log.calibration %}
+            {% if log.light_power == 25 %}
+              <td><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+            {% elif log.light_power == 50 %}
+              <td><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+            {% elif log.light_power == 75 %}
+              <td><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+            {% elif log.light_power == 100 %}
+              <td><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i></td>
+            {% else %}
+              <td><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+            {% endif %}
+              {% if log.calibration %}
               <td><i class="fa-solid fa-check"></i></td>
             {% else %}
               <td><i class="fa-solid fa-xmark"></i></td>
