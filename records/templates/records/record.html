@@ -37,84 +37,78 @@
 </div>
 
 <br>
-  <div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" border="0">
+    <thead>
       <tr>
-        <th>Day</th>
-        <th>Temp. (Day)</th>
-        <th>Temp. (Night)</th>
-        <th>Hum. (Day)</th>
-        <th>Hum. (Night)</th>
+        <th rowspan="2">Day</th>
+        <th colspan="2" style="text-align:center;">Temperature</th>
+        <th colspan="2" style="text-align:center;">Humidity</th>
         <th>pH</th>
         <th>EC</th>
         <th>Light Height</th>
         <th>Light Power</th>
-        <th>Calibration</th>
+        <th>Calib.</th>
         <th>Water</th>
         <th>Irrigation</th>
         <th>Recipe</th>
         <th>Comment</th>
       </tr>
-      </thead>
-
-      <div class="tbl-header">
-        <thead>
-        <th class="sec-head">#</th>
-        <th class="sec-head">°C</th>
-        <th class="sec-head">°C</th>
-        <th class="sec-head">%</th>
-        <th class="sec-head">%</th>
-        <th class="sec-head">ions</th>
-        <th class="sec-head">mS/cm</th>
-        <th class="sec-head">cm</th>
-        <th class="sec-head">%</th>
-        <th class="sec-head"></th>
-        <th class="sec-head">litres</th>
-        </thead>
-      </div>
-
-    </table>
-  </div>
-
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-      {% for log in cycle.logs.all %}
-      {% if log.phase == 'vegetative' %}
       <tr>
-        <td>{{ log|default_if_none:'' }}</td>
-        <td>{{ log.temperature_day|default_if_none:'' }}</td>
-        <td>{{ log.temperature_night|default_if_none:'' }}</td>
-        <td>{{ log.humidity_day|default_if_none:'' }}</td>
-        <td>{{ log.humidity_night|default_if_none:'' }}</td>
-        <td>{{ log.ph|default_if_none:'' }}</td>
-        <td>{{ log.ec|default_if_none:'' }}</td>
-        <td>{{ log.light_height|default_if_none:'' }}</td>
-        <td>{{ log.light_power|default_if_none:'' }}</td>
-        {% if log.calibration %}
-        <td><i class="fa-solid fa-check"></i></td>
-        {% else %}
-        <td><i class="fa-solid fa-xmark"></i></td>
-        {% endif %}
-        <td>{{ log.water|default_if_none:'' }}</td>
-        <td>{{ log.irrigation|default_if_none:'' }}</td>
-        <td>
-          <div>
-            <ul>
-              {% for nutrient_log in log.nutrient_logs.all %}
-              <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </td>
-        <td>{{ log.comment|truncatewords:10|default_if_none:'' }}</td>
+        <th>Day</th>
+        <th>Night</th>
+        <th>Day</th>
+        <th>Night</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Litres</th>
       </tr>
-      {% endif %}
+    </thead>
+  </table>
+</div>
+
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" border="0">
+    <tbody>
+      {% for log in cycle.logs.all %}
+        {% if log.phase == 'vegetative' %}
+          <tr>
+            <td>{{ log|default_if_none:'' }}</td>
+            <td>{{ log.temperature_day|default_if_none:'' }}</td>
+            <td>{{ log.temperature_night|default_if_none:'' }}</td>
+            <td>{{ log.humidity_day|default_if_none:'' }}</td>
+            <td>{{ log.humidity_night|default_if_none:'' }}</td>
+            <td>{{ log.ph|default_if_none:'' }}</td>
+            <td>{{ log.ec|default_if_none:'' }}</td>
+            <td>{{ log.light_height|default_if_none:'' }}</td>
+            <td>{{ log.light_power|default_if_none:'' }}</td>
+            {% if log.calibration %}
+              <td><i class="fa-solid fa-check"></i></td>
+            {% else %}
+              <td><i class="fa-solid fa-xmark"></i></td>
+            {% endif %}
+            <td>{{ log.water|default_if_none:'' }}</td>
+            <td>{{ log.irrigation|default_if_none:'' }}</td>
+            <td>
+              <div>
+                <ul>
+                  {% for nutrient_log in log.nutrient_logs.all %}
+                    <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </td>
+            <td>{{ log.comment|truncatewords:10|default_if_none:'' }}</td>
+          </tr>
+        {% endif %}
       {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
+</div>
+
 </section>
 
 {% if avg_day_temp %}
