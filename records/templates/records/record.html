@@ -13,6 +13,34 @@
     {% endif %}
 </div>
 
+<!--<script>-->
+<!--function openRecipeWindow(recipe) {-->
+<!--  // Create a new div element to hold the recipe preview-->
+<!--  const recipePreview = document.createElement('div');-->
+<!--  recipePreview.classList.add('recipe-preview');-->
+
+<!--  // Set the innerHTML of the recipe preview to the recipe information-->
+<!--  recipePreview.innerHTML = recipe;-->
+
+<!--  // Add the recipe preview to the body of the document-->
+<!--  document.body.appendChild(recipePreview);-->
+
+<!--  // Create a button to close the recipe preview-->
+<!--  const closeButton = document.createElement('button');-->
+<!--  closeButton.innerHTML = 'Close';-->
+
+<!--  // Add an event listener to the close button to remove the recipe preview from the page when clicked-->
+<!--  closeButton.addEventListener('click', function() {-->
+<!--    document.body.removeChild(recipePreview);-->
+<!--  });-->
+
+<!--  // Add the close button to the recipe preview-->
+<!--  recipePreview.appendChild(closeButton);-->
+<!--}-->
+<!--</script>-->
+
+
+
 <div class="tbl-header">
     <thead>
         <tr>
@@ -103,16 +131,10 @@
             {% endif %}
             <td>{{ log.water|default_if_none:'' }}</td>
               <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
-            <td>
-              <div>
-                <ul>
-                  {% for nutrient_log in log.nutrient_logs.all %}
-                    <li>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </td>
-            <td style="font-size: 8px">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
+              <td style="text-align: center; vertical-align: middle;">
+                    <button class="recipe-btn" style="margin: auto;" onclick="openRecipeWindow('{% for nutrient_log in log.nutrient_logs.all %}{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}{% if not forloop.last %}<br>{% endif %}{% endfor %}')">Show</button>
+              </td>
+              <td style="font-size: 8px">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
           </tr>
         {% endif %}
       {% endfor %}

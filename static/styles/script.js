@@ -1,5 +1,36 @@
-// '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
-$(window).on("load resize ", function() {
+function adjustTableWidth() {
   var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
   $('.tbl-header').css({'padding-right':scrollWidth});
-}).resize();
+}
+
+$(document).ready(function() {
+  adjustTableWidth();
+});
+
+$(window).resize(function() {
+  adjustTableWidth();
+});
+
+function openRecipeWindow(recipe) {
+  // Create a new div element to hold the recipe preview
+  const recipePreview = document.createElement('div');
+  recipePreview.classList.add('recipe-preview');
+
+  // Set the innerHTML of the recipe preview to the recipe information
+  recipePreview.innerHTML = recipe;
+
+  // Add the recipe preview to the body of the document
+  document.body.appendChild(recipePreview);
+
+  // Create a button to close the recipe preview
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = 'Close';
+
+  // Add an event listener to the close button to remove the recipe preview from the page when clicked
+  closeButton.addEventListener('click', function() {
+    document.body.removeChild(recipePreview);
+  });
+
+  // Add the close button to the recipe preview
+  recipePreview.appendChild(closeButton);
+}
