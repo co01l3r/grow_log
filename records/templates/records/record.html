@@ -70,9 +70,9 @@
   <table cellpadding="0" cellspacing="0" border="0">
     <thead>
       <tr>
-        <th rowspan="2">Day</th>
-        <th colspan="2" style="text-align:center;">Temperature</th>
-        <th colspan="2" style="text-align:center;">Humidity</th>
+        <th style="padding-right: 25px;" rowspan="2">Day</th>
+        <th colspan="2">Temperature</th>
+        <th colspan="2">Humidity</th>
         <th>pH</th>
         <th>EC</th>
         <th>Light Height</th>
@@ -97,7 +97,6 @@
         <th></th>
         <th></th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
   </table>
@@ -108,8 +107,8 @@
     <tbody>
       {% for log in cycle.logs.all %}
         {% if log.phase == 'vegetative' %}
-          <tr>
-            <td>{{ log|default_if_none:'' }}</td>
+            <tr {% if forloop.counter|divisibleby:7 %}style="background-color: rgba(255,255,255,0.1)"{% endif %}>
+            <td style="text-align: left;">{{ log|default_if_none:'' }}</td>
             <td>{{ log.temperature_day|default_if_none:'' }}</td>
             <td>{{ log.temperature_night|default_if_none:'' }}</td>
             <td>{{ log.humidity_day|default_if_none:'' }}</td>
@@ -138,7 +137,7 @@
               <td style="text-align: center; vertical-align: middle;">
                     <button class="recipe-btn" style="margin: auto;" onclick="openRecipeWindow('{% for nutrient_log in log.nutrient_logs.all %}{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}{% if not forloop.last %}<br>{% endif %}{% endfor %}')">Show</button>
               </td>
-              <td style="font-size: 9px">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
+              <td style="font-size: 9px; text-align: left">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
           </tr>
         {% endif %}
       {% endfor %}
