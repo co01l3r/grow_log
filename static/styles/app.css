@@ -429,7 +429,19 @@ box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
   box-shadow: 0px 0px 2px #ff8c00;
   display: inline-block;
 }
-
+.log-cell[title]:hover:after {
+  content: attr(title);
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: 10px;
+  white-space: nowrap;
+}
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body{

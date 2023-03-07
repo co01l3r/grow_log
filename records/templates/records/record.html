@@ -128,7 +128,11 @@
                 {% else %}
                 <td></td>
                 {% endif %}
-                <td style="font-size: 10px; text-align: left">{{ log.comment|truncatechars:10|default_if_none:'' }}</td>
+                <td class="log-cell" style="font-size: 10px; text-align: left;"
+                    {% if log.comment %}title="{{ log.comment }}" {% endif %}>
+                    {{ log.comment|truncatechars:10|default_if_none:'' }}
+                </td>
+                
             </tr>
             {% endif %}
             {% endfor %}
