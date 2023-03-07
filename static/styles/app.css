@@ -421,6 +421,15 @@ box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
   font-size: 2px;
 }
 
+.online-icon {
+  width: 6px;
+  height: 6px;
+  background-color: #ff8c00;
+  border-radius: 50%;
+  box-shadow: 0px 0px 2px #ff8c00;
+  display: inline-block;
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body{

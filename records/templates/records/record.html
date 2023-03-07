@@ -87,7 +87,7 @@
                 {% else %}
             <tr>
                 {% endif %}
-                <td style="text-align: left;">{{ log|default_if_none:'' }}</td>
+                <td style="text-align: left;">{{ log|default_if_none:'' }} </td>
                 <td>{{ log.temperature_day|default_if_none:'' }}</td>
                 <td>{{ log.temperature_night|default_if_none:'' }}</td>
                 <td>{{ log.humidity_day|default_if_none:'' }}</td>
@@ -118,13 +118,17 @@
                 {% endif %}
                 <td>{{ log.water|default_if_none:'' }}</td>
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
+                {% if log.nutrient_logs.exists %}
                 <td style="text-align: center; vertical-align: middle;">
                     <button class="recipe-btn" style="margin: auto;"
                             onclick="openRecipeWindow('{% for nutrient_log in log.nutrient_logs.all %}{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}{% if not forloop.last %}<br>{% endif %}{% endfor %}')">
                         Show
                     </button>
                 </td>
-                <td style="font-size: 9px; text-align: left">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td style="font-size: 10px; text-align: left">{{ log.comment|truncatechars:10|default_if_none:'' }}</td>
             </tr>
             {% endif %}
             {% endfor %}
@@ -139,6 +143,9 @@
 {% else %}
 <p></p>
 {% endif %}
+
+<div class="online-icon"></div>
+
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
