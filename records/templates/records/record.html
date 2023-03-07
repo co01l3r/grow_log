@@ -63,7 +63,7 @@
                 <th>Day</th>
                 <th>Night</th>
                 <th>ions</th>
-                <th></th>
+                <th>mS/cm</th>
                 <th>cm</th>
                 <th>%</th>
                 <th></th>
@@ -132,7 +132,7 @@
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {{ log.comment|truncatechars:10|default_if_none:'' }}
                 </td>
-                
+
             </tr>
             {% endif %}
             {% endfor %}
@@ -149,7 +149,13 @@
 {% endif %}
 
 <div class="online-icon"></div>
-
+<i class="fa-solid fa-radiation"></i>
+<i class="fa-sharp fa-solid fa-circle-radiation"></i>
+<i class="fa-solid fa-circle-exclamation"></i>
+<i class="fa-solid fa-triangle-exclamation"></i>
+<i class="fa-solid fa-circle-half-stroke"></i>
+<i class="fa-solid fa-circle"></i>
+<i class="fa-duotone fa-circle-three-quarters-stroke"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
