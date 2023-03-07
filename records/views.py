@@ -12,7 +12,7 @@ def records(request):
 
 
 def record(request, pk):
-    cycle = get_object_or_404(Cycle, pk=pk)
+    cycle = get_object_or_404(Cycle, id=pk)
     logs = Log.objects.filter(cycle=cycle)
 
     context = {'cycle': cycle, 'logs': logs}
@@ -20,7 +20,7 @@ def record(request, pk):
 
 
 def create_or_edit_record(request, pk=None):
-    cycle = get_object_or_404(Cycle, pk=pk) if pk else None
+    cycle = get_object_or_404(Cycle, id=pk) if pk else None
     submitted = False  # Flag to indicate if the form has been submitted before
 
     if request.method == 'POST':
@@ -30,7 +30,7 @@ def create_or_edit_record(request, pk=None):
             cycle.is_submitted = True  # set is_submitted to True
             cycle.save()
             submitted = True
-            return redirect('record', pk=cycle.pk)
+            return redirect('record', pk=cycle.id)
     else:
         is_editing = True if pk else False  # check if editing a record
         form = CycleForm(instance=cycle, is_editing=is_editing)  # pass is_editing flag to CycleForm
@@ -39,7 +39,7 @@ def create_or_edit_record(request, pk=None):
 
 
 def delete_record(request, pk):
-    cycle = get_object_or_404(Cycle, pk=pk)
+    cycle = get_object_or_404(Cycle, id=pk)
     cycle.delete()
     return redirect('records')
 

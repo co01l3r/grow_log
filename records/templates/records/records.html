@@ -14,12 +14,10 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p>No records found.</p>
+      <p style="text-align:center">No records found.</p>
   {% endif %}
   <button class="btn btn-primary mt-3" onclick="location.href='{% url 'create_record' %}'">Create New</button>
 </div>
 {% endblock %}
 </body>
 </html>
-
-
