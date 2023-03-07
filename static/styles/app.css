@@ -286,10 +286,6 @@ tr:nth-child(2) th {
   font-size: 9px;
 }
 
-tr:nth-child(2) td {
-  padding: 5px;
-  font-size: 12px;
-}
 
 /* Recipe Preview */
 .recipe-preview {

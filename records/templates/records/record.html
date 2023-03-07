@@ -94,6 +94,10 @@
         <th>%</th>
         <th></th>
         <th>Litres</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
   </table>
@@ -134,7 +138,7 @@
               <td style="text-align: center; vertical-align: middle;">
                     <button class="recipe-btn" style="margin: auto;" onclick="openRecipeWindow('{% for nutrient_log in log.nutrient_logs.all %}{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}{% if not forloop.last %}<br>{% endif %}{% endfor %}')">Show</button>
               </td>
-              <td style="font-size: 8px">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
+              <td style="font-size: 9px">{{ log.comment|truncatechars:25|default_if_none:'' }}</td>
           </tr>
         {% endif %}
       {% endfor %}
