@@ -120,7 +120,7 @@
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
                 {% if log.nutrient_logs.exists %}
                 <td style="text-align: center; vertical-align: middle;">
-                    <button class="recipe-btn" style="margin: auto;"
+                    <button class="recipe-btn" style="margin: auto; margin-bottom: 4px"
                             onclick="openRecipeWindow('{% for nutrient_log in log.nutrient_logs.all %}{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}{% if not forloop.last %}<br>{% endif %}{% endfor %}')">
                         Show
                     </button>
