@@ -59,7 +59,6 @@ class RecordsViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['form'], CycleForm)
         self.assertIsNone(response.context['cycle'])
-        self.assertFalse(response.context['submitted'])
 
     def test_create_record_post(self):
         data = {
@@ -71,7 +70,6 @@ class RecordsViewTestCase(TestCase):
             'grow_medium': 'hydroponics',
             'name': 'Updated Name',
             'beginning_phase': 'seedling',
-            'is_submitted': True,
         }
         response = self.client.post(self.url_create_record, data)
         self.assertEqual(response.status_code, 302)
@@ -84,14 +82,12 @@ class RecordsViewTestCase(TestCase):
         self.assertEqual(cycle.grow_medium, 'hydroponics')
         self.assertEqual(cycle.name, 'Updated Name')
         self.assertEqual(cycle.beginning_phase, 'seedling')
-        self.assertTrue(cycle.is_submitted, True)
 
     def test_edit_record_get(self):
         response = self.client.get(self.url_edit_record)
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['form'], CycleForm)
         self.assertEqual(response.context['cycle'], self.cycle)
-        self.assertFalse(response.context['submitted'])
 
     def test_edit_record_post(self):
         data = {
@@ -103,7 +99,6 @@ class RecordsViewTestCase(TestCase):
             'grow_medium': 'hydroponics',
             'name': 'Updated Name',
             'beginning_phase': 'seedling',
-            'is_submitted': True,
         }
         response = self.client.post(self.url_edit_record, data)
         self.assertEqual(response.status_code, 302)
@@ -116,7 +111,6 @@ class RecordsViewTestCase(TestCase):
         self.assertEqual(cycle.grow_medium, 'hydroponics')
         self.assertEqual(cycle.name, 'Updated Name')
         self.assertEqual(cycle.beginning_phase, 'seedling')
-        self.assertTrue(cycle.is_submitted)
 
     def test_delete_record_get(self):
         response = self.client.post(self.url_delete_record)
