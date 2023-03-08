@@ -27,7 +27,6 @@ class Cycle(models.Model):
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
     beginning_phase = models.CharField(max_length=80, blank=True, null=True, choices=BEGINNING_PHASE_CHOICES, default='vegetative')
-    is_submitted = models.BooleanField(default=False)
 
     def __str__(self):
         quarter = "Q" + str((self.date.month - 1) // 3 + 1)
