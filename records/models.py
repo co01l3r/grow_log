@@ -101,5 +101,15 @@ class NutrientLog(models.Model):
     nutrient = models.ForeignKey(Nutrient, on_delete=models.CASCADE)
     concentration = models.IntegerField()
 
+    class Meta:
+        ordering = ['nutrient__nutrient_type']
+
     def __str__(self):
         return f"{self.nutrient} - {self.concentration}"
+
+    def save(self, *args, **kwargs):
+        existing_log = NutrientLog.objects.filter(log=self.log, nutrient=self.nutrient).first()
+        if existing_log:
+            self.concentration += existing_log.concentration
+            existing_log.delete()
+        super(NutrientLog, self).save(*args, **kwargs)
