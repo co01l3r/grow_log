@@ -77,8 +77,17 @@ class Log(models.Model):
 
 # Nutrient model
 class Nutrient(models.Model):
+    NUTRIENT_TYPE_CHOICES = [
+        ('medium_conditioner', 'Medium conditioner'),
+        ('base_line', 'Base'),
+        ('root_expander', 'Root expander'),
+        ('bud_strengthener', 'Bud strengthener'),
+        ('bud_enlarger', 'Bud enlarger'),
+        ('bud_taste', 'Bud taste'),
+    ]
     name = models.CharField(max_length=80)
     brand = models.CharField(max_length=80)
+    nutrient_type = models.CharField(max_length=18, blank=True, null=True, choices=NUTRIENT_TYPE_CHOICES)
     featured_image = models.ImageField(null=True, blank=True, default="default_fertilizer.jpg")
     detail = models.TextField(blank=True, null=True)
 
