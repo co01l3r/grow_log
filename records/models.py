@@ -22,11 +22,11 @@ class Cycle(models.Model):
     genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
     fixture = models.CharField(max_length=200)
-    behavioral_response = models.CharField(max_length=80, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
-    seed_type = models.CharField(max_length=80, blank=True, null=True, choices=SEED_TYPE_CHOICES)
+    behavioral_response = models.CharField(max_length=30, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
+    seed_type = models.CharField(max_length=30, blank=True, null=True, choices=SEED_TYPE_CHOICES)
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
-    beginning_phase = models.CharField(max_length=80, blank=True, null=True, choices=BEGINNING_PHASE_CHOICES, default='vegetative')
+    beginning_phase = models.CharField(max_length=15, choices=BEGINNING_PHASE_CHOICES, default='vegetative')
 
     def __str__(self):
         quarter = "Q" + str((self.date.month - 1) // 3 + 1)
@@ -108,8 +108,8 @@ class NutrientLog(models.Model):
         return f"{self.nutrient} - {self.concentration}"
 
     def save(self, *args, **kwargs):
-        existing_log = NutrientLog.objects.filter(log=self.log, nutrient=self.nutrient).first()
-        if existing_log:
-            self.concentration += existing_log.concentration
-            existing_log.delete()
-        super(NutrientLog, self).save(*args, **kwargs)
+        existing_logs = NutrientLog.objects.filter(log_id=self.log_id, nutrient=self.nutrient)
+        if existing_logs.exists():
+            self.concentration += sum(log.concentration for log in existing_logs)
+            existing_logs.delete()
+        super().save(*args, **kwargs)

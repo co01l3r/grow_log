@@ -2,7 +2,6 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from records.models import Cycle
 from records.forms import CycleForm
-from django.utils import timezone
 
 
 # record views test cases
@@ -21,15 +20,12 @@ class RecordsViewTestCase(TestCase):
         self.url_delete_record = reverse('delete_record', args=[self.cycle.pk])
 
     def test_view_uses_correct_template(self):
-        # Test records view
         response = self.client.get(self.url_records)
         self.assertTemplateUsed(response, 'records/records.html')
 
-        # Test record view
         response = self.client.get(self.url_record)
         self.assertTemplateUsed(response, 'records/record.html')
 
-        # Test create or edit record view
         response = self.client.get(self.url_create_record)
         self.assertTemplateUsed(response, 'records/new_record.html')
         self.assertIsInstance(response.context['form'], CycleForm)

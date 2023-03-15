@@ -152,17 +152,54 @@ class NutrientTestCase(TestCase):
     def test_nutrient_string_representation(self):
         self.assertEqual(str(self.nutrient), 'NPK Fertilizer')
 
+    def test_nutrient_type_default(self):
+        nutrient = Nutrient.objects.create(
+            name='Test Nutrient',
+            brand='Test Brand',
+            detail='Test Detail'
+        )
+        self.assertIsNone(nutrient.nutrient_type)
+
+    def test_nutrient_featured_image_default(self):
+        nutrient = Nutrient.objects.create(
+            name='Test Nutrient',
+            brand='Test Brand',
+            detail='Test Detail'
+        )
+        self.assertEqual(nutrient.featured_image.name, 'default_fertilizer.jpg')
+
+    def test_nutrient_detail_blank(self):
+        nutrient = Nutrient.objects.create(
+            name='Test Nutrient',
+            brand='Test Brand',
+        )
+        self.assertIsNone(nutrient.detail)
+
 
 # NutrientLog model test cases
 class NutrientLogTestCase(TestCase):
     def setUp(self):
         cycle = Cycle.objects.create(name="Test Cycle")
-        log = Log.objects.create(cycle=cycle, phase="vegetative")
-        nutrient = Nutrient.objects.create(name="Test Nutrient", brand="Test Brand")
-        self.nutrient_log = NutrientLog.objects.create(log=log, nutrient=nutrient, concentration=100)
+        self.log = Log.objects.create(cycle=cycle, phase="vegetative")
+        self.nutrient1 = Nutrient.objects.create(name="Test Nutrient 1", brand="Test Brand 1")
+        self.nutrient2 = Nutrient.objects.create(name="Test Nutrient 2", brand="Test Brand 2")
+        self.nutrient_log = NutrientLog.objects.create(log=self.log, nutrient=self.nutrient1, concentration=100)
 
     def test_nutrient_log_str(self):
-        self.assertEqual(str(self.nutrient_log), "Test Nutrient - 100")
+        self.assertEqual(str(self.nutrient_log), "Test Nutrient 1 - 100")
 
     def test_nutrient_log_concentration(self):
         self.assertEqual(self.nutrient_log.concentration, 100)
+
+    def test_nutrient_log_save_multiple_nutrients(self):
+        NutrientLog.objects.create(log=self.log, nutrient=self.nutrient2, concentration=75)
+        self.assertEqual(NutrientLog.objects.count(), 2)
+
+    def test_nutrient_log_ordering(self):
+        nutrient3 = Nutrient.objects.create(name="Test Nutrient 3", brand="Test Brand 3")
+        NutrientLog.objects.create(log=self.log, nutrient=self.nutrient2, concentration=75)
+        NutrientLog.objects.create(log=self.log, nutrient=nutrient3, concentration=50)
+        logs = NutrientLog.objects.filter(log=self.log)
+        self.assertEqual(logs[0].nutrient, self.nutrient1)
+        self.assertEqual(logs[1].nutrient, self.nutrient2)
+        self.assertEqual(logs[2].nutrient, nutrient3)
