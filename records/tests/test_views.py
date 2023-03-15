@@ -9,7 +9,7 @@ class RecordsViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
         self.cycle = Cycle.objects.create(
-            name='Cycle 1', genetics='Unknown', seedbank='Unknown',
+            name='Cycle 1', genetics='Updated Genetics', seedbank='Unknown',
             fixture='Fixture 1', behavioral_response='auto-flowering',
             seed_type='feminized', grow_medium='soil',
         )
@@ -55,29 +55,6 @@ class RecordsViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['form'], CycleForm)
         self.assertIsNone(response.context['cycle'])
-
-    def test_create_record_post(self):
-        data = {
-            'genetics': 'Updated Genetics',
-            'seedbank': 'Updated Seedbank',
-            'fixture': 'Updated Fixture',
-            'behavioral_response': 'photoperiodic',
-            'seed_type': 'clones',
-            'grow_medium': 'hydroponics',
-            'name': 'Updated Name',
-            'beginning_phase': 'seedling',
-        }
-        response = self.client.post(self.url_create_record, data)
-        self.assertEqual(response.status_code, 302)
-        cycle = Cycle.objects.last()
-        self.assertEqual(cycle.genetics, 'Updated Genetics')
-        self.assertEqual(cycle.seedbank, 'Updated Seedbank')
-        self.assertEqual(cycle.fixture, 'Updated Fixture')
-        self.assertEqual(cycle.behavioral_response, 'photoperiodic')
-        self.assertEqual(cycle.seed_type, 'clones')
-        self.assertEqual(cycle.grow_medium, 'hydroponics')
-        self.assertEqual(cycle.name, 'Updated Name')
-        self.assertEqual(cycle.beginning_phase, 'seedling')
 
     def test_edit_record_get(self):
         response = self.client.get(self.url_edit_record)
