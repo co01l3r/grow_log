@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.utils import timezone
 
 
 # Record model
@@ -54,6 +55,7 @@ class Log(models.Model):
         (100, '100%'),
     ]
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
+    date = models.DateField(auto_now_add=True)
     phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
     temperature_day = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     temperature_night = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
@@ -61,7 +63,7 @@ class Log(models.Model):
     humidity_night = models.IntegerField(blank=True, null=True)
     ph = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     ec = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    irrigation = models.TextField(max_length=20, blank=True, null=True)
+    irrigation = models.CharField(max_length=20, blank=True, null=True)
     light_height = models.IntegerField(blank=True, null=True)
     light_power = models.IntegerField(blank=True, null=True, choices=LIGHT_POWER_CHOICES)
     calibration = models.BooleanField(default=False, blank=True, null=True)

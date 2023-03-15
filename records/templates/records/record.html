@@ -55,7 +55,7 @@
                 <th>Water</th>
                 <th>Irrigation</th>
                 <th>Recipe</th>
-                <th>Comment</th>
+                <th>Note</th>
             </tr>
             <tr>
                 <th>Day</th>
@@ -87,7 +87,7 @@
                 {% else %}
             <tr>
                 {% endif %}
-                <td style="text-align: left;">{{ log|default_if_none:'' }} </td>
+                <td style="text-align: left;">{{ log|default_if_none:'' }}</td>
                 <td>{{ log.temperature_day|default_if_none:'' }}</td>
                 <td>{{ log.temperature_night|default_if_none:'' }}</td>
                 <td>{{ log.humidity_day|default_if_none:'' }}</td>
