@@ -1,0 +1,57 @@
+[
+    {
+        "model": "records.nutrient",
+        "pk": 1,
+        "fields": {
+            "name": "Grow Big",
+            "brand": "FoxFarm",
+            "nutrient_type": "medium_conditioner",
+            "featured_image": null,
+            "detail": "NPK ratio: 6-4-4. Suitable for vegetative growth."
+        }
+    },
+    {
+        "model": "records.nutrient",
+        "pk": 2,
+        "fields": {
+            "name": "Tiger Bloom",
+            "brand": "FoxFarm",
+            "nutrient_type": "bud_strengthener",
+            "featured_image": null,
+            "detail": "NPK ratio: 2-8-4. Suitable for flowering stage."
+        }
+    },
+    {
+        "model": "records.nutrient",
+        "pk": 3,
+        "fields": {
+            "name": "Big Bloom",
+            "brand": "FoxFarm",
+            "nutrient_type": "base_line",
+            "featured_image": null,
+            "detail": "NPK ratio: 0.01-0.3-0.7. Suitable for all growth stages."
+        }
+    },
+    {
+        "model": "records.nutrient",
+        "pk": 4,
+        "fields": {
+            "name": "Bud Candy",
+            "brand": "Advanced Nutrients",
+            "nutrient_type": "bud_taste",
+            "featured_image": null,
+            "detail": "Contains carbohydrates and amino acids to enhance flavor and aroma of buds."
+        }
+    },
+    {
+        "model": "records.nutrient",
+        "pk": 5,
+        "fields": {
+            "name": "Rhino Skin",
+            "brand": "Advanced Nutrients",
+            "nutrient_type": "root_expander",
+            "featured_image": null,
+            "detail": "Contains potassium silicate to strengthen cell walls and improve resistance to stress."
+        }
+    }
+]
