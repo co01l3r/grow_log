@@ -1,0 +1,128 @@
+[
+    {
+        "model": "records.nutrientlog",
+        "pk": 1,
+        "fields": {
+            "log": 1,
+            "nutrient": 1,
+            "concentration": 10
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 2,
+        "fields": {
+            "log": 1,
+            "nutrient": 2,
+            "concentration": 15
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 3,
+        "fields": {
+            "log": 1,
+            "nutrient": 3,
+            "concentration": 20
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 4,
+        "fields": {
+            "log": 1,
+            "nutrient": 4,
+            "concentration": 25
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 5,
+        "fields": {
+            "log": 1,
+            "nutrient": 5,
+            "concentration": 30
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 6,
+        "fields": {
+            "log": 2,
+            "nutrient": 1,
+            "concentration": 15
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 7,
+        "fields": {
+            "log": 2,
+            "nutrient": 2,
+            "concentration": 20
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 8,
+        "fields": {
+            "log": 2,
+            "nutrient": 3,
+            "concentration": 25
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 9,
+        "fields": {
+            "log": 2,
+            "nutrient": 4,
+            "concentration": 30
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 10,
+        "fields": {
+            "log": 2,
+            "nutrient": 5,
+            "concentration": 35
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 11,
+        "fields": {
+            "log": 3,
+            "nutrient": 1,
+            "concentration": 20
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 12,
+        "fields": {
+            "log": 3,
+            "nutrient": 2,
+            "concentration": 25
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 13,
+        "fields": {
+            "log": 3,
+            "nutrient": 3,
+            "concentration": 30
+        }
+    },
+    {
+        "model": "records.nutrientlog",
+        "pk": 14,
+        "fields": {
+            "log": 3,
+            "nutrient": 4,
+            "concentration": 35
+        }
+    }
+]
