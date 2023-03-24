@@ -102,11 +102,23 @@ def create_log(request, pk):
 
         return redirect('record', pk=cycle.pk)
 
-    return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
+    context = {'form': form, 'cycle': cycle}
+    return render(request, 'records/new_log.html', context)
 
 
-def edit_log(request, pk):
-    pass
+def edit_log(request, pk, log_pk):
+    cycle = get_object_or_404(Cycle, pk=pk)
+    log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+    form = LogForm(request.POST or None, instance=log)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('record', pk=pk)
+
+    context = {'form': form}
+    return render(request, 'records/new_log.html', context)
+
 # nutrient views
 # nutrientLog views
 # other views
