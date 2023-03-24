@@ -55,6 +55,20 @@ def create_or_edit_log(request, pk):
         if form.is_valid():
             log = form.save(commit=False)
             log.cycle = cycle
+            # update the log instance with the cleaned form data
+            log.phase = form.cleaned_data['phase']
+            log.temperature_day = form.cleaned_data['temperature_day']
+            log.temperature_night = form.cleaned_data['temperature_night']
+            log.humidity_day = form.cleaned_data['humidity_day']
+            log.humidity_night = form.cleaned_data['humidity_night']
+            log.ph = form.cleaned_data['ph']
+            log.ec = form.cleaned_data['ec']
+            log.irrigation = form.cleaned_data['irrigation']
+            log.light_height = form.cleaned_data['light_height']
+            log.light_power = form.cleaned_data['light_power']
+            log.calibration = form.cleaned_data['calibration']
+            log.water = form.cleaned_data['water']
+            log.comment = form.cleaned_data['comment']
             log.save()
             messages.success(request, 'Log created successfully')
             return redirect('record', pk=cycle.pk)
@@ -73,23 +87,39 @@ def create_or_edit_log(request, pk):
             initial_data['irrigation'] = last_log.irrigation
             initial_data['light_height'] = last_log.light_height
             initial_data['light_power'] = last_log.light_power
-            initial_data['calibration'] = last_log.calibration
-            initial_data['water'] = last_log.water
-            initial_data['comment'] = last_log.comment
+            initial_data['calibration'] = False
+            initial_data['water'] = None
+            initial_data['comment'] = ''
+
             form = LogForm(initial=initial_data)
 
-            # automatically submit the form
+            # automatically submit the form if last log exist
             log = form.save(commit=False)
             log.cycle = cycle
+
+            # update the log instance with the initial data
+            log.phase = initial_data['phase']
+            log.temperature_day = initial_data['temperature_day']
+            log.temperature_night = initial_data['temperature_night']
+            log.humidity_day = initial_data['humidity_day']
+            log.humidity_night = initial_data['humidity_night']
+            log.ph = initial_data['ph']
+            log.ec = initial_data['ec']
+            log.irrigation = initial_data['irrigation']
+            log.light_height = initial_data['light_height']
+            log.light_power = initial_data['light_power']
+            log.calibration = initial_data['calibration']
+            log.water = initial_data['water']
+            log.comment = initial_data['comment']
+
             log.save()
             messages.success(request, 'Log created successfully')
-            
+
             return redirect('record', pk=cycle.pk)
         else:
             form = LogForm()
 
     return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
-
 # nutrient views
 # nutrientLog views
 # other views
