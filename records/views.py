@@ -60,6 +60,7 @@ def create_or_edit_log(request, pk):
         initial_data = {}
         if last_log:
             initial_data = {
+                'phase': last_log.phase,
                 'temperature_day': last_log.temperature_day,
                 'temperature_night': last_log.temperature_night,
                 'humidity_day': last_log.humidity_day,
@@ -69,7 +70,7 @@ def create_or_edit_log(request, pk):
                 'irrigation': last_log.irrigation,
                 'light_height': last_log.light_height,
                 'light_power': last_log.light_power,
-                'calibration': last_log.calibration,
+                'calibration': False,
             }
         form = LogForm(initial=initial_data)
 

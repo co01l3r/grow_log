@@ -26,11 +26,10 @@ class CycleForm(forms.ModelForm):
 class LogForm(forms.ModelForm):
     class Meta:
         model = Log
-        exclude = ['cycle', 'date', 'featured_image', 'water', 'comment']
+        exclude = ['cycle', 'date', 'phase']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['phase'].widget.attrs.update({'class': 'form-control'})
         self.fields['temperature_day'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
         self.fields['temperature_night'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
         self.fields['humidity_day'].widget.attrs.update({'class': 'form-control'})
