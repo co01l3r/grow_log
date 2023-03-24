@@ -329,6 +329,29 @@ tr:nth-child(2) td[colspan="2"] {
   padding: 10px 0px;
 }
 
+.create-log-btn {
+  display: block;
+  width: 70px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: none;
+  background-color: rgba(37, 196, 129, 0.8);
+  cursor: pointer;
+  margin: 10px auto 0;
+}
+
+.create-log-btn:hover {
+  background-color: rgba(32, 140, 110, 0.8);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+
 /* Recipe Preview */
 .recipe-preview {
   position: fixed;
