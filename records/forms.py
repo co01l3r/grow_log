@@ -3,6 +3,7 @@ from .models import Cycle, Log, Nutrient, NutrientLog
 from django import forms
 
 
+# record modelForm
 class CycleForm(forms.ModelForm):
     class Meta:
         model = Cycle
@@ -19,3 +20,24 @@ class CycleForm(forms.ModelForm):
             self.fields.pop('beginning_phase')
         else:
             self.fields['beginning_phase'].widget.attrs.update({'class': 'form-control'})
+
+
+# log modelForm
+class LogForm(forms.ModelForm):
+    class Meta:
+        model = Log
+        exclude = ['cycle', 'date', 'featured_image', 'water', 'comment']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['phase'].widget.attrs.update({'class': 'form-control'})
+        self.fields['temperature_day'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
+        self.fields['temperature_night'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
+        self.fields['humidity_day'].widget.attrs.update({'class': 'form-control'})
+        self.fields['humidity_night'].widget.attrs.update({'class': 'form-control'})
+        self.fields['ph'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
+        self.fields['ec'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
+        self.fields['irrigation'].widget.attrs.update({'class': 'form-control'})
+        self.fields['light_height'].widget.attrs.update({'class': 'form-control'})
+        self.fields['light_power'].widget.attrs.update({'class': 'form-control'})
+        self.fields['calibration'].widget.attrs.update({'class': 'form-check-input'})
