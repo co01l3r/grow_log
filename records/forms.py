@@ -37,6 +37,6 @@ class LogForm(forms.ModelForm):
         self.fields['ph'].widget.attrs.update({'class': 'form-control', 'step': '0.10'})
         self.fields['ec'].widget.attrs.update({'class': 'form-control', 'step': '0.10'})
         self.fields['irrigation'].widget.attrs.update({'class': 'form-control'})
-        self.fields['light_height'].widget.attrs.update({'class': 'form-control'})
+        self.fields['light_height'].widget.attrs.update({'class': 'form-control', 'step': '5.00'})
         self.fields['light_power'].widget.attrs.update({'class': 'form-control'})
         self.fields['calibration'].widget.attrs.update({'class': 'form-check-input'})
