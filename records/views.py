@@ -46,7 +46,7 @@ def delete_record(request, pk):
 
 
 # log views
-def create_or_edit_log(request, pk):
+def create_log(request, pk):
     cycle = get_object_or_404(Cycle, pk=pk)
     last_log = cycle.logs.last()
 
@@ -103,6 +103,10 @@ def create_or_edit_log(request, pk):
         return redirect('record', pk=cycle.pk)
 
     return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
+
+
+def edit_log(request, pk):
+    pass
 # nutrient views
 # nutrientLog views
 # other views

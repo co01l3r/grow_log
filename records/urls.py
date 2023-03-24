@@ -11,7 +11,8 @@ urlpatterns = [
     path('delete/<uuid:pk>/', views.delete_record, name='delete_record'),
     path('record/phase_summary/<uuid:pk>/', views.phase_summary, name='phase_summary'),
 
-    path('record/<uuid:pk>/new-log/', views.create_or_edit_log, name='create_log'),
+    path('record/<uuid:pk>/new-log/', views.create_log, name='create_log'),
+    path('record/<uuid:pk>/edit-log/<int:log_pk>/', views.edit_log, name='edit_log'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
