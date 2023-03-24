@@ -26,7 +26,7 @@ class CycleForm(forms.ModelForm):
 class LogForm(forms.ModelForm):
     class Meta:
         model = Log
-        exclude = ['cycle', 'date', 'phase']
+        exclude = ['cycle', 'date']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

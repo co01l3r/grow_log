@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.db.models import Case, Value, When
 from django.utils import timezone
 
 
@@ -70,6 +71,17 @@ class Log(models.Model):
     featured_image = models.ImageField(null=True, blank=True)
     water = models.IntegerField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = [
+            Case(
+                When(phase='seedling', then=Value(1)),
+                When(phase='vegetative', then=Value(2)),
+                When(phase='bloom', then=Value(3)),
+            ),
+            'date',
+            'id',
+        ]
 
     def __str__(self):
         logs_of_same_phase = Log.objects.filter(cycle=self.cycle, phase=self.phase)
