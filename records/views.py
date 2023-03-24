@@ -3,6 +3,7 @@ from .models import Cycle, Log, Nutrient, NutrientLog
 from .utils import calculate_average_veg_day_temp
 from .forms import CycleForm, LogForm
 from django.shortcuts import redirect
+from django.contrib import messages
 
 
 # record views
@@ -46,8 +47,8 @@ def delete_record(request, pk):
 
 # log views
 def create_or_edit_log(request, pk):
-    cycle = get_object_or_404(Cycle, id=pk)
-    log = None
+    cycle = get_object_or_404(Cycle, pk=pk)
+    last_log = cycle.logs.last()
 
     if request.method == 'POST':
         form = LogForm(request.POST, request.FILES)
@@ -55,27 +56,39 @@ def create_or_edit_log(request, pk):
             log = form.save(commit=False)
             log.cycle = cycle
             log.save()
+            messages.success(request, 'Log created successfully')
+            return redirect('record', pk=cycle.pk)
+        else:
+            messages.error(request, 'Log creation failed')
     else:
-        last_log = Log.objects.filter(cycle=cycle).last()
         initial_data = {}
         if last_log:
-            initial_data = {
-                'phase': last_log.phase,
-                'temperature_day': last_log.temperature_day,
-                'temperature_night': last_log.temperature_night,
-                'humidity_day': last_log.humidity_day,
-                'humidity_night': last_log.humidity_night,
-                'ph': last_log.ph,
-                'ec': last_log.ec,
-                'irrigation': last_log.irrigation,
-                'light_height': last_log.light_height,
-                'light_power': last_log.light_power,
-                'calibration': False,
-            }
-        form = LogForm(initial=initial_data)
+            initial_data['phase'] = last_log.phase
+            initial_data['temperature_day'] = last_log.temperature_day
+            initial_data['temperature_night'] = last_log.temperature_night
+            initial_data['humidity_day'] = last_log.humidity_day
+            initial_data['humidity_night'] = last_log.humidity_night
+            initial_data['ph'] = last_log.ph
+            initial_data['ec'] = last_log.ec
+            initial_data['irrigation'] = last_log.irrigation
+            initial_data['light_height'] = last_log.light_height
+            initial_data['light_power'] = last_log.light_power
+            initial_data['calibration'] = last_log.calibration
+            initial_data['water'] = last_log.water
+            initial_data['comment'] = last_log.comment
+            form = LogForm(initial=initial_data)
 
-    context = {'form': form, 'cycle': cycle, 'log': log}
-    return render(request, 'records/new_log.html', context)
+            # automatically submit the form
+            log = form.save(commit=False)
+            log.cycle = cycle
+            log.save()
+            messages.success(request, 'Log created successfully')
+            
+            return redirect('record', pk=cycle.pk)
+        else:
+            form = LogForm()
+
+    return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
 
 # nutrient views
 # nutrientLog views

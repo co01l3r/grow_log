@@ -34,3 +34,8 @@ function openRecipeWindow(recipe) {
   // Add the close button to the recipe preview
   recipePreview.appendChild(closeButton);
 }
+
+function create_log(pk) {
+    const url = '/record/' + pk + '/new-log/';
+    window.location.href = url;
+}

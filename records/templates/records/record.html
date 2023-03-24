@@ -138,9 +138,7 @@
             {% endfor %}
             </tbody>
         </table>
-        <button class="create-log-btn">Add New</button>
-    </div>
-
+<button class="create-log-btn" onclick="create_log('{{ cycle.pk }}')">Add New</button>
 </section>
 
 {% if avg_day_temp %}
