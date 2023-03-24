@@ -47,6 +47,7 @@ def delete_record(request, pk):
 
 # log views
 def create_log(request, pk):
+    # TODO: tests
     cycle = get_object_or_404(Cycle, pk=pk)
     last_log = cycle.logs.last()
 
@@ -78,6 +79,9 @@ def create_log(request, pk):
                 'water': None,
                 'comment': '',
             }
+        else:
+            form = LogForm(initial=initial_data)
+            return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
 
         form = LogForm(initial=initial_data)
         log = form.save(commit=False)
@@ -107,6 +111,7 @@ def create_log(request, pk):
 
 
 def edit_log(request, pk, log_pk):
+    # TODO: tests
     cycle = get_object_or_404(Cycle, pk=pk)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
     form = LogForm(request.POST or None, instance=log)
