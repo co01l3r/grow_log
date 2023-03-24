@@ -30,12 +30,12 @@ class LogForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['temperature_day'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
-        self.fields['temperature_night'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
+        self.fields['temperature_day'].widget.attrs.update({'class': 'form-control', 'step': '1.00'})
+        self.fields['temperature_night'].widget.attrs.update({'class': 'form-control', 'step': '1.00'})
         self.fields['humidity_day'].widget.attrs.update({'class': 'form-control'})
         self.fields['humidity_night'].widget.attrs.update({'class': 'form-control'})
-        self.fields['ph'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
-        self.fields['ec'].widget.attrs.update({'class': 'form-control', 'step': '0.01'})
+        self.fields['ph'].widget.attrs.update({'class': 'form-control', 'step': '0.10'})
+        self.fields['ec'].widget.attrs.update({'class': 'form-control', 'step': '0.10'})
         self.fields['irrigation'].widget.attrs.update({'class': 'form-control'})
         self.fields['light_height'].widget.attrs.update({'class': 'form-control'})
         self.fields['light_power'].widget.attrs.update({'class': 'form-control'})
