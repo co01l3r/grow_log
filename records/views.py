@@ -38,8 +38,7 @@ def create_or_edit_record(request, pk=None):
         else:
             messages.error(request, 'Record creation failed')
     else:
-        is_editing = True if pk else False
-        form = CycleForm(instance=cycle, is_editing=is_editing)
+        form = CycleForm(instance=cycle)
 
     context = {'form': form, 'cycle': cycle}
     return render(request, 'records/new_record.html', context)

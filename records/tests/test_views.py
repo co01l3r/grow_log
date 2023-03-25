@@ -72,7 +72,6 @@ class RecordsViewTestCase(TestCase):
             'seed_type': 'clones',
             'grow_medium': 'hydroponics',
             'name': 'Updated Name',
-            'beginning_phase': 'seedling',
         }
         response = self.client.post(self.url_edit_record, data)
         self.assertEqual(response.status_code, 302)
@@ -84,7 +83,6 @@ class RecordsViewTestCase(TestCase):
         self.assertEqual(cycle.seed_type, 'clones')
         self.assertEqual(cycle.grow_medium, 'hydroponics')
         self.assertEqual(cycle.name, 'Updated Name')
-        self.assertEqual(cycle.beginning_phase, 'seedling')
 
     def test_delete_record_get(self):
         response = self.client.post(self.url_delete_record)
