@@ -1,8 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cycle, Log, Nutrient, NutrientLog
-from .utils import calculate_average_veg_day_temp, fill_log_without_prompt
+from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 from .forms import CycleForm, LogForm
-from django.shortcuts import redirect
 from django.contrib import messages
 
 
@@ -77,8 +76,7 @@ def create_log(request, pk):
                 'water': None,
                 'comment': '',
             }
-            fill_log_without_prompt(cycle, initial_data)
-            messages.success(request, 'Log created successfully')
+            fill_and_submit_log_form(cycle, initial_data, request)
             return redirect('record', pk=cycle.pk)
         else:
             form = LogForm()
