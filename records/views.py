@@ -46,7 +46,6 @@ def delete_record(request, pk):
 
 
 # log views
-
 def create_log(request, pk):
     cycle = get_object_or_404(Cycle, pk=pk)
     last_log = cycle.logs.last()

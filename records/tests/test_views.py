@@ -162,6 +162,60 @@ class CreateLogTestCase(TestCase):
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, 400)
+
+    def test_create_log_with_missing_required_fields(self):
+        data = {
+            'phase': '',
+            'temperature_day': '',
+            'temperature_night': '',
+            'humidity_day': '',
+            'humidity_night': '',
+            'ph': '',
+            'ec': '',
+            'irrigation': '',
+            'light_height': '',
+            'light_power': '',
+            'calibration': False,
+            'water': '',
+            'comment': '',
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(Log.objects.count(), 0)
+
+    def test_create_log_with_missing_optional_fields(self):
+        data = {
+            'phase': 'vegetative',
+            'temperature_day': 25.0,
+            'temperature_night': 20.0,
+            'humidity_day': 60,
+            'humidity_night': 50,
+            'ph': 6.0,
+            'ec': 2.0,
+            'irrigation': '',
+            'light_height': '',
+            'light_power': '',
+            'calibration': False,
+            'water': '',
+            'comment': '',
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('record', kwargs={'pk': self.cycle.pk}))
+        self.assertEqual(Log.objects.count(), 1)
+        log = Log.objects.first()
+        self.assertEqual(log.phase, 'vegetative')
+        self.assertEqual(log.temperature_day, 25.0)
+        self.assertEqual(log.temperature_night, 20.0)
+        self.assertEqual(log.humidity_day, 60)
+        self.assertEqual(log.humidity_night, 50)
+        self.assertEqual(log.ph, 6.0)
+        self.assertEqual(log.ec, 2.0)
+        self.assertIsNone(log.light_height)
+        self.assertIsNone(log.light_power)
+        self.assertFalse(log.calibration)
+        self.assertIsNone(log.water)
+        self.assertEqual(log.comment, '')
 # nutrient views test cases
 # nutrientLog views test cases
 # other views test cases
