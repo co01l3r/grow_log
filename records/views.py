@@ -3,6 +3,7 @@ from .models import Cycle, Log, Nutrient, NutrientLog
 from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 from .forms import CycleForm, LogForm
 from django.contrib import messages
+from django.http import HttpResponseBadRequest
 
 
 # record views
@@ -45,6 +46,7 @@ def delete_record(request, pk):
 
 
 # log views
+
 def create_log(request, pk):
     cycle = get_object_or_404(Cycle, pk=pk)
     last_log = cycle.logs.last()
@@ -59,6 +61,7 @@ def create_log(request, pk):
             return redirect('record', pk=cycle.pk)
         else:
             messages.error(request, 'Log creation failed')
+            return HttpResponseBadRequest("Log creation failed")
     else:
         if last_log:
             initial_data = {

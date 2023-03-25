@@ -1,7 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-from records.models import Cycle
+from records.models import Cycle, Log
 from records.forms import CycleForm
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 # record views test cases
@@ -97,8 +98,54 @@ class RecordsViewTestCase(TestCase):
             Cycle.objects.get(pk=self.cycle.pk)
 
 
-
 # log views test cases
+class CreateLogTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.cycle = Cycle.objects.create(
+            genetics="Test Genetics",
+            fixture="Test Fixture",
+            grow_medium="Test Medium"
+        )
+        self.url = reverse('create_log', kwargs={'pk': self.cycle.pk})
+
+    def test_create_log_with_valid_data(self):
+        file = SimpleUploadedFile("image.jpg", b"file_content", content_type="image/jpeg")
+        data = {
+            'phase': 'seedling',
+            'temperature_day': 24.0,
+            'temperature_night': 20.0,
+            'humidity_day': 60,
+            'humidity_night': 50,
+            'ph': 6.0,
+            'ec': 2.0,
+            'irrigation': 'test',
+            'light_height': 50,
+            'light_power': 50,
+            'calibration': False,
+            'water': '',
+            'comment': 'test comment',
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('record', kwargs={'pk': self.cycle.pk}))
+        self.assertEqual(Log.objects.count(), 1)
+        log = Log.objects.first()
+        self.assertEqual(log.phase, 'seedling')
+        self.assertEqual(log.temperature_day, 24.0)
+        self.assertEqual(log.temperature_night, 20.0)
+        self.assertEqual(log.humidity_day, 60)
+        self.assertEqual(log.humidity_night, 50)
+        self.assertEqual(log.ph, 6.0)
+        self.assertEqual(log.ec, 2.0)
+        self.assertEqual(log.irrigation, 'test')
+        self.assertEqual(log.light_height, 50)
+        self.assertEqual(log.light_power, 50)
+        self.assertFalse(log.calibration)
+        self.assertIsNone(log.water)
+        self.assertEqual(log.comment, 'test comment')
+        self.assertIsNotNone(log.featured_image)
+
 # nutrient views test cases
 # nutrientLog views test cases
 # other views test cases
