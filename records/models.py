@@ -21,7 +21,7 @@ class Cycle(models.Model):
         name (CharField): The name given to the cycle, a string value up to 80 characters.
 
     Methods:
-        __str__(): Returns a string representation of the cycle object, formatted as "[name/][genetics] - Q[quarter]/[year]".
+        __str__(): Returns a string representation of the cycle object, formatted as "[name or genetics] - Q[quarter]/[year]".
     """
     BEHAVIORAL_RESPONSE_CHOICES: List[Tuple[str, str]] = [
         ('auto-flowering', 'Auto-flowering'),
@@ -181,7 +181,8 @@ class NutrientLog(models.Model):
         save(*args, **kwargs): Overrides the default save method. If a `NutrientLog` already exists for the same `Log`
                                and `Nutrient`, the concentrations are added together and the existing logs are
                                deleted before saving the new `NutrientLog` instance.
-
+        __str__ (str):         Returns the name and concentration of the nutrient log as a string,
+                                formatted as "[nutrient] - [concentration]".
     """
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='nutrient_logs')
     nutrient = models.ForeignKey(Nutrient, on_delete=models.CASCADE)
