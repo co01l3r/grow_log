@@ -102,7 +102,7 @@ def create_or_edit_record(request: HttpRequest, pk: int = None) -> HttpResponse:
                 messages.success(request, 'Record created successfully')
             return redirect('record', pk=cycle.id)
         else:
-            messages.error(request, 'Record creation failed')
+            messages.error(request, 'An error occurred while creating the cycle')
     else:
         form = CycleForm(instance=cycle)
 
@@ -179,7 +179,7 @@ def create_log(request: HttpRequest, pk: int) -> HttpResponse:
             messages.success(request, 'Log created successfully')
             return redirect('record', pk=cycle.pk)
         else:
-            messages.error(request, 'Log creation failed')
+            messages.error(request, 'An error occurred while creating the log')
             return HttpResponseBadRequest("Log creation failed")
     else:
         if last_log:
