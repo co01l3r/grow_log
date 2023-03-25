@@ -40,7 +40,7 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
         request (HttpRequest):
             An HTTP request object that contains metadata about the current
             request.
-        pk (int):
+        pk (str):
             The primary key of the Cycle object to retrieve.
 
     Returns:
@@ -74,7 +74,7 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
         request (HttpRequest):
             An HTTP request object that contains metadata about the current
             request.
-        pk (int, optional):
+        pk (str, optional):
             The primary key of the Cycle object to edit, if editing an existing
             object. Defaults to None, indicating that a new object should be created.
 
@@ -122,7 +122,7 @@ def delete_record(request: HttpRequest, pk: str) -> HttpResponse:
         request (HttpRequest):
             An HTTP request object that contains metadata about the current
             request.
-        pk (int):
+        pk (str):
             The primary key of the Cycle object to delete.
 
     Returns:
@@ -239,7 +239,7 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBa
     return render(request, 'records/new_log.html', context)
 
 
-def delete_log(request: HttpRequest, pk: int, log_pk: int) -> HttpResponse:
+def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
     """
     A view that handles the deletion of a Log object from the database.
 
