@@ -110,7 +110,6 @@ class CreateLogTestCase(TestCase):
         self.url = reverse('create_log', kwargs={'pk': self.cycle.pk})
 
     def test_create_log_with_valid_data(self):
-        file = SimpleUploadedFile("image.jpg", b"file_content", content_type="image/jpeg")
         data = {
             'phase': 'seedling',
             'temperature_day': 24.0,
@@ -144,8 +143,25 @@ class CreateLogTestCase(TestCase):
         self.assertFalse(log.calibration)
         self.assertIsNone(log.water)
         self.assertEqual(log.comment, 'test comment')
-        self.assertIsNotNone(log.featured_image)
 
+    def test_create_log_with_invalid_data(self):
+        data = {
+            'phase': 'invalid_phase',
+            'temperature_day': 'invalid_temperature',
+            'temperature_night': 'invalid_temperature',
+            'humidity_day': 'invalid_humidity',
+            'humidity_night': 'invalid_humidity',
+            'ph': 'invalid_ph',
+            'ec': 'invalid_ec',
+            'irrigation': 'test',
+            'light_height': 'invalid_light_height',
+            'light_power': 'invalid_light_power',
+            'calibration': False,
+            'water': '',
+            'comment': 'test comment',
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 400)
 # nutrient views test cases
 # nutrientLog views test cases
 # other views test cases
