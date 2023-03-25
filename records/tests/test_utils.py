@@ -5,7 +5,6 @@ from records.utils import calculate_average_veg_day_temp
 
 class CalculateAverageVegDayTempTestCase(TestCase):
     def setUp(self):
-        # Create a cycle and logs for testing
         self.cycle = Cycle.objects.create(name='Test Cycle')
         self.log1 = Log.objects.create(cycle=self.cycle, phase='vegetative', temperature_day=20, temperature_night=15)
         self.log2 = Log.objects.create(cycle=self.cycle, phase='vegetative', temperature_day=None,

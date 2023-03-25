@@ -1,16 +1,16 @@
 from django.db import models
 import uuid
 from django.db.models import Case, Value, When
-from django.utils import timezone
+from typing import List, Tuple
 
 
 # Record model
 class Cycle(models.Model):
-    BEHAVIORAL_RESPONSE_CHOICES = [
+    BEHAVIORAL_RESPONSE_CHOICES: List[Tuple[str, str]] = [
         ('auto-flowering', 'Auto-flowering'),
         ('photoperiodic', 'Photoperiodic'),
     ]
-    SEED_TYPE_CHOICES = [
+    SEED_TYPE_CHOICES: List[Tuple[str, str]] = [
         ('regular', 'Regular'),
         ('feminized', 'Feminized'),
         ('clones', 'Clones'),
@@ -25,12 +25,12 @@ class Cycle(models.Model):
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
 
-    def __str__(self):
-        quarter = "Q" + str((self.date.month - 1) // 3 + 1)
-        year = str(self.date.year)
+    def __str__(self) -> str:
+        quarter: str = "Q" + str((self.date.month - 1) // 3 + 1)
+        year: str = str(self.date.year)
 
         if self.name:
-            name = self.name if quarter in self.name else f"{self.name} - {quarter}"
+            name: str = self.name if quarter in self.name else f"{self.name} - {quarter}"
             return f"{name}/{year}"
         else:
             return f"{self.genetics} - {quarter}/{year}"
@@ -38,12 +38,12 @@ class Cycle(models.Model):
 
 # Log model
 class Log(models.Model):
-    PHASE_CHOICES = [
+    PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
         ('vegetative', 'Vegetative'),
         ('bloom', 'Bloom'),
     ]
-    LIGHT_POWER_CHOICES = [
+    LIGHT_POWER_CHOICES: List[Tuple[int, str]] = [
         (0, 'Darkness'),
         (25, '25%'),
         (50, '50%'),
@@ -68,7 +68,7 @@ class Log(models.Model):
     comment = models.TextField(blank=True, null=True)
 
     class Meta:
-        ordering = [
+        ordering: List = [
             Case(
                 When(phase='seedling', then=Value(1)),
                 When(phase='vegetative', then=Value(2)),
@@ -78,15 +78,15 @@ class Log(models.Model):
             'id',
         ]
 
-    def __str__(self):
-        logs_of_same_phase = Log.objects.filter(cycle=self.cycle, phase=self.phase)
-        day_in_phase = list(logs_of_same_phase).index(self) + 1
+    def __str__(self) -> str:
+        logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
+        day_in_phase: int = list(logs_of_same_phase).index(self) + 1
         return str(day_in_phase)
 
 
 # Nutrient model
 class Nutrient(models.Model):
-    NUTRIENT_TYPE_CHOICES = [
+    NUTRIENT_TYPE_CHOICES: List[Tuple[str, str]] = [
         ('medium_conditioner', 'Medium conditioner'),
         ('base_line', 'Base'),
         ('root_expander', 'Root expander'),
@@ -100,7 +100,7 @@ class Nutrient(models.Model):
     featured_image = models.ImageField(null=True, blank=True, default="default_fertilizer.jpg")
     detail = models.TextField(blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -111,12 +111,12 @@ class NutrientLog(models.Model):
     concentration = models.IntegerField()
 
     class Meta:
-        ordering = ['nutrient__nutrient_type']
+        ordering: List = ['nutrient__nutrient_type']
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.nutrient} - {self.concentration}"
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         existing_logs = NutrientLog.objects.filter(log_id=self.log_id, nutrient=self.nutrient)
         if existing_logs.exists():
             self.concentration += sum(log.concentration for log in existing_logs)
