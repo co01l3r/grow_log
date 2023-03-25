@@ -530,6 +530,16 @@ text-decoration: underline;
   white-space: nowrap;
 }
 
+.edit-icon:hover {
+  color: grey;
+  cursor: text;
+}
+
+.delete-icon:hover {
+  color: red;
+  cursor: crosshair;
+}
+
 /* nutrient type color representation */
 .medium_conditioner {
     color: mediumpurple;
