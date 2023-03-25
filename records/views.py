@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Cycle, Log, Nutrient, NutrientLog
-from .utils import calculate_average_veg_day_temp
+from .utils import calculate_average_veg_day_temp, fill_log_without_prompt
 from .forms import CycleForm, LogForm
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -47,7 +47,6 @@ def delete_record(request, pk):
 
 # log views
 def create_log(request, pk):
-    # TODO: tests
     cycle = get_object_or_404(Cycle, pk=pk)
     last_log = cycle.logs.last()
 
@@ -78,37 +77,13 @@ def create_log(request, pk):
                 'water': None,
                 'comment': '',
             }
+            fill_log_without_prompt(cycle, initial_data)
+            messages.success(request, 'Log created successfully')
+            return redirect('record', pk=cycle.pk)
         else:
-            initial_data = {}
-
-            form = LogForm(initial=initial_data)
-            return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
-
-        form = LogForm(initial=initial_data)
-        log = form.save(commit=False)
-        log.cycle = cycle
-
-        log.phase = initial_data.get('phase')
-        log.temperature_day = initial_data.get('temperature_day')
-        log.temperature_night = initial_data.get('temperature_night')
-        log.humidity_day = initial_data.get('humidity_day')
-        log.humidity_night = initial_data.get('humidity_night')
-        log.ph = initial_data.get('ph')
-        log.ec = initial_data.get('ec')
-        log.irrigation = initial_data.get('irrigation')
-        log.light_height = initial_data.get('light_height')
-        log.light_power = initial_data.get('light_power')
-        log.calibration = initial_data.get('calibration')
-        log.water = initial_data.get('water')
-        log.comment = initial_data.get('comment')
-
-        log.save()
-        messages.success(request, 'Log created successfully')
-
-        return redirect('record', pk=cycle.pk)
-
-    context = {'form': form, 'cycle': cycle}
-    return render(request, 'records/new_log.html', context)
+            form = LogForm()
+            context = {'form': form, 'cycle': cycle}
+            return render(request, 'records/new_log.html', context)
 
 
 def edit_log(request, pk, log_pk):
