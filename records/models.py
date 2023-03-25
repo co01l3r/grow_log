@@ -6,6 +6,23 @@ from typing import List, Tuple
 
 # Record model
 class Cycle(models.Model):
+    """
+    A model representing a cycle of a cannabis plant growth.
+
+    Fields:
+        id (UUIDField): The primary key of the cycle, a UUID value.
+        date (DateField): The date when the cycle started, set automatically on creation.
+        genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.
+        seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
+        fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters.
+        behavioral_response (CharField): The behavioral response of the plant, either "auto-flowering" or "photoperiodic".
+        seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
+        grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
+        name (CharField): The name given to the cycle, a string value up to 80 characters.
+
+    Methods:
+        __str__(): Returns a string representation of the cycle object, formatted as "[name/][genetics] - Q[quarter]/[year]".
+    """
     BEHAVIORAL_RESPONSE_CHOICES: List[Tuple[str, str]] = [
         ('auto-flowering', 'Auto-flowering'),
         ('photoperiodic', 'Photoperiodic'),
@@ -38,6 +55,33 @@ class Cycle(models.Model):
 
 # Log model
 class Log(models.Model):
+    """
+    Model to represent a log for a specific phase of a cycle of growth.
+
+    Fields:
+        cycle (Cycle): The cycle associated with the log.
+        date (DateField): The date the log was created.
+        phase (str): The phase of the cycle associated with the log.
+        temperature_day (DecimalField): The temperature during the day for the phase.
+        temperature_night (DecimalField): The temperature during the night for the phase.
+        humidity_day (IntegerField): The humidity during the day for the phase, in percent.
+        humidity_night (IntegerField): The humidity during the night for the phase, in percent.
+        ph (DecimalField): The pH level for the phase.
+        ec (DecimalField): The electrical conductivity (EC) level for the phase.
+        irrigation (str): The type of irrigation used for the phase.
+        light_height (IntegerField): The height of the light from the plants during the phase.
+        light_power (IntegerField): The power of the light during the phase, as a percentage (0-100%).
+        calibration (bool): Whether or not the equipment was calibrated during the day.
+        featured_image (ImageField): An optional image associated with the log.
+        water (IntegerField): The amount of water given to the plants during the phase.
+        comment (TextField): An optional comment about the day.
+
+    Meta:
+        ordering (List): The default ordering for logs, first by phase, then by date, then by id.
+
+    Methods:
+        __str__ (str): Returns the day number of the phase the log represents.
+    """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
         ('vegetative', 'Vegetative'),
@@ -86,6 +130,21 @@ class Log(models.Model):
 
 # Nutrient model
 class Nutrient(models.Model):
+    """
+    Model representing a nutrient used in growing.
+
+    Attributes:
+        NUTRIENT_TYPE_CHOICES (List[Tuple[str, str]]): A list of tuples representing the available types of nutrients.
+        name (CharField): The name of the nutrient.
+        brand (CharField): The brand of the nutrient.
+        nutrient_type (CharField): The type of the nutrient.
+        featured_image (ImageField): An image representing the nutrient.
+        detail (TextField): Additional details about the nutrient.
+
+    Methods:
+        __str__(self) -> str: Returns the name of the nutrient as a string.
+
+    """
     NUTRIENT_TYPE_CHOICES: List[Tuple[str, str]] = [
         ('medium_conditioner', 'Medium conditioner'),
         ('base_line', 'Base'),
@@ -106,6 +165,24 @@ class Nutrient(models.Model):
 
 # NutrientLog model
 class NutrientLog(models.Model):
+    """
+    A model representing the nutrient logs for a specific `Log`.
+
+    Attributes:
+        log (ForeignKey): A foreign key referencing the `Log` model this nutrient log belongs to.
+        nutrient (ForeignKey): A foreign key referencing the `Nutrient` model this nutrient log corresponds to.
+        concentration (IntegerField): An integer representing the concentration of the nutrient for this log.
+
+    Meta:
+        ordering (List): A list of strings representing the fields to order the results by. The results will be ordered
+                          by the `nutrient__nutrient_type` field.
+
+    Methods:
+        save(*args, **kwargs): Overrides the default save method. If a `NutrientLog` already exists for the same `Log`
+                               and `Nutrient`, the concentrations are added together and the existing logs are
+                               deleted before saving the new `NutrientLog` instance.
+
+    """
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='nutrient_logs')
     nutrient = models.ForeignKey(Nutrient, on_delete=models.CASCADE)
     concentration = models.IntegerField()
