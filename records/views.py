@@ -30,7 +30,13 @@ def create_or_edit_record(request, pk=None):
         if form.is_valid():
             cycle = form.save(commit=False)
             cycle.save()
+            if pk:
+                messages.success(request, 'Record updated successfully')
+            else:
+                messages.success(request, 'Record created successfully')
             return redirect('record', pk=cycle.id)
+        else:
+            messages.error(request, 'Record creation failed')
     else:
         is_editing = True if pk else False
         form = CycleForm(instance=cycle, is_editing=is_editing)
@@ -87,7 +93,6 @@ def create_log(request, pk):
 
 
 def edit_log(request, pk, log_pk):
-    # TODO: tests
     cycle = get_object_or_404(Cycle, pk=pk)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
     form = LogForm(request.POST or None, instance=log)
