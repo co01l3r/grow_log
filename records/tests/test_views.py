@@ -216,6 +216,85 @@ class CreateLogTestCase(TestCase):
         self.assertFalse(log.calibration)
         self.assertIsNone(log.water)
         self.assertEqual(log.comment, '')
+
+
+class EditLogViewTestCase(TestCase):
+    def setUp(self):
+        self.cycle = Cycle.objects.create(
+            genetics='Test Genetics',
+            fixture='Test Fixture',
+        )
+        self.log = Log.objects.create(
+            cycle=self.cycle,
+            phase='vegetative',
+            temperature_day=25,
+            temperature_night=20,
+            humidity_day=60,
+            humidity_night=50,
+            ph=6.0,
+            ec=1.0,
+            irrigation='Test Irrigation',
+            light_height=30,
+            light_power=100,
+            calibration=True,
+            water=500,
+            comment='Test Comment',
+        )
+        self.url = reverse('edit_log', args=[self.cycle.pk, self.log.pk])
+        self.data = {
+            'phase': 'bloom',
+            'temperature_day': 27,
+            'temperature_night': 22,
+            'humidity_day': 50,
+            'humidity_night': 45,
+            'ph': 6.5,
+            'ec': 1.5,
+            'irrigation': 'New Irrigation',
+            'light_height': 40,
+            'light_power': 75,
+            'calibration': False,
+            'water': 700,
+            'comment': 'New Comment',
+        }
+
+    def test_edit_log_view_with_valid_data(self):
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('record', args=[self.cycle.pk]))
+        self.log.refresh_from_db()
+        self.assertEqual(self.log.phase, 'bloom')
+        self.assertEqual(self.log.temperature_day, 27)
+        self.assertEqual(self.log.temperature_night, 22)
+        self.assertEqual(self.log.humidity_day, 50)
+        self.assertEqual(self.log.humidity_night, 45)
+        self.assertEqual(self.log.ph, 6.5)
+        self.assertEqual(self.log.ec, 1.5)
+        self.assertEqual(self.log.irrigation, 'New Irrigation')
+        self.assertEqual(self.log.light_height, 40)
+        self.assertEqual(self.log.light_power, 75)
+        self.assertFalse(self.log.calibration)
+        self.assertEqual(self.log.water, 700)
+        self.assertEqual(self.log.comment, 'New Comment')
+
+    def test_edit_log_view_with_invalid_data(self):
+        self.data['phase'] = ''
+        response = self.client.post(self.url, data=self.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'records/new_log.html')
+        self.log.refresh_from_db()
+        self.assertEqual(self.log.phase, 'vegetative')
+        self.assertEqual(self.log.temperature_day, 25)
+        self.assertEqual(self.log.temperature_night, 20)
+        self.assertEqual(self.log.humidity_day, 60)
+        self.assertEqual(self.log.humidity_night, 50)
+        self.assertEqual(self.log.ph, 6.0)
+        self.assertEqual(self.log.ec, 1.0)
+        self.assertEqual(self.log.irrigation, 'Test Irrigation')
+        self.assertEqual(self.log.light_height, 30)
+        self.assertEqual(self.log.light_power, 100)
+        self.assertTrue(self.log.calibration)
+        self.assertEqual(self.log.water, 500)
+        self.assertEqual(self.log.comment, 'Test Comment')
 # nutrient views test cases
 # nutrientLog views test cases
 # other views test cases
