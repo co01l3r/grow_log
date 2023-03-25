@@ -3,18 +3,19 @@ from .models import Cycle, Log, Nutrient, NutrientLog
 from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 from .forms import CycleForm, LogForm
 from django.contrib import messages
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse
+from typing import Union
 
 
 # record views
-def records(request):
+def records(request: HttpRequest) -> HttpResponse:
     cycles = Cycle.objects.all()
 
     context = {'cycles': cycles}
     return render(request, 'records/records.html', context)
 
 
-def record(request, pk):
+def record(request: HttpRequest, pk: int) -> HttpResponse:
     cycle = get_object_or_404(Cycle, id=pk)
     logs = Log.objects.filter(cycle=cycle)
 
@@ -22,7 +23,7 @@ def record(request, pk):
     return render(request, 'records/record.html', context)
 
 
-def create_or_edit_record(request, pk=None):
+def create_or_edit_record(request: HttpRequest, pk: int = None) -> HttpResponse:
     cycle = get_object_or_404(Cycle, id=pk) if pk else None
 
     if request.method == 'POST':
@@ -44,14 +45,14 @@ def create_or_edit_record(request, pk=None):
     return render(request, 'records/new_record.html', context)
 
 
-def delete_record(request, pk):
+def delete_record(request: HttpRequest, pk: int) -> HttpResponse:
     cycle = get_object_or_404(Cycle, id=pk)
     cycle.delete()
     return redirect('records')
 
 
 # log views
-def create_log(request, pk):
+def create_log(request: HttpRequest, pk: int) -> HttpResponse:
     cycle = get_object_or_404(Cycle, pk=pk)
     last_log = cycle.logs.last()
 
@@ -91,7 +92,7 @@ def create_log(request, pk):
             return render(request, 'records/new_log.html', context)
 
 
-def edit_log(request, pk, log_pk):
+def edit_log(request: HttpRequest, pk: int, log_pk: int) -> Union[HttpResponseBadRequest, HttpResponse]:
     cycle = get_object_or_404(Cycle, pk=pk)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
     form = LogForm(request.POST or None, instance=log)
