@@ -30,7 +30,7 @@ def records(request: HttpRequest) -> HttpResponse:
     return render(request, 'records/records.html', context)
 
 
-def record(request: HttpRequest, pk: int) -> HttpResponse:
+def record(request: HttpRequest, pk: str) -> HttpResponse:
     """
     A view that retrieves a single Cycle object from the database based on the
     given primary key (pk), along with any related Log objects, and renders
@@ -57,7 +57,7 @@ def record(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'records/record.html', context)
 
 
-def create_or_edit_record(request: HttpRequest, pk: int = None) -> HttpResponse:
+def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
     """
     A view that handles the creation or editing of Cycle objects in the database.
     If a primary key (pk) is provided, the function retrieves the Cycle object with
@@ -110,7 +110,7 @@ def create_or_edit_record(request: HttpRequest, pk: int = None) -> HttpResponse:
     return render(request, 'records/new_record.html', context)
 
 
-def delete_record(request: HttpRequest, pk: int) -> HttpResponse:
+def delete_record(request: HttpRequest, pk: str) -> HttpResponse:
     """
     A view that handles the deletion of a Cycle object from the database.
 
@@ -206,7 +206,7 @@ def create_log(request: HttpRequest, pk: int) -> HttpResponse:
             return render(request, 'records/new_log.html', context)
 
 
-def edit_log(request: HttpRequest, pk: int, log_pk: int) -> Union[HttpResponseBadRequest, HttpResponse]:
+def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBadRequest, HttpResponse]:
     """
     A view for editing an existing log record for a cycle.
 
@@ -239,7 +239,7 @@ def edit_log(request: HttpRequest, pk: int, log_pk: int) -> Union[HttpResponseBa
     return render(request, 'records/new_log.html', context)
 
 
-def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
+def delete_log(request: HttpRequest, pk: int, log_pk: int) -> HttpResponse:
     """
     A view that handles the deletion of a Log object from the database.
 
