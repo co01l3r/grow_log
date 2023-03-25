@@ -230,7 +230,10 @@ def edit_log(request: HttpRequest, pk: int, log_pk: int) -> Union[HttpResponseBa
     if request.method == 'POST':
         if form.is_valid():
             form.save()
+            messages.success(request, 'Log updated successfully')
             return redirect('record', pk=pk)
+        else:
+            messages.error(request, 'An error occurred while updating the log')
 
     context = {'form': form}
     return render(request, 'records/new_log.html', context)
