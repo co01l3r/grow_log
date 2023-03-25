@@ -17,11 +17,7 @@
         {% endfor %}
         <div class="form-group">
           {% if request.resolver_match.url_name == 'edit_log' %}
-          <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <br>
-            <button type="button" class="btn btn-danger" onclick="if(confirm('Are you sure you want to delete this log?')) { window.location.href = ''; }">Delete</button>
-          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
           {% else %}
           <button type="submit" class="btn btn-primary">Create</button>
         {% endif %}
