@@ -96,7 +96,7 @@ class Log(models.Model):
     ]
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
     date = models.DateField(auto_now_add=True)
-    phase = models.CharField(max_length=12, choices=PHASE_CHOICES)
+    phase = models.CharField(max_length=12, choices=PHASE_CHOICES, default='vegetative')
     temperature_day = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     temperature_night = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     humidity_day = models.IntegerField(blank=True, null=True)

@@ -231,6 +231,35 @@ def edit_log(request: HttpRequest, pk: int, log_pk: int) -> Union[HttpResponseBa
     context = {'form': form}
     return render(request, 'records/new_log.html', context)
 
+
+def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
+    """
+    A view that handles the deletion of a Log object from the database.
+
+    The function retrieves the Log object with the specified primary key (log_pk)
+    from the database and deletes it. The function then redirects the user to
+    the 'record' view for the Cycle object that the deleted Log object belonged to.
+
+    Parameters:
+        request (HttpRequest):
+            An HTTP request object that contains metadata about the current
+            request.
+        pk (str):
+            The string representation of the UUID primary key of the Cycle object
+            that the Log object to be deleted belongs to.
+        log_pk (int):
+            The primary key of the Log object to delete.
+
+    Returns:
+        HttpResponse:
+            A redirect HttpResponse object that redirects the user to the 'record'
+            view for the Cycle object that the deleted Log object belonged to.
+    """
+    log = get_object_or_404(Log, id=log_pk)
+    cycle_id = log.cycle.id
+    log.delete()
+    return redirect('record', pk=cycle_id)
+
 # nutrient views
 # nutrientLog views
 # other views

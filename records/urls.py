@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('record/<uuid:pk>/new-log/', views.create_log, name='create_log'),
     path('record/<uuid:pk>/log/<int:log_pk>/edit', views.edit_log, name='edit_log'),
+    path('record/<uuid:pk>/log/<int:log_pk>/delete/', views.delete_log, name='delete_log'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

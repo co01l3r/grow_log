@@ -293,6 +293,22 @@ class EditLogViewTestCase(TestCase):
         self.assertTrue(self.log.calibration)
         self.assertEqual(self.log.water, 500)
         self.assertEqual(self.log.comment, 'Test Comment')
+
+
+class DeleteLogTestCase(TestCase):
+    def setUp(self):
+        self.cycle = Cycle.objects.create(genetics='Sour Diesel', fixture='LED')
+        self.log = Log.objects.create(cycle=self.cycle, phase='day 1', temperature_day=24.0, temperature_night=20.0,
+                                      humidity_day=70, humidity_night=60, ph=6.0, ec=1.2, irrigation='drip',
+                                      light_height=50, light_power=100, calibration=True, water=200,
+                                      comment='This is a test log')
+
+    def test_delete_log(self):
+        self.assertTrue(Log.objects.filter(pk=self.log.pk).exists())
+        response = self.client.get(reverse('delete_log', args=[self.cycle.pk, self.log.pk]))
+        self.assertFalse(Log.objects.filter(pk=self.log.pk).exists())
+        self.assertRedirects(response, reverse('record', args=[self.cycle.pk]))
+
 # nutrient views test cases
 # nutrientLog views test cases
 # other views test cases
