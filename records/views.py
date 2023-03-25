@@ -62,7 +62,6 @@ def create_log(request, pk):
         else:
             messages.error(request, 'Log creation failed')
     else:
-        initial_data = {}
         if last_log:
             initial_data = {
                 'phase': last_log.phase,
@@ -80,6 +79,8 @@ def create_log(request, pk):
                 'comment': '',
             }
         else:
+            initial_data = {}
+
             form = LogForm(initial=initial_data)
             return render(request, 'records/new_log.html', {'form': form, 'cycle': cycle})
 
