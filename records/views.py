@@ -271,6 +271,7 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
         messages.error(request, 'An error occurred while deleting the log')
     return redirect('record', pk=cycle_id)
 
+
 # nutrient views
 # nutrientLog views
 # other views

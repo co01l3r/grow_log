@@ -2,6 +2,8 @@ from django.db.models import Avg
 from records.models import Log
 from records.forms import LogForm
 from django.contrib import messages
+from typing import Dict, Optional
+from django.http import HttpRequest
 
 
 def calculate_average_veg_day_temp(cycle):
@@ -14,7 +16,18 @@ def calculate_average_veg_day_temp(cycle):
     return avg_day_temp
 
 
-def fill_and_submit_log_form(cycle, initial_data, request):
+def fill_and_submit_log_form(cycle: 'models.Cycle', initial_data: Dict[str, str], request: Optional[HttpRequest] = None) -> None:
+    """
+    A function to fill and submit the log form for a given cycle.
+
+    Args:
+        cycle (Cycle): A Cycle object representing the current growth cycle.
+        initial_data (dict): A dictionary of initial data for the log form to be filled with.
+        request (HttpRequest, optional): An optional HttpRequest object for displaying messages. Defaults to None.
+
+    Returns:
+        None
+    """
     form = LogForm(initial=initial_data)
     log = form.save(commit=False)
     log.cycle = cycle
