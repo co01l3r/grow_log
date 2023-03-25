@@ -130,8 +130,12 @@ def delete_record(request: HttpRequest, pk: int) -> HttpResponse:
             A redirect HttpResponse object that redirects the user to the 'records'
             view after the specified Cycle object has been deleted.
     """
-    cycle = get_object_or_404(Cycle, id=pk)
-    cycle.delete()
+    try:
+        cycle = get_object_or_404(Cycle, id=pk)
+        cycle.delete()
+        messages.success(request, 'Cycle deleted successfully')
+    except:
+        messages.error(request, 'An error occurred while deleting the cycle')
     return redirect('records')
 
 
@@ -255,9 +259,13 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
             A redirect HttpResponse object that redirects the user to the 'record'
             view for the Cycle object that the deleted Log object belonged to.
     """
-    log = get_object_or_404(Log, id=log_pk)
-    cycle_id = log.cycle.id
-    log.delete()
+    try:
+        log = get_object_or_404(Log, id=log_pk)
+        cycle_id = log.cycle.id
+        log.delete()
+        messages.success(request, 'Log deleted successfully')
+    except:
+        messages.error(request, 'An error occurred while deleting the log')
     return redirect('record', pk=cycle_id)
 
 # nutrient views
