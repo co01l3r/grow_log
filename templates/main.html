@@ -10,15 +10,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'styles/script.js' %}"></script>
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li
-                {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  <script>
+    setTimeout(function() {
+      var messages = document.getElementsByClassName('messages')[0];
+      messages.style.opacity = 0;
+      setTimeout(function() {
+        messages.style.display = 'none';
+      }, 500);
+    }, 2000);
+  </script>
+{% endif %}
 
 </head>
 

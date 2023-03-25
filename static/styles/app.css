@@ -453,6 +453,51 @@ box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
+/*messages*/
+.messages {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.messages li {
+margin: 10px;
+padding: 15px;
+border-radius: 10px;
+font-size: 18px;
+color: #fff;
+text-align: center;
+text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+list-style-type: none;
+width: 80%;
+max-width: 500px;
+}
+
+.messages li.success {
+background-color: #6bbf58;
+box-shadow: 0 0 10px #6bbf58;
+}
+
+.messages li.info {
+background-color: #4d80e4;
+box-shadow: 0 0 10px #4d80e4;
+}
+
+.messages li.warning {
+background-color: #f8c954;
+box-shadow: 0 0 10px #f8c954;
+}
+
+.messages li.error {
+background-color: #ff5a5f;
+box-shadow: 0 0 10px #ff5a5f;
+}
+
+.messages li a {
+color: #fff;
+text-decoration: underline;
+}
+
 /* others */
 .edit-link {
   text-decoration: none;
