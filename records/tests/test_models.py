@@ -118,7 +118,7 @@ class LogModelTestCase(TestCase):
         )
         self.log_3 = Log.objects.create(
             cycle=self.cycle,
-            phase="harvest",
+            phase="vegetative",
             temperature_day=23.0,
             temperature_night=22.0,
             humidity_day=60,
@@ -132,7 +132,7 @@ class LogModelTestCase(TestCase):
         )
         self.log_4 = Log.objects.create(
             cycle=self.cycle_2,
-            phase="harvest",
+            phase="vegetative",
             temperature_day=23.0,
             temperature_night=22.0,
             humidity_day=60,
@@ -179,9 +179,14 @@ class LogModelTestCase(TestCase):
         self.assertEqual(self.log.light_power, 25)
 
     def test_log_has_correct_day_in_cycle(self):
-        self.assertEqual(self.log.get_day_in_cycle(), "1")
-        self.assertEqual(self.log_2.get_day_in_cycle(), "2")
-        self.assertEqual(self.log_3.get_day_in_cycle(), "3")
+        self.assertEqual(self.log.get_day_in_cycle(), 1)
+        self.assertEqual(self.log_2.get_day_in_cycle(), 2)
+        self.assertEqual(self.log_3.get_day_in_cycle(), 3)
+
+    def test_log_has_correct_phase_day_in_cycle(self):
+        self.assertEqual(self.log.get_phase_day_in_cycle(), 1)
+        self.assertEqual(self.log_2.get_phase_day_in_cycle(), 1)
+        self.assertEqual(self.log_3.get_phase_day_in_cycle(), 2)
 
 
 # Nutrient model test cases
