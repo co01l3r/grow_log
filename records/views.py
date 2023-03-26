@@ -67,7 +67,7 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
 
     The function handles both GET and POST requests. On a GET request, the function
     generates an empty CycleForm object and passes it as context to the
-    'records/new_record.html' template. On a POST request, the function processes the
+    'records/record_form.html' template. On a POST request, the function processes the
     submitted form data and either updates an existing Cycle object or creates a new
     one, depending on whether a pk was provided.
 
@@ -83,13 +83,13 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
     Returns:
         HttpResponse:
             A rendered HttpResponse object that contains the rendered
-            'records/new_record.html' template, along with a CycleForm object
+            'records/record_form.html' template, along with a CycleForm object
             pre-populated with the data from an existing Cycle object (if pk was
             provided), or an empty CycleForm object (if creating a new object).
             If the form submission is successful, the function redirects the user
             to the 'record' view for the newly created or updated Cycle object.
             If the form submission is not successful, the function re-renders the
-            'records/new_record.html' template with an error message.
+            'records/record_form.html' template with an error message.
     """
     cycle = get_object_or_404(Cycle, id=pk) if pk else None
 
@@ -109,7 +109,7 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
         form = CycleForm(instance=cycle)
 
     context = {'form': form, 'cycle': cycle}
-    return render(request, 'records/new_record.html', context)
+    return render(request, 'records/record_form.html', context)
 
 
 def delete_record(request: HttpRequest, pk: str) -> HttpResponse:
@@ -206,7 +206,7 @@ def create_log(request: HttpRequest, pk: str) -> HttpResponse:
         else:
             form = LogForm()
             context = {'form': form, 'cycle': cycle}
-            return render(request, 'records/new_log.html', context)
+            return render(request, 'records/log_form.html', context)
 
 
 def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBadRequest, HttpResponse]:
@@ -239,7 +239,7 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBa
             messages.error(request, 'An error occurred while updating the log')
 
     context = {'form': form}
-    return render(request, 'records/new_log.html', context)
+    return render(request, 'records/log_form.html', context)
 
 
 def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:

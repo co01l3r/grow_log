@@ -28,7 +28,7 @@ class RecordsViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'records/record.html')
 
         response = self.client.get(self.url_create_record)
-        self.assertTemplateUsed(response, 'records/new_record.html')
+        self.assertTemplateUsed(response, 'records/record_form.html')
         self.assertIsInstance(response.context['form'], CycleForm)
         self.assertIsNone(response.context['cycle'])
 
@@ -278,7 +278,7 @@ class EditLogViewTestCase(TestCase):
         self.data['phase'] = ''
         response = self.client.post(self.url, data=self.data)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'records/new_log.html')
+        self.assertTemplateUsed(response, 'records/log_form.html')
         self.log.refresh_from_db()
         self.assertEqual(self.log.phase, 'vegetative')
         self.assertEqual(self.log.temperature_day, 25)
