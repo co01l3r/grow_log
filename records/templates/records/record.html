@@ -31,8 +31,10 @@
             <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
             {% endif %}
             <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
-            <th><span class="edit-icon" href="{% url 'edit_record' cycle.pk %}"><i class="fa-solid fa-pen"></i></span>
-            </th>
+            <th><span class="edit-icon" data-href="{% url 'edit_record' cycle.pk %}"
+                      onclick="window.open(this.getAttribute('data-href'), '_self')"><i
+                    class="fa-solid fa-pen"></i></span></th>
+
             <th><span class="help-icon"
                       data-href="https://loudclouds.co/wp-content/uploads/2016/07/marijuana-deficiency-chart-jorge-cervantes.jpg"
                       onclick="window.open(this.getAttribute('data-href'), '_blank')"><i
