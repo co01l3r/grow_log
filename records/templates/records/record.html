@@ -92,7 +92,13 @@
                 {% else %}
             <tr>
                 {% endif %}
+
+                {% if log.date == today %}
+                <td style="text-align: left;">{{ log|default_if_none:'' }} <div class="online-icon"></div></td>
+                {% else %}
                 <td style="text-align: left;">{{ log|default_if_none:'' }}</td>
+                {% endif %}
+
                 <td>{{ log.temperature_day|default_if_none:'' }}</td>
                 <td>{{ log.temperature_night|default_if_none:'' }}</td>
                 <td>{{ log.humidity_day|default_if_none:'' }}</td>

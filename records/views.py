@@ -5,6 +5,7 @@ from .forms import CycleForm, LogForm
 from django.contrib import messages
 from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse
 from typing import Union
+from datetime import date
 
 
 # record views
@@ -54,7 +55,9 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
     cycle = get_object_or_404(Cycle, id=pk)
     logs = Log.objects.filter(cycle=cycle)
 
-    context = {'cycle': cycle, 'logs': logs}
+    today = date.today()
+
+    context = {'cycle': cycle, 'logs': logs, 'today': today}
     return render(request, 'records/record.html', context)
 
 
