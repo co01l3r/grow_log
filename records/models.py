@@ -81,6 +81,7 @@ class Log(models.Model):
 
     Methods:
         __str__ (str): Returns the day number of the phase the log represents.
+        get_day_in_cycle (str): Returns the day in the cycle for this log.
     """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
@@ -121,6 +122,11 @@ class Log(models.Model):
             'date',
             'id',
         ]
+
+    def get_day_in_cycle(self) -> str:
+        all_logs: models.QuerySet = Log.objects.filter(cycle=self.cycle).order_by('date', 'id')
+        day_in_cycle: int = list(all_logs).index(self) + 1
+        return str(day_in_cycle)
 
     def __str__(self) -> str:
         logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)

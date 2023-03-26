@@ -97,6 +97,34 @@ class LogModelTestCase(TestCase):
             light_power=25,
             calibration=True
         )
+        self.log_2 = Log.objects.create(
+            cycle=self.cycle,
+            phase="flowering",
+            temperature_day=24.0,
+            temperature_night=21.0,
+            humidity_day=55,
+            humidity_night=65,
+            ph=5.7,
+            ec=1.2,
+            irrigation="Test Irrigation 2",
+            light_height=90,
+            light_power=30,
+            calibration=True
+        )
+        self.log_3 = Log.objects.create(
+            cycle=self.cycle,
+            phase="harvest",
+            temperature_day=23.0,
+            temperature_night=22.0,
+            humidity_day=60,
+            humidity_night=70,
+            ph=5.8,
+            ec=1.5,
+            irrigation="Test Irrigation 3",
+            light_height=80,
+            light_power=35,
+            calibration=True
+        )
 
     def test_log_str_representation(self):
         log_str = str(self.log)
@@ -126,6 +154,11 @@ class LogModelTestCase(TestCase):
     def test_log_has_correct_light_height_and_power(self):
         self.assertEqual(self.log.light_height, 100)
         self.assertEqual(self.log.light_power, 25)
+
+    def test_log_has_correct_day_in_cycle(self):
+        self.assertEqual(self.log.get_day_in_cycle(), "1")
+        self.assertEqual(self.log_2.get_day_in_cycle(), "2")
+        self.assertEqual(self.log_3.get_day_in_cycle(), "3")
 
 
 # Nutrient model test cases
