@@ -60,6 +60,7 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
 
     for log in logs:
         log.day_in_cycle = log.get_day_in_cycle()
+        log.phase_day_in_cycle = log.get_phase_day_in_cycle()
 
     context = {'cycle': cycle, 'logs': logs, 'today': today}
     return render(request, 'records/record.html', context)

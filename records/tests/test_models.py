@@ -83,6 +83,11 @@ class LogModelTestCase(TestCase):
             seedbank="Test Seedbank",
             fixture="Test Fixture"
         )
+        self.cycle_2 = Cycle.objects.create(
+            genetics="Test Genetics",
+            seedbank="Test Seedbank",
+            fixture="Test Fixture"
+        )
         self.log = Log.objects.create(
             cycle=self.cycle,
             phase="vegetative",
@@ -125,10 +130,28 @@ class LogModelTestCase(TestCase):
             light_power=35,
             calibration=True
         )
+        self.log_4 = Log.objects.create(
+            cycle=self.cycle_2,
+            phase="harvest",
+            temperature_day=23.0,
+            temperature_night=22.0,
+            humidity_day=60,
+            humidity_night=70,
+            ph=5.8,
+            ec=1.5,
+            irrigation="Test Irrigation 3",
+            light_height=80,
+            light_power=35,
+            calibration=True
+        )
 
-    def test_log_str_representation(self):
+    def test_log_str_representation_with_name(self):
         log_str = str(self.log)
-        self.assertEqual(log_str, "1")
+        self.assertEqual(log_str, "Cycle 1 - day 1")
+
+    def test_log_str_representation_without_name(self):
+        log_str = str(self.log_4)
+        self.assertEqual(log_str, "Test Genetics - day 1")
 
     def test_log_is_associated_with_cycle(self):
         self.assertEqual(self.log.cycle, self.cycle)

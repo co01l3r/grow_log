@@ -94,9 +94,9 @@
                 {% endif %}
                 <!--display log position formatted as: day_in_cycle (day_in_phase)-->
                 {% if log.date == today %}
-                <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log|default_if_none:'' }})  <div class="online-icon"></div></td>
+                <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log.get_phase_day_in_cycle }})  <div class="online-icon"></div></td>
                 {% else %}
-                <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log|default_if_none:'' }})</td>
+                <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log.get_phase_day_in_cycle }})</td>
                 {% endif %}
                 <td>{{ log.temperature_day|default_if_none:'' }}</td>
                 <td>{{ log.temperature_night|default_if_none:'' }}</td>

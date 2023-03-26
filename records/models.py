@@ -82,6 +82,7 @@ class Log(models.Model):
     Methods:
         __str__ (str): Returns the day number of the phase the log represents.
         get_day_in_cycle (str): Returns the day in the cycle for this log.
+        get_phase_day_in_cycle (str): Returns the day in the phase of cycle for this log.
     """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
@@ -128,10 +129,17 @@ class Log(models.Model):
         day_in_cycle: int = list(all_logs).index(self) + 1
         return str(day_in_cycle)
 
-    def __str__(self) -> str:
+    def get_phase_day_in_cycle(self) -> str:
         logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
         day_in_phase: int = list(logs_of_same_phase).index(self) + 1
         return str(day_in_phase)
+
+    def __str__(self) -> str:
+        day_in_cycle = self.get_day_in_cycle()
+        if self.cycle.name:
+            return f"{self.cycle.name} - day {day_in_cycle}"
+        else:
+            return f"{self.cycle.genetics} - day {day_in_cycle}"
 
 
 # Nutrient model
