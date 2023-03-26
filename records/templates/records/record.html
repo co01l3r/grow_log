@@ -98,11 +98,11 @@
                     {{ log.get_day_in_cycle }}
                     ({{ log.get_phase_day_in_cycle }})
                     {% if log.phase == "seedling" %}
-                    SE
+                    <i class="fa-solid fa-seedling"></i>
                     {% elif log.phase == "vegetative" %}
-                    VE
+                    <i class="fa-solid fa-circle"></i>
                     {% elif log.phase == "bloom" %}
-                    BL
+                    <i class="fa-solid fa-circle-half-stroke"></i>
                     {% endif %}
                     <div class="online-icon"></div>
                 </td>
@@ -111,11 +111,11 @@
                     {{ log.get_day_in_cycle }}
                     ({{ log.get_phase_day_in_cycle }})
                     {% if log.phase == "seedling" %}
-                    SE
+                    <i class="fa-solid fa-circle"></i>
                     {% elif log.phase == "vegetative" %}
-                    VE
+                    <i class="fa-solid fa-circle"></i>
                     {% elif log.phase == "bloom" %}
-                    BL
+                    <i class="fa-solid fa-circle-half-stroke"></i>
                     {% endif %}
                 </td>
                 {% endif %}
