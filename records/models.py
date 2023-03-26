@@ -10,11 +10,11 @@ class Cycle(models.Model):
     A model representing a cycle of a cannabis plant growth.
 
     Fields:
-        id (UUIDField): The primary key of the cycle, a UUID value.
+        id (UUIDField): The primary key of the cycle, a UUID value. Required field.
         date (DateField): The date when the cycle started, set automatically on creation.
-        genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.
+        genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters. Required field.
         seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
-        fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters.
+        fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters. Required field.
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
         name (CharField): The name given to the cycle, a string value up to 80 characters.
@@ -58,9 +58,9 @@ class Log(models.Model):
     Model to represent a log for a specific phase of a cycle of growth.
 
     Fields:
-        cycle (Cycle): The cycle associated with the log.
-        date (DateField): The date the log was created.
-        phase (str): The phase of the cycle associated with the log.
+        cycle (Cycle): The cycle associated with the log. Required field.
+        date (DateField): The date when the log was created, set automatically on creation.
+        phase (str): The phase of the cycle associated with the log. Required field.
         temperature_day (DecimalField): The temperature during the day for the log.
         temperature_night (DecimalField): The temperature during the night for the log.
         humidity_day (IntegerField): The humidity during the day for the log, in percent.
@@ -147,8 +147,8 @@ class Nutrient(models.Model):
     Model representing a nutrient used in growing.
 
     Fields:
-        name (CharField): The name of the nutrient.
-        brand (CharField): The brand of the nutrient.
+        name (CharField): The name of the nutrient. Required field.
+        brand (CharField): The brand of the nutrient. Required field.
         nutrient_type (CharField): The type of the nutrient.
         featured_image (ImageField): An image representing the nutrient.
         detail (TextField): Additional details about the nutrient.
@@ -181,9 +181,9 @@ class NutrientLog(models.Model):
     A model representing the nutrient logs for a specific `Log`.
 
     Fields:
-        log (ForeignKey): A foreign key referencing the `Log` model this nutrient log belongs to.
-        nutrient (ForeignKey): A foreign key referencing the `Nutrient` model this nutrient log corresponds to.
-        concentration (IntegerField): An integer representing the concentration of the nutrient for this log.
+        log (ForeignKey): A foreign key referencing the `Log` model this nutrient log belongs to. Required field.
+        nutrient (ForeignKey): A foreign key referencing the `Nutrient` model this nutrient log corresponds to. Reuired field.
+        concentration (IntegerField): An integer representing the concentration of the nutrient for this log. Required field.
 
     Meta:
         ordering (List): A list of strings representing the fields to order the results by. The results will be ordered
