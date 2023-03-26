@@ -195,7 +195,7 @@ class NutrientTestCase(TestCase):
         self.nutrient = Nutrient.objects.create(
             name='NPK Fertilizer',
             brand='Brand X',
-            detail='High-quality NPK fertilizer for all plants'
+            detail='High-quality NPK fertilizer for all plants',
         )
 
     def test_nutrient_creation(self):
@@ -228,6 +228,14 @@ class NutrientTestCase(TestCase):
             brand='Test Brand',
         )
         self.assertIsNone(nutrient.detail)
+
+    def test_nutrient_type(self):
+        nutrient = Nutrient.objects.create(
+            name='Test Nutrient',
+            brand='Test Brand',
+            nutrient_type='bud_strengthener'
+        )
+        self.assertEqual(nutrient.nutrient_type, 'bud_strengthener')
 
 
 # NutrientLog model test cases
