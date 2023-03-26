@@ -142,7 +142,7 @@ class Nutrient(models.Model):
         detail (TextField): Additional details about the nutrient.
 
     Methods:
-        __str__(self) -> str: Returns the name of the nutrient as a string.
+        __str__(self): Returns the name of the nutrient as a string.
 
     """
     NUTRIENT_TYPE_CHOICES: List[Tuple[str, str]] = [
