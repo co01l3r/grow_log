@@ -210,7 +210,7 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBa
     """
     A view for editing an existing log record for a cycle.
 
-    Args:
+    Parameters:
         request: An HttpRequest object that contains metadata about the request.
         pk: An integer representing the primary key of the cycle to which the log belongs.
         log_pk: An integer representing the primary key of the log to edit.

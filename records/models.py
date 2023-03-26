@@ -9,7 +9,7 @@ class Cycle(models.Model):
     """
     A model representing a cycle of a cannabis plant growth.
 
-    Fields:
+    Attributes:
         id (UUIDField): The primary key of the cycle, a UUID value.
         date (DateField): The date when the cycle started, set automatically on creation.
         genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.

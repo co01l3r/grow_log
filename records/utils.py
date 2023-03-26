@@ -20,7 +20,7 @@ def fill_and_submit_log_form(cycle: 'models.Cycle', initial_data: Dict[str, str]
     """
     A function to fill and submit the log form for a given cycle.
 
-    Args:
+    Parameters:
         cycle (Cycle): A Cycle object representing the current growth cycle.
         initial_data (dict): A dictionary of initial data for the log form to be filled with.
         request (HttpRequest, optional): An optional HttpRequest object for displaying messages. Defaults to None.
