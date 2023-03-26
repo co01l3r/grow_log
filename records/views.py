@@ -140,7 +140,7 @@ def delete_record(request: HttpRequest, pk: str) -> HttpResponse:
 
 
 # log views
-def create_log(request: HttpRequest, pk: int) -> HttpResponse:
+def create_log(request: HttpRequest, pk: str) -> HttpResponse:
     """
     A view that handles the creation of a new Log object for a specified Cycle.
 
@@ -155,7 +155,7 @@ def create_log(request: HttpRequest, pk: int) -> HttpResponse:
         request (HttpRequest):
             An HTTP request object that contains metadata about the current
             request.
-        pk (int):
+        pk (str):
             The primary key of the Cycle object to which the new Log object is
             associated.
 
