@@ -9,13 +9,12 @@ class Cycle(models.Model):
     """
     A model representing a cycle of a cannabis plant growth.
 
-    Attributes:
+    Fields:
         id (UUIDField): The primary key of the cycle, a UUID value.
         date (DateField): The date when the cycle started, set automatically on creation.
         genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.
         seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
         fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters.
-        behavioral_response (CharField): The behavioral response of the plant, either "auto-flowering" or "photoperiodic".
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
         name (CharField): The name given to the cycle, a string value up to 80 characters.
@@ -147,8 +146,7 @@ class Nutrient(models.Model):
     """
     Model representing a nutrient used in growing.
 
-    Attributes:
-        NUTRIENT_TYPE_CHOICES (List[Tuple[str, str]]): A list of tuples representing the available types of nutrients.
+    Fields:
         name (CharField): The name of the nutrient.
         brand (CharField): The brand of the nutrient.
         nutrient_type (CharField): The type of the nutrient.
@@ -182,7 +180,7 @@ class NutrientLog(models.Model):
     """
     A model representing the nutrient logs for a specific `Log`.
 
-    Attributes:
+    Fields:
         log (ForeignKey): A foreign key referencing the `Log` model this nutrient log belongs to.
         nutrient (ForeignKey): A foreign key referencing the `Nutrient` model this nutrient log corresponds to.
         concentration (IntegerField): An integer representing the concentration of the nutrient for this log.
