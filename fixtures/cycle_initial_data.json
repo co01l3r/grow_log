@@ -10,7 +10,7 @@
       "behavioral_response": "photoperiodic",
       "seed_type": "feminized",
       "grow_medium": "soil",
-      "name": "GG",
+      "name": "GG"
     }
   },
   {
@@ -24,7 +24,7 @@
       "behavioral_response": "photoperiodic",
       "seed_type": "clones",
       "grow_medium": "coco coir",
-      "name": "",
+      "name": ""
     }
   },
   {
@@ -38,7 +38,7 @@
       "behavioral_response": "photoperiodic",
       "seed_type": "regular",
       "grow_medium": "hydroponics",
-      "name": "",
+      "name": ""
     }
   }
 ]

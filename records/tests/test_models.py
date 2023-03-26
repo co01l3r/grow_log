@@ -10,13 +10,13 @@ class CycleModelTestCase(TestCase):
             name="Cycle 1 - Q1",
             genetics="Sativa",
             seedbank="Seed Co.",
-            fixture="Indoor grow tent",
+            fixture="led",
         )
 
     def test_cycle_created(self):
         cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
         self.assertEqual(cycle1.genetics, "Sativa")
-        self.assertEqual(cycle1.fixture, "Indoor grow tent")
+        self.assertEqual(cycle1.fixture, "led")
 
     def test_str_representation_with_name(self):
         cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
@@ -56,13 +56,13 @@ class CycleModelTestCase(TestCase):
         self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
 
     def test_behavioral_response_choices(self):
-        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="Indoor grow tent", behavioral_response="not-a-valid-choice")
+        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="led", behavioral_response="not-a-valid-choice")
         with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
         self.assertIn("is not a valid choice", str(context.exception))
 
     def test_seed_type_choices(self):
-        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="Indoor grow tent", seed_type="not-a-valid-choice")
+        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="led", seed_type="not-a-valid-choice")
         with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
         self.assertIn("is not a valid choice", str(context.exception))
