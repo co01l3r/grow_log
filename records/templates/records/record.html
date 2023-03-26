@@ -31,10 +31,12 @@
             <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
             {% endif %}
             <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
-            <th><a class="edit-link" href="{% url 'edit_record' cycle.pk %}"><i class="fa-solid fa-pen"></i></a></th>
-            <th><a class="edit-link"
-                   href="https://loudclouds.co/wp-content/uploads/2016/07/marijuana-deficiency-chart-jorge-cervantes.jpg"><i
-                    class="fa-solid fa-cannabis"></i></a></th>
+            <th><span class="edit-icon" href="{% url 'edit_record' cycle.pk %}"><i class="fa-solid fa-pen"></i></span>
+            </th>
+            <th><span class="help-icon"
+                      data-href="https://loudclouds.co/wp-content/uploads/2016/07/marijuana-deficiency-chart-jorge-cervantes.jpg"
+                      onclick="window.open(this.getAttribute('data-href'), '_blank')"><i
+                    class="fa-solid fa-cannabis"></i></span></th>
         </tr>
         </thead>
     </div>
@@ -56,7 +58,6 @@
                 <th>Irrigation</th>
                 <th>Recipe</th>
                 <th>Note</th>
-                <th></th>
             </tr>
             <tr>
                 <th>Day</th>

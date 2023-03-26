@@ -531,13 +531,18 @@ text-decoration: underline;
 }
 
 .edit-icon:hover {
-  color: grey;
-  cursor: text;
+  color: darkgrey;
+  cursor: default;
 }
 
 .delete-icon:hover {
   color: red;
   cursor: crosshair;
+}
+
+.help-icon:hover {
+  color: green;
+  cursor: help;
 }
 
 /* nutrient type color representation */
