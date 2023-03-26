@@ -86,19 +86,18 @@
             <tbody>
             {% for log in cycle.logs.all %}
 
-
+            <!--change the row background every 7th day-->
             {% if forloop.counter|divisibleby:7 %}
             <tr style="background-color: rgba(255,255,255,0.1)">
                 {% else %}
             <tr>
                 {% endif %}
-
+                <!--display log position formatted as: day_in_cycle (day_in_phase)-->
                 {% if log.date == today %}
-                <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log|default_if_none:'' }}) <div class="online-icon"></div></td>
+                <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log|default_if_none:'' }})  <div class="online-icon"></div></td>
                 {% else %}
                 <td style="text-align: left;">{{ log.get_day_in_cycle }} ({{ log|default_if_none:'' }})</td>
                 {% endif %}
-
                 <td>{{ log.temperature_day|default_if_none:'' }}</td>
                 <td>{{ log.temperature_night|default_if_none:'' }}</td>
                 <td>{{ log.humidity_day|default_if_none:'' }}</td>
@@ -106,6 +105,7 @@
                 <td>{{ log.ph|default_if_none:'' }}</td>
                 <td>{{ log.ec|default_if_none:'' }}</td>
                 <td>{{ log.light_height|default_if_none:'' }}</td>
+                <!--display 'light_power' graphically as bulbs-->
                 {% if log.light_power == 25 %}
                 <td><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
@@ -122,6 +122,7 @@
                 <td><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
                 {% endif %}
+                <!--display 'calibration' graphically as icon-->
                 {% if log.calibration %}
                 <td><i class="fa-solid fa-check"></i></td>
                 {% else %}
@@ -129,6 +130,7 @@
                 {% endif %}
                 <td>{{ log.water|default_if_none:'' }}</td>
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
+                <!--display 'nutrient_log' for Cycle as interactive button if exists-->
                 {% if log.nutrient_logs.exists %}
                 <td style="text-align: center; vertical-align: middle;">
                     <button class="recipe-btn" style="margin: auto; margin-bottom: 4px"

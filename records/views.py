@@ -56,7 +56,6 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
     """
     cycle = get_object_or_404(Cycle, id=pk)
     logs = Log.objects.filter(cycle=cycle)
-
     today = date.today()
 
     for log in logs:
