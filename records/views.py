@@ -41,7 +41,8 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
             An HTTP request object that contains metadata about the current
             request.
         pk (str):
-            The primary key of the Cycle object to retrieve.
+            The string representation of the UUID primary key of the Cycle object
+             to retrieve.
 
     Returns:
         HttpResponse:
@@ -75,8 +76,9 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
             An HTTP request object that contains metadata about the current
             request.
         pk (str, optional):
-            The primary key of the Cycle object to edit, if editing an existing
-            object. Defaults to None, indicating that a new object should be created.
+            The string representation of the UUID primary key of the Cycle object to edit,
+             if editing an existing object. Defaults to None, indicating that a new object
+              should be created.
 
     Returns:
         HttpResponse:
@@ -123,7 +125,8 @@ def delete_record(request: HttpRequest, pk: str) -> HttpResponse:
             An HTTP request object that contains metadata about the current
             request.
         pk (str):
-            The primary key of the Cycle object to delete.
+            The string representation of the UUID primary key of the Cycle object to
+             delete.
 
     Returns:
         HttpResponse:
@@ -156,8 +159,8 @@ def create_log(request: HttpRequest, pk: str) -> HttpResponse:
             An HTTP request object that contains metadata about the current
             request.
         pk (str):
-            The primary key of the Cycle object to which the new Log object is
-            associated.
+            The string representation of the UUID primary key of the Cycle object
+            to which the new Log object is associated.
 
     Returns:
         HttpResponse:
@@ -211,9 +214,12 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBa
     A view for editing an existing log record for a cycle.
 
     Parameters:
-        request: An HttpRequest object that contains metadata about the request.
-        pk: An integer representing the primary key of the cycle to which the log belongs.
-        log_pk: An integer representing the primary key of the log to edit.
+        request (HttpRequest):
+            An HttpRequest object that contains metadata about the request.
+        pk (str):
+            The string representation of the UUID primary key of the Cycle to which the log belongs.
+        log_pk (int):
+            An integer representing the primary key of the log to edit.
 
     Returns:
         If the request method is 'POST' and the form is invalid, an HttpResponseBadRequest is returned with an error message.
