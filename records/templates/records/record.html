@@ -145,6 +145,8 @@
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {{ log.comment|truncatechars:10|default_if_none:'' }}
                 </td>
+                <!--display additional options only if today-->
+                {% if log.date == today %}
                 <td>
                     <span class="edit-icon"
                           onclick="location.href='{% url 'edit_log' pk=log.cycle.id log_pk=log.id %}'"><i
@@ -153,6 +155,9 @@
                           onclick="if(confirm('Are you sure you want to delete day {{ log }} | {{ log.phase }} log?')) { window.location.href = '{% url 'delete_log' pk=log.cycle.id log_pk=log.id %}'; } else { return false; }"><i
                             class="fa-solid fa-recycle"></i></span>
                 </td>
+                {% else %}
+                <td></td>
+                {% endif %}
 
             </tr>
 
