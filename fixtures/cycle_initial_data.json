@@ -11,7 +11,6 @@
       "seed_type": "feminized",
       "grow_medium": "soil",
       "name": "GG",
-      "beginning_phase": "vegetative"
     }
   },
   {
@@ -26,7 +25,6 @@
       "seed_type": "clones",
       "grow_medium": "coco coir",
       "name": "",
-      "beginning_phase": "vegetative"
     }
   },
   {
@@ -41,7 +39,6 @@
       "seed_type": "regular",
       "grow_medium": "hydroponics",
       "name": "",
-      "beginning_phase": "seedling"
     }
   }
 ]

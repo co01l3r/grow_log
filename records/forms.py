@@ -1,4 +1,3 @@
-from django.forms import ModelForm
 from .models import Cycle, Log, Nutrient, NutrientLog
 from django import forms
 
@@ -67,3 +66,6 @@ class LogForm(forms.ModelForm):
         self.fields['light_height'].widget.attrs.update({'class': 'form-control', 'step': '5.00'})
         self.fields['light_power'].widget.attrs.update({'class': 'form-control'})
         self.fields['calibration'].widget.attrs.update({'class': 'form-check-input'})
+
+# nutrient modelForm
+# nutrientLog modelForm
