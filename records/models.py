@@ -21,7 +21,7 @@ class Cycle(models.Model):
         name (CharField): The name given to the cycle, a string value up to 80 characters.
 
     Methods:
-        __str__(): Returns a string representation of the cycle object, formatted as "[name or genetics] - Q[quarter]/[year]".
+        __str__ (str): Returns a string representation of the cycle object, formatted as "[name or genetics] - Q[quarter]/[year]".
     """
     BEHAVIORAL_RESPONSE_CHOICES: List[Tuple[str, str]] = [
         ('auto-flowering', 'Auto-flowering'),
@@ -62,27 +62,27 @@ class Log(models.Model):
         cycle (Cycle): The cycle associated with the log.
         date (DateField): The date the log was created.
         phase (str): The phase of the cycle associated with the log.
-        temperature_day (DecimalField): The temperature during the day for the phase.
-        temperature_night (DecimalField): The temperature during the night for the phase.
-        humidity_day (IntegerField): The humidity during the day for the phase, in percent.
-        humidity_night (IntegerField): The humidity during the night for the phase, in percent.
-        ph (DecimalField): The pH level for the phase.
-        ec (DecimalField): The electrical conductivity (EC) level for the phase.
-        irrigation (str): The type of irrigation used for the phase.
-        light_height (IntegerField): The height of the light from the plants during the phase.
-        light_power (IntegerField): The power of the light during the phase, as a percentage (0-100%).
-        calibration (bool): Whether or not the equipment was calibrated during the day.
-        featured_image (ImageField): An optional image associated with the log.
-        water (IntegerField): The amount of water given to the plants during the phase.
+        temperature_day (DecimalField): The temperature during the day for the log.
+        temperature_night (DecimalField): The temperature during the night for the log.
+        humidity_day (IntegerField): The humidity during the day for the log, in percent.
+        humidity_night (IntegerField): The humidity during the night for the log, in percent.
+        ph (DecimalField): The pH level for the day.
+        ec (DecimalField): The electrical conductivity (EC) level for the day.
+        irrigation (str): The irrigation applied during the day.
+        light_height (IntegerField): The height of the light from the plants canopy during the day.
+        light_power (IntegerField): The power of the light during the day, as a percentage (0-100%).
+        calibration (bool): Whether the equipment was calibrated during the day.
+        featured_image (ImageField): A photo associated with the log.
+        water (IntegerField): The amount of water given to the plants during the day.
         comment (TextField): An optional comment about the day.
 
     Meta:
         ordering (List): The default ordering for logs, first by phase, then by date, then by id.
 
     Methods:
-        get_day_in_cycle (int): Returns the day in the cycle for this log.
-        get_phase_day_in_cycle (int): Returns the day in the phase of cycle for this log.
-        __str__ (str): Returns the day number of the phase the log represents.
+        get_day_in_cycle (int):         Returns the day in the cycle for this log.
+        get_phase_day_in_cycle (int):   Returns the day in the phase of cycle for this log.
+        __str__ (str):                  Returns name or genetics and day position for the cycle.
     """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
@@ -127,18 +127,15 @@ class Log(models.Model):
     def get_day_in_cycle(self) -> int:
         all_logs: models.QuerySet = Log.objects.filter(cycle=self.cycle).order_by('date', 'id')
         day_in_cycle: int = list(all_logs).index(self) + 1
-
         return int(day_in_cycle)
 
     def get_phase_day_in_cycle(self) -> int:
         logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
         day_in_phase: int = list(logs_of_same_phase).index(self) + 1
-
         return int(day_in_phase)
 
     def __str__(self) -> str:
         day_in_cycle = self.get_day_in_cycle()
-
         if self.cycle.name:
             return f"{self.cycle.name} - day {str(day_in_cycle)}"
         else:
@@ -159,7 +156,7 @@ class Nutrient(models.Model):
         detail (TextField): Additional details about the nutrient.
 
     Methods:
-        __str__(self): Returns the name of the nutrient as a string.
+        __str__ (str): Returns the name of the nutrient as a string.
 
     """
     NUTRIENT_TYPE_CHOICES: List[Tuple[str, str]] = [
