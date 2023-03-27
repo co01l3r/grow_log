@@ -7,7 +7,7 @@ from typing import List, Tuple
 # Record model
 class Cycle(models.Model):
     """
-    A model representing a cycle of a cannabis plant growth.
+    A model representing a cycle of a plant growth.
 
     Fields:
         id (UUIDField): The primary key of the cycle, a UUID value. Required field.
