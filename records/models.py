@@ -20,7 +20,7 @@ class Cycle(models.Model):
         name (CharField): The name given to the cycle, a string value up to 80 characters.
 
     Methods:
-        __str__ (str): Returns a string representation of the cycle object, formatted as "[name or genetics] - Q[quarter]/[year]".
+        __str__ (str): Returns a string representation of the cycle object. Formatted as "[name or genetics] - Q[quarter]/[year]".
     """
     BEHAVIORAL_RESPONSE_CHOICES: List[Tuple[str, str]] = [
         ('auto-flowering', 'Auto-flowering'),
@@ -61,15 +61,15 @@ class Log(models.Model):
         cycle (Cycle): The cycle associated with the log. Required field.
         date (DateField): The date when the log was created, set automatically on creation.
         phase (str): The phase of the cycle associated with the log. Required field.
-        temperature_day (DecimalField): The temperature during the day for the log.
-        temperature_night (DecimalField): The temperature during the night for the log.
-        humidity_day (IntegerField): The humidity during the day for the log, in percent.
-        humidity_night (IntegerField): The humidity during the night for the log, in percent.
+        temperature_day (DecimalField): The temperature during the day.
+        temperature_night (DecimalField): The temperature during the night.
+        humidity_day (IntegerField): The humidity during the day, as a percentage.
+        humidity_night (IntegerField): The humidity during the night, as a percentage.
         ph (DecimalField): The pH level for the day.
         ec (DecimalField): The electrical conductivity (EC) level for the day.
         irrigation (str): The irrigation applied during the day.
         light_height (IntegerField): The height of the light from the plants canopy during the day.
-        light_power (IntegerField): The power of the light during the day, as a percentage (0-100%).
+        light_power (IntegerField): The power of the light during the day, as a percentage.
         calibration (bool): Whether the equipment was calibrated during the day.
         featured_image (ImageField): A photo associated with the log.
         water (IntegerField): The amount of water given to the plants during the day.
@@ -79,9 +79,10 @@ class Log(models.Model):
         ordering (List): The default ordering for logs, first by phase, then by date, then by id.
 
     Methods:
-        get_day_in_cycle (int):         Returns the day in the cycle for this log.
-        get_phase_day_in_cycle (int):   Returns the day in the phase of cycle for this log.
+        get_day_in_cycle (int):         Returns the day in the cycle.
+        get_phase_day_in_cycle (int):   Returns the day in the phase of cycle.
         __str__ (str):                  Returns name or genetics and day position for the cycle.
+                                        Formatted as "[cycle name or genetics] - [day_in_cycle]".
     """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
@@ -193,7 +194,7 @@ class NutrientLog(models.Model):
         save(*args, **kwargs): Overrides the default save method. If a `NutrientLog` already exists for the same `Log`
                                and `Nutrient`, the concentrations are added together and the existing logs are
                                deleted before saving the new `NutrientLog` instance.
-        __str__ (str):         Returns the name and concentration of the nutrient log as a string,
+        __str__ (str):         Returns the name and concentration of the nutrient log as a string.
                                 formatted as "[nutrient] - [concentration]".
     """
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='nutrient_logs')
