@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Cycle, Log, Nutrient, NutrientLog
-from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
-from .forms import CycleForm, LogForm
-from django.contrib import messages
-from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse
 from typing import Union
 from datetime import date
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse
+
+from .models import Cycle, Log, Nutrient, NutrientLog
+from .forms import CycleForm, LogForm
+from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 
 
 # record views

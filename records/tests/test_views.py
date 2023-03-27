@@ -1,8 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from records.models import Cycle, Log
 from records.forms import CycleForm
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 # record views test cases

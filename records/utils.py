@@ -1,9 +1,11 @@
-from django.db.models import Avg
-from records.models import Log
-from records.forms import LogForm
-from django.contrib import messages
 from typing import Dict, Optional
+
 from django.http import HttpRequest
+from django.contrib import messages
+from django.db.models import Avg
+
+from .models import Log
+from .forms import LogForm
 
 
 def calculate_average_veg_day_temp(cycle):

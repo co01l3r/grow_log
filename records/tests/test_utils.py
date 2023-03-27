@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from records.models import Cycle, Log
 from records.utils import calculate_average_veg_day_temp
 

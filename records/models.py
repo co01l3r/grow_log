@@ -1,7 +1,8 @@
-from django.db import models
-import uuid
-from django.db.models import Case, Value, When
 from typing import List, Tuple
+import uuid
+
+from django.db import models
+from django.db.models import Case, Value, When
 
 
 # Record model

@@ -1,6 +1,7 @@
-from django.test import TestCase
-from records.models import Cycle, Log, Nutrient, NutrientLog
 from django.core.exceptions import ValidationError
+from django.test import TestCase
+
+from records.models import Cycle, Log, Nutrient, NutrientLog
 
 
 # Cycle model test cases
