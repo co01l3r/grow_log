@@ -1,4 +1,3 @@
-from typing import Union
 from datetime import date
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -219,7 +218,7 @@ def create_log(request: HttpRequest, pk: str) -> HttpResponse:
             return render(request, 'records/log_form.html', context)
 
 
-def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBadRequest, HttpResponse]:
+def edit_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
     """
     A view for editing an existing log record for a cycle.
 
@@ -232,7 +231,7 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> Union[HttpResponseBa
             An integer representing the primary key of the log to edit.
 
     Returns:
-        If the request method is 'POST' and the form is invalid, an HttpResponseBadRequest is returned with an error message.
+        If the request method is 'POST' and the form is invalid, an error message is returned.
         Otherwise, if the request method is 'POST' and the form is valid, the log record is updated and a redirect to the record view is returned.
         Otherwise, if the request method is 'GET', the edit log form is displayed.
     """
