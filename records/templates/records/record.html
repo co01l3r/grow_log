@@ -164,7 +164,7 @@
                 {% else %}
                 <td></td>
                 {% endif %}
-                <!--display additional options only if today in note column besides comment if exists-->
+                <!--display additional options only if today in 'note' column besides comment if exists-->
                 {% if log.date == today %}
                 <td class="log-cell" style="font-size: 10px; text-align: left;"
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
