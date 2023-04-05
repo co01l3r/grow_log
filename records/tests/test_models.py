@@ -8,27 +8,27 @@ from records.models import Cycle, Log, Nutrient, NutrientLog
 class CycleModelTestCase(TestCase):
     def setUp(self):
         Cycle.objects.create(
-            name="Cycle 1 - Q1",
+            name="Cycle 1",
             genetics="Sativa",
             seedbank="Seed Co.",
             fixture="led",
         )
 
     def test_cycle_created(self):
-        cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
+        cycle1 = Cycle.objects.get(name="Cycle 1")
         self.assertEqual(cycle1.genetics, "Sativa")
         self.assertEqual(cycle1.fixture, "led")
 
     def test_str_representation_with_name(self):
-        cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
-        self.assertEqual(str(cycle1), "Cycle 1 - Q1/2023")
+        cycle1 = Cycle.objects.get(name="Cycle 1")
+        self.assertEqual(str(cycle1), "Cycle 1 - Q2/2023")
 
     def test_str_representation_without_name(self):
         cycle2 = Cycle.objects.create(genetics="Indica")
-        self.assertEqual(str(cycle2), "Indica - Q1/2023")
+        self.assertEqual(str(cycle2), "Indica - Q2/2023")
 
     def test_date_auto_now_add(self):
-        cycle1 = Cycle.objects.get(name="Cycle 1 - Q1")
+        cycle1 = Cycle.objects.get(name="Cycle 1")
         self.assertIsNotNone(cycle1.date)
 
     def test_name_field_max_length(self):
