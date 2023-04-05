@@ -78,7 +78,6 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th></th>
             </tr>
             </thead>
         </table>
@@ -165,13 +164,11 @@
                 {% else %}
                 <td></td>
                 {% endif %}
+                <!--display additional options only if today in note column besides comment if exists-->
+                {% if log.date == today %}
                 <td class="log-cell" style="font-size: 10px; text-align: left;"
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
-                    {{ log.comment|truncatechars:10|default_if_none:'' }}
-                </td>
-                <!--display additional options only if today-->
-                {% if log.date == today %}
-                <td>
+                    {{ log.comment|truncatechars:5|default_if_none:'' }}
                     <span class="edit-icon"
                           onclick="location.href='{% url 'edit_log' pk=log.cycle.id log_pk=log.id %}'"><i
                             class="fa-solid fa-pen"></i></span>
@@ -180,9 +177,11 @@
                             class="fa-solid fa-recycle"></i></span>
                 </td>
                 {% else %}
-                <td></td>
+                <td class="log-cell" style="font-size: 10px; text-align: left;"
+                    {% if log.comment %}title="{{ log.comment }}" {% endif %}>
+                    {{ log.comment|truncatechars:10|default_if_none:'' }}
+                </td>
                 {% endif %}
-
             </tr>
 
             {% endfor %}
