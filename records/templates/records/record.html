@@ -169,12 +169,15 @@
                 <td class="log-cell" style="font-size: 10px; text-align: left;"
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {{ log.comment|truncatechars:5|default_if_none:'' }}
+                    {% if log.comment %}
+                    |
+                    {% endif %}
                     <span class="edit-icon"
                           onclick="location.href='{% url 'edit_log' pk=log.cycle.id log_pk=log.id %}'"><i
                             class="fa-solid fa-pen"></i></span>
                     <span class="delete-icon"
                           onclick="if(confirm('Are you sure you want to delete day {{ log.get_day_in_cycle }} | {{ log.phase }} log?')) { window.location.href = '{% url 'delete_log' pk=log.cycle.id log_pk=log.id %}'; } else { return false; }"><i
-                            class="fa-solid fa-recycle"></i></span>
+                            class="fa-regular fa-circle-xmark"></i></span>
                 </td>
                 {% else %}
                 <td class="log-cell" style="font-size: 10px; text-align: left;"
@@ -204,6 +207,10 @@
 <i class="fa-solid fa-circle-half-stroke"></i>
 <i class="fa-solid fa-circle"></i>
 <i class="fa-duotone fa-circle-three-quarters-stroke"></i>
+<i class="fa-regular fa-circle-xmark"></i>
+<i class="fa-solid fa-xmark"></i>
+<i class="fa-solid fa-xmark-large"></i>
+
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
