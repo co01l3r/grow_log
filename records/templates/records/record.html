@@ -153,15 +153,15 @@
                 ">
                     {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                 </td>
-
+                <!--display 'temperature_night' in color based on temperature-->
                 <td class="
                     {% if log.temperature_night is not none %}
                         {% if log.temperature_night < 18 %} temp-low {% endif %}
+                        {% if log.temperature_night > 25 %} temp-high {% endif %}
                     {% endif %}
                 ">
                 {{ log.temperature_night|default_if_none:''|floatformat:1 }}
                 </td>
-
                 <td>{{ log.humidity_day|default_if_none:'' }}</td>
                 <td>{{ log.humidity_night|default_if_none:'' }}</td>
                 <!--display 'ph' in color based on acidic/alkaline chart-->
