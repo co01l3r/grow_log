@@ -358,7 +358,7 @@ tr:nth-child(2) td[colspan="2"] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 9999;
@@ -595,36 +595,37 @@ section{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 
-/* ph */
+/* colors for ph ranges */
 .ph-color-red {
-  color: red;
+  background-color: red;
 }
 
 .ph-color-orange {
-  color: orange;
+  background-color: orange;
 }
 
 .ph-color-yellow {
-  color: yellow;
+  background-color: yellow;
+  color: black;
 }
 
 .ph-color-green {
-  color: green;
+  background-color: green;
 }
 
 .ph-color-blue {
-  color: blue;
+  background-color: blue;
 }
 
 .ph-color-indigo {
-  color: indigo;
+  background-color: indigo;
 }
 
 .ph-color-violet {
-  color: violet;
+  background-color: violet;
 }
 
-/* ec */
+/* colors for ec ranges */
 .ec-low {
   color: yellow;
 }
@@ -647,4 +648,16 @@ section{
 
 .ec-extreme {
   color: purple;
+}
+
+/* Colors for temperature ranges */
+.temp-low {
+  color: blue;
+}
+
+.temp-normal {
+}
+
+.temp-high {
+  color: red;
 }
