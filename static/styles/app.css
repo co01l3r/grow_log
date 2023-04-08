@@ -640,6 +640,20 @@ text-decoration: underline;
   color: darkred;
 }
 
+.hum-low {
+  color: lightblue;
+}
+
+.hum-high {
+  color: darkred;
+}
+
+.hum-danger {
+  background-color: red;
+  color: yellow;
+  font-weight: bold;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body{
   background: -webkit-linear-gradient(left, #25c481, #25b7c4);
