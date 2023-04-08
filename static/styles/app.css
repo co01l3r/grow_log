@@ -595,6 +595,7 @@ section{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 
+/* ph */
 .ph-color-red {
   color: red;
 }
@@ -621,4 +622,29 @@ section{
 
 .ph-color-violet {
   color: violet;
+}
+
+/* ec */
+.ec-low {
+  color: yellow;
+}
+
+.ec-moderate {
+  color: lightgreen;
+}
+
+.ec-mid-high {
+  color: blue;
+}
+
+.ec-high {
+  color: green;
+}
+
+.ec-very-high {
+  color: darkblue;
+}
+
+.ec-extreme {
+  color: purple;
 }
