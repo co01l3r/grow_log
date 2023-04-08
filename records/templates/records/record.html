@@ -83,8 +83,8 @@
         </table>
     </div>
 
-    <div class="tbl-content">
-        <table cellpadding="0" cellspacing="0" border="0">
+    <div id="record-content-div" class="tbl-content">
+        <table id="record-content-table" cellpadding="0" cellspacing="0" border="0">
             <tbody>
             {% for log in cycle.logs.all %}
 
@@ -103,6 +103,7 @@
                     {{ log.get_day_in_cycle }}
                     ({{ log.get_phase_day_in_cycle }})
                     {% endif %}
+
                     {% if log.phase == "seedling" %}
                     <i class="fa-solid fa-seedling"></i>
                     {% elif log.phase == "vegetative" %}
@@ -120,8 +121,9 @@
                     {{ log.get_day_in_cycle }}
                     ({{ log.get_phase_day_in_cycle }})
                     {% endif %}
+                    
                     {% if log.phase == "seedling" %}
-                    <i class="fa-solid fa-circle"></i>
+                    <i class="fa-solid fa-seedling"></i>
                     {% elif log.phase == "vegetative" %}
                     <i class="fa-solid fa-circle"></i>
                     {% elif log.phase == "bloom" %}
@@ -198,7 +200,7 @@
             {% endfor %}
             </tbody>
         </table>
-<button class="create-log-btn" onclick="create_log('{{ cycle.pk }}')">Add</button>
+<button id="add-row-btn" class="create-log-btn" onclick="create_log('{{ cycle.pk }}')">Add</button>
 </section>
 
 {% if avg_day_temp %}
