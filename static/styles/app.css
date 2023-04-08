@@ -640,6 +640,12 @@ text-decoration: underline;
   color: darkred;
 }
 
+.temp-danger {
+  background-color: red;
+  color: yellow;
+  font-weight: bold;
+}
+
 .hum-low {
   color: lightblue;
 }
