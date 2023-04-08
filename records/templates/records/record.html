@@ -121,7 +121,7 @@
                     {{ log.get_day_in_cycle }}
                     ({{ log.get_phase_day_in_cycle }})
                     {% endif %}
-                    
+
                     {% if log.phase == "seedling" %}
                     <i class="fa-solid fa-seedling"></i>
                     {% elif log.phase == "vegetative" %}
@@ -135,9 +135,20 @@
                 <td>{{ log.temperature_night|default_if_none:''|floatformat:1 }}</td>
                 <td>{{ log.humidity_day|default_if_none:'' }}</td>
                 <td>{{ log.humidity_night|default_if_none:'' }}</td>
-                <td>{{ log.ph|default_if_none:'' }}</td>
-                <td>{{ log.ec|default_if_none:'' }}</td>
-                <td>{{ log.light_height|default_if_none:'' }}</td>
+                <!--display 'ph' in color base on acidic/alkaline chart-->
+                <td class="
+                    {% if log.ph is not none %}
+                        {% if log.ph < 2 %} ph-color-red {% endif %}
+                        {% if log.ph >= 2 and log.ph < 4 %} ph-color-orange {% endif %}
+                        {% if log.ph >= 4 and log.ph < 5.5 %} ph-color-yellow {% endif %}
+                        {% if log.ph >= 5.5 and log.ph < 7 %} ph-color-green {% endif %}
+                        {% if log.ph >= 7 and log.ph < 8.5 %} ph-color-blue {% endif %}
+                        {% if log.ph >= 8.5 and log.ph < 10 %} ph-color-indigo {% endif %}
+                        {% if log.ph >= 10 %} ph-color-violet {% endif %}
+                        {% endif %}
+                    ">
+                    {{ log.ph|default_if_none:'' }}
+                </td>
                 <!--display 'light_power' graphically-->
                 {% if log.light_power == 25 %}
                 <td><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
