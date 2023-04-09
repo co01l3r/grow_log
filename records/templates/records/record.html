@@ -204,9 +204,9 @@
                 <td class="
                     {% if log.ec is not none %}
                         {% if log.ec < 0.8 %} ec-low {% endif %}
-                        {% if log.ec >= 0.8 and log.ec < 1.3 %} ec-moderate {% endif %}
-                        {% if log.ec >= 1.3 and log.ec < 1.5 %} ec-mid-high {% endif %}
-                        {% if log.ec >= 1.5 and log.ec < 1.7 %} ec-high {% endif %}
+                        {% if log.ec >= 0.8 and log.ec < 1.2 %} ec-moderate {% endif %}
+                        {% if log.ec >= 1.2 and log.ec < 1.4 %} ec-mid-high {% endif %}
+                        {% if log.ec >= 1.4 and log.ec < 1.7 %} ec-high {% endif %}
                         {% if log.ec >= 1.7 and log.ec < 2.0 %} ec-very-high {% endif %}
                         {% if log.ec >= 2.0 %} ec-extreme {% endif %}
                        {% endif %}"
