@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 import uuid
 
 from django.db import models
@@ -124,6 +124,10 @@ class Log(models.Model):
             'date',
             'id',
         ]
+
+    # def increment_field(self, field: str, increment: Union[int, float]) -> None:
+    #     setattr(self, field, getattr(self, field) + increment)
+    #     self.save()
 
     def get_day_in_cycle(self) -> int:
         all_logs: models.QuerySet = Log.objects.filter(cycle=self.cycle).order_by('date', 'id')

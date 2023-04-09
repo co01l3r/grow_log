@@ -136,21 +136,21 @@
                     {% if log.temperature_day is not none %}
                         {% if log.phase == 'seedling' %}
                             {% if log.temperature_day < 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 25 %} temp-normal {% endif %}
-                            {% if log.temperature_day > 25 and log.temperature_day <= 32 %} temp-high {% endif %}
-                            {% if log.temperature_day >= 32 %} temp-danger {% endif %}
+                            {% if log.temperature_day >= 20 and log.temperature_day <= 24 %} temp-ideal {% endif %}
+                            {% if log.temperature_day > 24 and log.temperature_day <= 32 %} temp-high {% endif %}
+                            {% if log.temperature_day >= 28 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'vegetative' %}
                             {% if log.temperature_day < 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 30 %} temp-normal {% endif %}
-                            {% if log.temperature_day > 25 and log.temperature_day <= 32 %} temp-high {% endif %}
+                            {% if log.temperature_day >= 20 and log.temperature_day <= 30 %} temp-ideal {% endif %}
+                            {% if log.temperature_day > 26 and log.temperature_day <= 32 %} temp-high {% endif %}
                             {% if log.temperature_day >= 32 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'bloom' %}
                             {% if log.temperature_day < 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 18 and log.temperature_day <= 27 %} temp-normal {% endif %}
+                            {% if log.temperature_day >= 20 and log.temperature_day <= 27 %} temp-ideal {% endif %}
                             {% if log.temperature_day > 25 and log.temperature_day <= 32 %} temp-high {% endif %}
-                            {% if log.temperature_day >= 32 %} temp-danger {% endif %}
+                            {% if log.temperature_day >= 30 %} temp-danger {% endif %}
                         {% endif %}
                     {% endif %}
                 ">
@@ -255,8 +255,8 @@
                 {% if log.date == today %}
                 <td class="comment-cell"
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
-                    {{ log.comment|truncatechars:5|default_if_none:'' }}
                     {% if log.comment %}
+                    {{ log.comment|truncatechars:5|default_if_none:'' }}
                     |
                     {% endif %}
                     <span class="edit-icon"
