@@ -511,7 +511,12 @@ tr:nth-child(2) td[colspan="2"] {
     font-size: 2px;
 }
 
-.log-cell[title]:hover:after {
+.comment-cell {
+    font-size: 10px;
+    text-align: left;
+}
+
+.comment-cell[title]:hover:after {
     content: attr(title);
     display: block;
     position: absolute;

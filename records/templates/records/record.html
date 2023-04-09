@@ -157,6 +157,7 @@
                     <button onclick="incrementValue({{ log.id }}, {{ cycle.pk }})">+</button>
                     <span id="temperature{{ log.id }}">{{ log.temperature_day|default_if_none:''|floatformat:1 }}</span>
                     <!--display 'temperature_night' in color based on value-->
+                </td>
                 <td class="
                     {% if log.temperature_night is not none %}
                         {% if log.temperature_night < 18 %} temp-low {% endif %}
@@ -252,7 +253,7 @@
                 {% endif %}
                 <!--display additional options only if today in 'note' column besides comment-->
                 {% if log.date == today %}
-                <td class="log-cell" style="font-size: 10px; text-align: left;"
+                <td class="comment-cell"
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {{ log.comment|truncatechars:5|default_if_none:'' }}
                     {% if log.comment %}
@@ -266,7 +267,7 @@
                             class="fa-regular fa-circle-xmark"></i></span>
                 </td>
                 {% else %}
-                <td class="log-cell" style="font-size: 10px; text-align: left;"
+                <td class="comment-cell"
                     {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {{ log.comment|truncatechars:10|default_if_none:'' }}
                 </td>
@@ -278,7 +279,7 @@
         </table>
 <button id="add-row-btn" class="create-log-btn" onclick="create_log('{{ cycle.pk }}')">Add</button>
 </section>
-
+<!--playground area-->
 {% if avg_day_temp %}
 <p>Average day temperature in veg phase: {{ avg_day_temp|floatformat:2 }}</p>
 {% else %}
