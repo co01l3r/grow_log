@@ -36,9 +36,7 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
     """
     A view that retrieves a single Cycle object from the database based on the
     given primary key (pk), along with any related Log objects, and renders
-    them in the 'records/record.html' template. This view also sets the 'day_in_cycle'
-    attribute of each Log object in the queryset to its corresponding day in the Cycle
-    using the 'get_day_in_cycle()' method of the Log model, same for get_phase_day_in_cycle().
+    them in the 'records/record.html' template.
 
     Parameters:
         request (HttpRequest):
@@ -58,10 +56,6 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
     cycle = get_object_or_404(Cycle, id=pk)
     logs = Log.objects.filter(cycle=cycle)
     today = date.today()
-
-    for log in logs:
-        log.day_in_cycle = log.get_day_in_cycle()
-        log.phase_day_in_cycle = log.get_phase_day_in_cycle()
 
     context = {'cycle': cycle, 'logs': logs, 'today': today}
     return render(request, 'records/record.html', context)
