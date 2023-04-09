@@ -111,7 +111,7 @@
                     {% elif log.phase == "bloom" %}
                     <i class="fa-solid fa-circle-half-stroke"></i>
                     {% endif %}
-                    <div class="online-icon"></div>
+                    <div class="online-icon"> </div>
                 </td>
                 {% else %}
                 <td style="text-align: left;">
@@ -154,8 +154,8 @@
                         {% endif %}
                     {% endif %}
                 ">
-                    <span id="temperature{{ log.id }}">{{ log.temperature_day|default_if_none:''|floatformat:1 }}</span>
                     <button onclick="incrementValue({{ log.id }}, {{ cycle.pk }})">+</button>
+                    <span id="temperature{{ log.id }}">{{ log.temperature_day|default_if_none:''|floatformat:1 }}</span>
                     <!--display 'temperature_night' in color based on value-->
                 <td class="
                     {% if log.temperature_night is not none %}
