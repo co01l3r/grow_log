@@ -226,8 +226,8 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 
     Returns:
         If the request method is 'POST' and the form is invalid, an error message is returned.
-        Otherwise, if the request method is 'POST' and the form is valid, the log record is updated and a redirect to the record view is returned.
-        Otherwise, if the request method is 'GET', the edit log form is displayed.
+        Otherwise, if the request method is 'POST' and the form is valid, the log record is updated and a redirect
+        to the record view is returned. Otherwise, if the request method is 'GET', the edit log form is displayed.
     """
     cycle = get_object_or_404(Cycle, pk=pk)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
