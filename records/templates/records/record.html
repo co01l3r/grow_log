@@ -34,6 +34,7 @@
             <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
             {% endif %}
             <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
+            <!--display buttons for additional options to manipulate the 'Cycle' data-->
             <th><span class="edit-icon" data-href="{% url 'edit_record' cycle.pk %}"
                       onclick="window.open(this.getAttribute('data-href'), '_self')"><i
                     class="fa-solid fa-pen"></i></span></th>
@@ -137,7 +138,7 @@
                         {% if log.phase == 'seedling' %}
                             {% if log.temperature_day < 18 %} temp-low {% endif %}
                             {% if log.temperature_day >= 20 and log.temperature_day <= 24 %} temp-ideal {% endif %}
-                            {% if log.temperature_day > 24 and log.temperature_day <= 32 %} temp-high {% endif %}
+                            {% if log.temperature_day > 24 and log.temperature_day <= 27 %} temp-high {% endif %}
                             {% if log.temperature_day >= 28 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'vegetative' %}
@@ -162,7 +163,7 @@
                     {% if log.temperature_night is not none %}
                         {% if log.temperature_night < 18 %} temp-low {% endif %}
                         {% if log.temperature_night > 25 %} temp-high {% endif %}
-                        {% if log.temperature_night >= 32 %} temp-danger {% endif %}
+                        {% if log.temperature_night >= 28 %} temp-danger {% endif %}
                     {% endif %}
                 ">
                     {{ log.temperature_night|default_if_none:''|floatformat:1 }}
@@ -253,8 +254,7 @@
                 {% endif %}
                 <!--display additional options only if today in 'note' column besides comment-->
                 {% if log.date == today %}
-                <td class="comment-cell"
-                    {% if log.comment %}title="{{ log.comment }}" {% endif %}>
+                <td class="comment-cell" {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {% if log.comment %}
                     {{ log.comment|truncatechars:5|default_if_none:'' }}
                     |
@@ -267,8 +267,7 @@
                             class="fa-regular fa-circle-xmark"></i></span>
                 </td>
                 {% else %}
-                <td class="comment-cell"
-                    {% if log.comment %}title="{{ log.comment }}" {% endif %}>
+                <td class="comment-cell"{% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {{ log.comment|truncatechars:10|default_if_none:'' }}
                 </td>
                 {% endif %}
