@@ -143,15 +143,15 @@
                         {% endif %}
                         {% if log.phase == 'vegetative' %}
                             {% if log.temperature_day < 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 30 %} temp-ideal {% endif %}
-                            {% if log.temperature_day > 26 and log.temperature_day <= 32 %} temp-high {% endif %}
-                            {% if log.temperature_day >= 32 %} temp-danger {% endif %}
+                            {% if log.temperature_day >= 20 and log.temperature_day <= 27 %} temp-ideal {% endif %}
+                            {% if log.temperature_day > 27 and log.temperature_day <= 30 %} temp-high {% endif %}
+                            {% if log.temperature_day > 30 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'bloom' %}
                             {% if log.temperature_day < 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 27 %} temp-ideal {% endif %}
-                            {% if log.temperature_day > 25 and log.temperature_day <= 32 %} temp-high {% endif %}
-                            {% if log.temperature_day >= 30 %} temp-danger {% endif %}
+                            {% if log.temperature_day >= 20 and log.temperature_day <= 26 %} temp-ideal {% endif %}
+                            {% if log.temperature_day > 26 and log.temperature_day <= 28 %} temp-high {% endif %}
+                            {% if log.temperature_day >= 28 %} temp-danger {% endif %}
                         {% endif %}
                     {% endif %}
                 ">
@@ -162,7 +162,7 @@
                 <td class="
                     {% if log.temperature_night is not none %}
                         {% if log.temperature_night < 18 %} temp-low {% endif %}
-                        {% if log.temperature_night > 25 %} temp-high {% endif %}
+                        {% if log.temperature_night >= 25 %} temp-high {% endif %}
                         {% if log.temperature_night >= 28 %} temp-danger {% endif %}
                     {% endif %}
                 ">
