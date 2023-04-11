@@ -125,10 +125,6 @@ class Log(models.Model):
             'id',
         ]
 
-    # def increment_field(self, field: str, increment: Union[int, float]) -> None:
-    #     setattr(self, field, getattr(self, field) + increment)
-    #     self.save()
-
     def get_day_in_cycle(self) -> int:
         all_logs: models.QuerySet = Log.objects.filter(cycle=self.cycle).order_by('date', 'id')
         day_in_cycle: int = list(all_logs).index(self) + 1
