@@ -4,30 +4,25 @@
 <body>
 {% block content %}
 <section>
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="form__field">
-              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-              {{ field }}
-            </div>
-        {% endfor %}
-        <div class="form-group">
-          {% if request.resolver_match.url_name == 'create_nutrient_log' %}
-          <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-primary">Update</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form__field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
           </div>
-          {% else %}
+          {% endfor %}
+          {% if request.resolver_match.url_name == 'create_nutrient_log' %}
+
           <button type="submit" class="btn btn-primary">Create</button>
-        {% endif %}
-        </div>
-      </form>
+          {% endif %}
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </section>
 {% endblock %}
 </body>

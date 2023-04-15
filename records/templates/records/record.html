@@ -265,7 +265,8 @@
                 </td>
                 {% elif not log.nutrient_logs.exists and log.date == today %}
                 <td style="text-align: center; vertical-align: middle;">
-                    <button class="plus-btn" style="margin: auto; margin-bottom: 4px">
+                    <button class="plus-btn" style="margin: auto; margin-bottom: 4px"
+                            onclick="location.href='{% url 'create_nutrient_log' pk=log.cycle.pk log_pk=log.pk %}'">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </td>
