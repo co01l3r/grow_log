@@ -259,13 +259,13 @@
                         Show
                     </button>
                     <button class="plus-btn" style="margin: auto; margin-bottom: 4px">
-                        +
+                        <i class="fa-solid fa-plus"></i>
                     </button>
                 </td>
                 {% elif not log.nutrient_logs.exists and log.date == today %}
                 <td style="text-align: center; vertical-align: middle;">
                     <button class="plus-btn" style="margin: auto; margin-bottom: 4px">
-                        +
+                        <i class="fa-solid fa-plus"></i>
                     </button>
                 </td>
                 {% else %}
@@ -319,6 +319,7 @@
 <i class="fa-solid fa-eye-slash"></i>
 <i class="fa-solid fa-camera"></i>
 <i class="fa-solid fa-recycle"></i>
+<i class="fa-solid fa-plus"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
