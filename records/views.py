@@ -2,10 +2,10 @@ from datetime import date
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse
+from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse, JsonResponse
 
 from .models import Cycle, Log, Nutrient, NutrientLog
-from .forms import CycleForm, LogForm
+from .forms import CycleForm, LogForm, NutrientLogForm
 from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 
 
@@ -229,7 +229,7 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
         Otherwise, if the request method is 'POST' and the form is valid, the log record is updated and a redirect
         to the record view is returned. Otherwise, if the request method is 'GET', the edit log form is displayed.
     """
-    cycle = get_object_or_404(Cycle, pk=pk)
+    cycle = get_object_or_404(Cycle)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
     form = LogForm(request.POST or None, instance=log)
 
@@ -280,6 +280,25 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 
 # nutrient views
 # nutrientLog views
+def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
+    cycle = get_object_or_404(Cycle, pk=pk)
+    log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+
+    if request.method == 'POST':
+        form = NutrientLogForm(request.POST)
+        if form.is_valid():
+            nutrient_log = form.save(commit=False)
+            nutrient_log.log = log
+            nutrient_log.save()
+            messages.success(request, 'Nutrient log created successfully')
+            return redirect('record', pk=pk)
+    else:
+        form = NutrientLogForm()
+
+    context = {'form': form, 'cycle': cycle}
+    return render(request, 'records/nutrient_log_form.html', context)
+
+
 # other views
 def phase_summary(request, pk):
     # TODO: tests or delete it

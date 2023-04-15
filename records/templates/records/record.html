@@ -244,7 +244,7 @@
                 {% endif %}
                 <td>{{ log.water|default_if_none:'' }}</td>
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
-                <!--display 'nutrient_log' for Cycle as interactive button if exists or as + button if not-->
+                <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->
                 {% if log.nutrient_logs.exists and not log.date == today %}
                 <td style="text-align: center; vertical-align: middle;">
                     <button class="recipe-btn" style="margin: auto; margin-bottom: 4px"
@@ -258,7 +258,8 @@
                             onclick="openRecipeWindow('{% for nutrient_log in log.nutrient_logs.all %}<span class={{ nutrient_log.nutrient.nutrient_type|lower }}>{{ nutrient_log.nutrient.name }} - {{ nutrient_log.concentration|default_if_none:'' }}</span>{% if not forloop.last %}<br>{% endif %}{% endfor %}')">
                         Show
                     </button>
-                    <button class="plus-btn" style="margin: auto; margin-bottom: 4px">
+                    <button class="plus-btn" style="margin: auto; margin-bottom: 4px"
+                            onclick="location.href='{% url 'create_nutrient_log' pk=log.cycle.pk log_pk=log.pk %}'">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </td>

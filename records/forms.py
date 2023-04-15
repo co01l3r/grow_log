@@ -68,5 +68,15 @@ class LogForm(forms.ModelForm):
         self.fields['light_power'].widget.attrs.update({'class': 'form-control'})
         self.fields['calibration'].widget.attrs.update({'class': 'form-check-input'})
 
+
 # nutrient modelForm
 # nutrientLog modelForm
+class NutrientLogForm(forms.ModelForm):
+    class Meta:
+        model = NutrientLog
+        fields = ['nutrient', 'concentration']
+
+    def __init__(self, *args: tuple, **kwargs: dict) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['nutrient'].widget.attrs.update({'class': 'form-control'})
+        self.fields['concentration'].widget.attrs.update({'class': 'form-control'})
