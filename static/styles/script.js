@@ -40,15 +40,15 @@ function create_log(pk) {
     window.location.href = url;
 }
 
-function incrementValue(logID) {
-  console.log("Log ID:", logID);
-
-  var temperatureElement = document.getElementById("temperature" + logID);
-  console.log("Temperature element:", temperatureElement);
-
-  var temperatureValue = parseFloat(temperatureElement.innerText);
-  console.log("Temperature value:", temperatureValue);
-
-  temperatureElement.innerText = (temperatureValue + 1).toFixed(1);
-  console.log("New temperature value:", temperatureElement.innerText);
-}
+// function incrementValue(logID) {
+//   console.log("Log ID:", logID);
+//
+//   var temperatureElement = document.getElementById("temperature" + logID);
+//   console.log("Temperature element:", temperatureElement);
+//
+//   var temperatureValue = parseFloat(temperatureElement.innerText);
+//   console.log("Temperature value:", temperatureValue);
+//
+//   temperatureElement.innerText = (temperatureValue + 1).toFixed(1);
+//   console.log("New temperature value:", temperatureElement.innerText);
+// }
