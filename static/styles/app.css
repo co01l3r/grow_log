@@ -456,6 +456,29 @@ tr:nth-child(2) td[colspan="2"] {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
+.recipe-btn-3-4 {
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 4px;
+    width: 52.5px; /* 3/4 of 70px */
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    background-color: rgba(37, 196, 129, 0.8);
+    cursor: pointer;
+}
+
+.recipe-btn-3-4:hover {
+    background-color: rgba(32, 140, 110, 0.8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
 /* messages */
 .messages {
     display: flex;
@@ -553,6 +576,29 @@ tr:nth-child(2) td[colspan="2"] {
 .help-icon:hover {
     color: green;
     cursor: help;
+}
+
+.plus-btn {
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 4px;
+    width: 17.5px; /* 1/4 of 70px */
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    background-color: rgba(37, 196, 129, 0.8);
+    cursor: pointer;
+}
+
+.plus-btn:hover {
+    background-color: rgba(32, 140, 110, 0.8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* nutrient type color representation */
