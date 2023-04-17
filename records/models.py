@@ -20,6 +20,10 @@ class Cycle(models.Model):
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
         name (CharField): The name given to the cycle, a string value up to 80 characters.
 
+    Meta:
+        ordering (List): A list of strings representing the fields to order the results by. The results will be
+        reverse ordered the first by date, then by id.
+
     Methods:
         __str__ (str): Returns a string representation of the cycle object. Formatted as "[name or genetics] - Q[quarter]/[year]".
     """
@@ -41,6 +45,12 @@ class Cycle(models.Model):
     seed_type = models.CharField(max_length=30, blank=True, null=True, choices=SEED_TYPE_CHOICES)
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
+
+    class Meta:
+        ordering: List = [
+            '-date',
+            '-id',
+        ]
 
     def __str__(self) -> str:
         quarter: str = "Q" + str((self.date.month - 1) // 3 + 1)
@@ -155,6 +165,10 @@ class Nutrient(models.Model):
         featured_image (ImageField): An image representing the nutrient.
         detail (TextField): Additional details about the nutrient.
 
+    Meta:
+        ordering (List): A list of strings representing the fields to order the results by. The results will be ordered
+                         the first by brand, then by nutrient_type, then by name.
+
     Methods:
         __str__ (str): Returns the name of the nutrient as a string.
 
@@ -196,7 +210,8 @@ class NutrientLog(models.Model):
 
     Meta:
         ordering (List): A list of strings representing the fields to order the results by. The results will be ordered
-                          by the `nutrient__nutrient_type` field.
+                         the first by medium_conditioner, then by base_line, then by root_expander,
+                         then by bud_strengthener, then by bud_enlarger, then by bud_taste.
 
     Methods:
         save(*args, **kwargs): Overrides the default save method. If a `NutrientLog` already exists for the same `Log`
