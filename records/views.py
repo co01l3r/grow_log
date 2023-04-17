@@ -2,7 +2,7 @@ from datetime import date
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseBadRequest, HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, JsonResponse
 
 from .models import Cycle, Log, Nutrient, NutrientLog
 from .forms import CycleForm, LogForm, NutrientLogForm
@@ -280,9 +280,11 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 
 # nutrient views
 # nutrientLog views
+
 def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
     cycle = get_object_or_404(Cycle, pk=pk)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+    existing_nutrient_logs = log.nutrient_logs.all()
 
     if request.method == 'POST':
         form = NutrientLogForm(request.POST)
@@ -291,11 +293,11 @@ def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpRespo
             nutrient_log.log = log
             nutrient_log.save()
             messages.success(request, 'Nutrient log created successfully')
-            return redirect('record', pk=pk)
+            return HttpResponseRedirect(request.path_info)
     else:
         form = NutrientLogForm()
 
-    context = {'form': form, 'cycle': cycle}
+    context = {'form': form, 'cycle': cycle, 'existing_nutrient_logs': existing_nutrient_logs}
     return render(request, 'records/nutrient_log_form.html', context)
 
 

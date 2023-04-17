@@ -4,25 +4,62 @@
 <body>
 {% block content %}
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {% for field in form %}
-          <div class="form__field">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-          </div>
-          {% endfor %}
-          {% if request.resolver_match.url_name == 'create_nutrient_log' %}
 
-          <button type="submit" class="btn btn-primary">Create</button>
-          {% endif %}
-        </form>
-      </div>
+    {% if existing_nutrient_logs %}
+    <h2>Existing Recipe</h2>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Concentration</th>
+                <th></th>
+            </tr>
+            </thead>
+        </table>
     </div>
-  </div>
+
+    <div>
+        <table id="record-content-table" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+            {% for nutrient_log in existing_nutrient_logs %}
+            <tr>
+                <td><span class={{ nutrient_log.nutrient.nutrient_type|lower }}>{{ nutrient_log.nutrient.name }}</td>
+                <td>{{ nutrient_log.nutrient.brand|title }}</td>
+                <td>{{ nutrient_log.concentration }}</td>
+                <td><i class="fa-regular fa-circle-xmark"></i></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    <br>
+    <h2>Add</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form__field">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    {% if request.resolver_match.url_name == 'create_nutrient_log' %}
+                    <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-danger" onclick="window.history.back()"><</button>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    </button>
+            </div>
+            {% endif %}
+            </form>
+        </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
 </body>
