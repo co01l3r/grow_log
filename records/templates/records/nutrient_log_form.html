@@ -25,7 +25,7 @@
             <tbody>
             {% for nutrient_log in existing_nutrient_logs %}
             <tr>
-                <td><span class={{ nutrient_log.nutrient.nutrient_type|lower }}>{{ nutrient_log.nutrient.name }}</td>
+                <td><span class="{{ nutrient_log.nutrient.nutrient_type|lower }}">{{ nutrient_log.nutrient.name }}</td>
                 <td>{{ nutrient_log.nutrient.brand|title }}</td>
                 <td>{{ nutrient_log.concentration }}</td>
                 <td><i class="fa-regular fa-circle-xmark"></i></td>
