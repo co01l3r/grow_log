@@ -163,7 +163,7 @@ class Nutrient(models.Model):
         ('medium_conditioner', 'Medium conditioner'),
         ('base_line', 'Base'),
         ('root_expander', 'Root expander'),
-        ('bud_strengthener', 'Bud strengthener'),
+        ('bud_strengthener', 'Strengthener'),
         ('bud_enlarger', 'Bud enlarger'),
         ('bud_taste', 'Bud taste'),
     ]
@@ -172,6 +172,13 @@ class Nutrient(models.Model):
     nutrient_type = models.CharField(max_length=18, blank=True, null=True, choices=NUTRIENT_TYPE_CHOICES)
     featured_image = models.ImageField(null=True, blank=True, default="default_fertilizer.jpg")
     detail = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering: List = [
+            'brand',
+            'nutrient_type',
+            'name',
+        ]
 
     def __str__(self) -> str:
         return self.name
@@ -203,7 +210,16 @@ class NutrientLog(models.Model):
     concentration = models.IntegerField()
 
     class Meta:
-        ordering: List = ['nutrient__nutrient_type']
+        ordering: List = [
+            Case(
+                When(nutrient__nutrient_type='medium_conditioner', then=Value(1)),
+                When(nutrient__nutrient_type='base_line', then=Value(2)),
+                When(nutrient__nutrient_type='root_expander', then=Value(3)),
+                When(nutrient__nutrient_type='bud_strengthener', then=Value(4)),
+                When(nutrient__nutrient_type='bud_enlarger', then=Value(5)),
+                When(nutrient__nutrient_type='bud_taste', then=Value(6)),
+            ),
+        ]
 
     def __str__(self) -> str:
         return f"{self.nutrient} - {self.concentration}"
