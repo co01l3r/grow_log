@@ -36,10 +36,10 @@
     </div>
     {% endif %}
     <br>
-    <h2>Add</h2>
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
+                    <h2>Add</h2>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
@@ -50,9 +50,13 @@
                     {% endfor %}
                     {% if request.resolver_match.url_name == 'create_nutrient_log' %}
                     <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-danger" onclick="window.history.back()"><</button>
+                    <button type="button" class="btn btn-danger" onclick="window.history.back()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
                     <br>
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                     </button>
             </div>
             {% endif %}
