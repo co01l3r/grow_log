@@ -1,4 +1,4 @@
-from typing import List, Tuple, Union
+from typing import List, Tuple, Any
 import uuid
 
 from django.db import models
@@ -144,6 +144,13 @@ class Log(models.Model):
         logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
         day_in_phase: int = list(logs_of_same_phase).index(self) + 1
         return int(day_in_phase)
+
+    def get_previous_value(self, field_name: str) -> Any:
+        previous_log = Log.objects.filter(cycle=self.cycle, id__lt=self.id).order_by('-id').first()
+        if previous_log:
+            return getattr(previous_log, field_name)
+        else:
+            return None
 
     def __str__(self) -> str:
         day_in_cycle = self.get_day_in_cycle()

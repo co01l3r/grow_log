@@ -137,21 +137,21 @@
                     {% if log.temperature_day is not none %}
                         {% if log.phase == 'seedling' %}
                             {% if log.temperature_day <= 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 24 %} temp-ideal {% endif %}
-                            {% if log.temperature_day >= 25 and log.temperature_day <= 27 %} temp-high {% endif %}
-                            {% if log.temperature_day >= 28 %} temp-danger {% endif %}
+                            {% if log.temperature_day >= 22 and log.temperature_day <= 25 %} temp-ideal {% endif %}
+                            {% if log.temperature_day >= 26 and log.temperature_day <= 28 %} temp-high {% endif %}
+                            {% if log.temperature_day > 28 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'vegetative' %}
                             {% if log.temperature_day <= 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 27 %} temp-ideal {% endif %}
-                            {% if log.temperature_day > 27 and log.temperature_day <= 30 %} temp-high {% endif %}
+                            {% if log.temperature_day >= 22 and log.temperature_day <= 28 %} temp-ideal {% endif %}
+                            {% if log.temperature_day > 28 and log.temperature_day <= 30 %} temp-high {% endif %}
                             {% if log.temperature_day > 30 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'bloom' %}
                             {% if log.temperature_day <= 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 20 and log.temperature_day <= 26 %} temp-ideal {% endif %}
+                            {% if log.temperature_day >= 22 and log.temperature_day <= 26 %} temp-ideal {% endif %}
                             {% if log.temperature_day > 26 and log.temperature_day <= 28 %} temp-high {% endif %}
-                            {% if log.temperature_day >= 28 %} temp-danger {% endif %}
+                            {% if log.temperature_day > 28 %} temp-danger {% endif %}
                         {% endif %}
                     {% endif %}
                 ">
@@ -171,11 +171,11 @@
                 ">
                     {{ log.temperature_night|default_if_none:''|floatformat:1 }}
                 </td>
-                <!--display 'humidity_day' in color based on value-->
+<!--display 'humidity_day' in color based on value-->
                 <td class="
                     {% if log.humidity_day is not none %}
                         {% if log.humidity_day <= 45 %} hum-low {% endif %}
-                        {% if log.humidity_day >= 65 %} hum-high {% endif %}
+                        {% if log.humidity_day >= 68 %} hum-high {% endif %}
                         {% if log.humidity_day >= 75 %} hum-danger {% endif %}
                     {% endif %}
                 ">
@@ -185,7 +185,7 @@
                 <td class="
                     {% if log.humidity_night is not none %}
                         {% if log.humidity_night <= 45 %} hum-low {% endif %}
-                        {% if log.humidity_night >= 65 %} hum-high {% endif %}
+                        {% if log.humidity_night >= 68 %} hum-high {% endif %}
                         {% if log.humidity_night >= 75 %} hum-danger {% endif %}
                     {% endif %}
                 ">
