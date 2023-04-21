@@ -280,7 +280,6 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 
 # nutrient views
 # nutrientLog views
-
 def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
     cycle = get_object_or_404(Cycle, pk=pk)
     log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
