@@ -90,12 +90,12 @@ class Log(models.Model):
         ordering (List): The default ordering for logs, first by phase, then by date, then by id.
 
     Methods:
-        get_day_in_cycle (int):         Returns the day in the cycle.
-        get_phase_day_in_cycle (int):   Returns the day in the phase of cycle.
-        get_previous_log (int):         Returns the previous log object based on the ID of the current log object.
-                                        If no previous logs exist, returns None.
-        __str__ (str):                  Returns name or genetics and day position for the cycle.
-                                        Formatted as "[cycle name or genetics] - [day_in_cycle]".
+        get_day_in_cycle (int):             Returns the day in the cycle.
+        get_phase_day_in_cycle (int):       Returns the day in the phase of cycle.
+        get_previous_log (Optional['Log']): Returns the previous log object based on the ID of the current log object,
+                                            if no previous logs exist, returns None.
+        __str__ (str):                      Returns name or genetics and day position for the cycle.
+                                            Formatted as "[cycle name or genetics] - [day_in_cycle]".
     """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
