@@ -134,7 +134,7 @@
                     {% endif %}
                 </td>
                 {% endif %}
-                <!--display 'temperature_day' in color based on plant phase-->
+                <!--display 'temperature_day' in color based on plant phase and co2 levels-->
                 <td class="
                     {% if log.temperature_day is not none %}
                         {% if log.phase == 'seedling' %}
@@ -152,8 +152,13 @@
                         {% if log.phase == 'bloom' %}
                             {% if log.temperature_day <= 18 %} temp-low {% endif %}
                             {% if log.temperature_day >= 22 and log.temperature_day <= 26 %} temp-ideal {% endif %}
+                                {% if log.carbon_dioxide >= 1500 %}
+                            {% if log.temperature_day > 26 and log.temperature_day <= 35 %} temp-high {% endif %}
+                            {% if log.temperature_day > 35 %} temp-danger {% endif %}
+                                {% else %}
                             {% if log.temperature_day > 26 and log.temperature_day <= 28 %} temp-high {% endif %}
                             {% if log.temperature_day > 28 %} temp-danger {% endif %}
+                                {% endif %}
                         {% endif %}
                     {% endif %}
                 ">
