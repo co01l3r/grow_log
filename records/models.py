@@ -83,7 +83,7 @@ class Log(models.Model):
         light_power (IntegerField): The power of the light during the day, as a percentage.
         calibration (bool): Whether the equipment was calibrated during the day.
         featured_image (ImageField): A photo associated with the log.
-        water (IntegerField): The amount of water given to the plants during the day.
+        carbon_dioxide (IntegerField): The amount of average co2 in the growing area during the day.
         comment (TextField): An optional comment about the day.
 
     Meta:
