@@ -157,10 +157,8 @@
                         {% endif %}
                     {% endif %}
                 ">
-
 <!--                   TODO: -->
 <!--                    <button onclick="incrementValue({{ log.id }}, {{ cycle.pk }})">+</button>-->
-
                     <span id="temperature{{ log.id }}">{{ log.temperature_day|default_if_none:''|floatformat:1 }}</span>
                     <!--display 'temperature_night' in color based on value-->
                 </td>
@@ -296,7 +294,6 @@
                 </td>
                 {% endif %}
             </tr>
-
             {% endfor %}
             </tbody>
         </table>

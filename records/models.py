@@ -1,4 +1,4 @@
-from typing import List, Tuple, Any, Optional
+from typing import List, Tuple
 import uuid
 
 from django.db import models
