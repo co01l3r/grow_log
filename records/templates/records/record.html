@@ -325,7 +325,11 @@
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
-
+{% if previous_log %}
+    <h2>Previous Log:</h2>
+    <p>Temperature Day: {{ previous_log.temperature_day }}</p>
+    <!-- Add other log fields as needed -->
+{% endif %}
 
 
 {% endblock %}
