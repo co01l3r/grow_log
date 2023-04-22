@@ -17,7 +17,7 @@
             "light_power": 75,
             "calibration": false,
             "featured_image": null,
-            "water": 8,
+            "carbon_dioxide": 800,
             "comment": ""
         }
     },
@@ -39,7 +39,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 4,
+            "carbon_dioxide": 400,
             "comment": "All seeds have sprouted"
         }
     },
@@ -61,7 +61,7 @@
             "light_power": 50,
             "calibration": false,
             "featured_image": null,
-            "water": 6,
+            "carbon_dioxide": 600,
             "comment": ""
         }
     },
@@ -83,7 +83,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 2,
+            "carbon_dioxide": 200,
             "comment": ""
         }
     },
@@ -105,7 +105,7 @@
             "light_power": 75,
             "calibration": false,
             "featured_image": null,
-            "water": 4,
+            "carbon_dioxide": 400,
             "comment": ""
         }
     },
@@ -127,7 +127,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 6,
+            "carbon_dioxide": 600,
             "comment": ""
         }
     },
@@ -149,7 +149,7 @@
             "light_power": 50,
             "calibration": false,
             "featured_image": null,
-            "water": 8,
+            "carbon_dioxide": 800,
             "comment": ""
         }
     },
@@ -171,7 +171,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 2,
+            "carbon_dioxide": 200,
             "comment": "Switched to bloom nutrient solution"
         }
     },
@@ -193,7 +193,7 @@
             "light_power": 50,
             "calibration": true,
             "featured_image": null,
-            "water": 100,
+            "carbon_dioxide": 100,
             "comment": "First day of seedling phase"
         }
     },
@@ -215,7 +215,7 @@
             "light_power": 50,
             "calibration": true,
             "featured_image": null,
-            "water": 10,
+            "carbon_dioxide": 100,
             "comment": ""
         }
     },
@@ -237,7 +237,7 @@
             "light_power": 75,
             "calibration": true,
             "featured_image": null,
-            "water": 2,
+            "carbon_dioxide": 200,
             "comment": "First day of vegetative phase"
         }
     },
@@ -259,7 +259,7 @@
             "light_power": 75,
             "calibration": true,
             "featured_image": null,
-            "water": 9,
+            "carbon_dioxide": 900,
             "comment": ""
         }
     },
@@ -281,7 +281,7 @@
             "light_power": 75,
             "calibration": true,
             "featured_image": null,
-            "water": 2,
+            "carbon_dioxide": 200,
             "comment": ""
         }
     },
@@ -303,7 +303,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 6,
+            "carbon_dioxide": 600,
             "comment": ""
         }
     },
@@ -325,7 +325,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 1,
+            "carbon_dioxide": 100,
             "comment": ""
         }
     },
@@ -347,7 +347,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 12,
+            "carbon_dioxide": 1200,
             "comment": "Third day of bloom phase"
         }
     },
@@ -369,7 +369,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 5,
+            "carbon_dioxide": 500,
             "comment": ""
         }
     },
@@ -391,7 +391,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 4,
+            "carbon_dioxide": 400,
             "comment": ""
         }
     },
@@ -413,7 +413,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 6,
+            "carbon_dioxide": 600,
             "comment": ""
         }
     },
@@ -435,7 +435,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 5,
+            "carbon_dioxide": 500,
             "comment": "This is a comment."
         }
     },
@@ -457,7 +457,7 @@
             "light_power": 100,
             "calibration": true,
             "featured_image": null,
-            "water": 7,
+            "carbon_dioxide": 700,
             "comment": ""
         }
     }
