@@ -218,7 +218,18 @@
                 >
                     {{ log.ec|default_if_none:'' }}
                 </td>
+                <!--display 'light_height' changes graphically in comparison to the previous log-->
+                {% if log.get_previous_log.light_height > log.light_height %}
+                <td style="padding-right: 15px;"><i class="fa-solid fa-arrow-down"></i>
+                    {{ log.light_height|default_if_none:'' }}
+                </td>
+                {% elif log.get_previous_log.light_height < log.light_height %}
+                <td style="padding-right: 15px;"><i class="fa-solid fa-arrow-up"></i>
+                    {{ log.light_height|default_if_none:'' }}
+                </td>
+                {% else %}
                 <td>{{ log.light_height|default_if_none:'' }}</td>
+                {% endif %}
                 <!--display 'light_power' graphically-->
                 {% if log.light_power == 25 %}
                 <td><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
@@ -322,9 +333,20 @@
 <i class="fa-solid fa-camera"></i>
 <i class="fa-solid fa-recycle"></i>
 <i class="fa-solid fa-plus"></i>
+<i class="fa-solid fa-arrow-up"></i>
+<i class="fa-solid fa-arrow-down"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
+
+
+{% for log in cycle.logs.all %}
+<tr>
+    <td>height: <td>{{ log.light_height|default_if_none:'' }}</td></td>
+    <br>
+    <td>PREVIOUS: {{ log.get_previous_log.temperature_day|default_if_none:''|floatformat:1 }}</td>
+</tr>
+{% endfor %}
 
 {% endblock %}
 </body>

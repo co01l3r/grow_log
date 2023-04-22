@@ -145,6 +145,12 @@ class Log(models.Model):
         day_in_phase: int = list(logs_of_same_phase).index(self) + 1
         return int(day_in_phase)
 
+    def get_previous_log(self):
+        previous_logs = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
+        if previous_logs.exists():
+            return previous_logs.first()
+        return None
+
     def __str__(self) -> str:
         day_in_cycle = self.get_day_in_cycle()
         if self.cycle.name:
