@@ -214,8 +214,8 @@
                         {% if log.ec >= 1.4 and log.ec < 1.7 %} ec-high {% endif %}
                         {% if log.ec >= 1.7 and log.ec < 2.0 %} ec-very-high {% endif %}
                         {% if log.ec >= 2.0 %} ec-extreme {% endif %}
-                       {% endif %}"
-                >
+                       {% endif %}
+                ">
                     {{ log.ec|default_if_none:'' }}
                 </td>
                 <!--display 'light_height' changes graphically in comparison to the previous log-->
@@ -253,7 +253,22 @@
                 {% else %}
                 <td style="size: 9px;"><i class="fa-solid fa-xmark"></i></td>
                 {% endif %}
-                <td>{{ log.carbon_dioxide|default_if_none:'' }}</td>
+                <!--display 'carbon_dioxide' in color based on known ideal co2 levels for indoor growing and human health-->
+                <td class="
+                    {% if log.carbon_dioxide is not none %}
+                        {% if log.carbon_dioxide <= 1000 %} carbon-dioxide-low {% endif %}
+                        {% if log.carbon_dioxide > 1000 and log.carbon_dioxide < 1500 %} carbon-dioxide-ideal {% endif %}
+                        {% if log.carbon_dioxide > 1500 and log.carbon_dioxide < 5000 %} carbon-dioxide-high {% endif %}
+                        {% if log.carbon_dioxide >= 5000 and log.carbon_dioxide < 35000  %} carbon-dioxide-human-health-danger {% endif %}
+                        {% if log.carbon_dioxide >= 35000 %} carbon-dioxide-human-health-danger-high {% endif %}
+                    {% endif %}
+                ">
+                {% if log.carbon_dioxide > 5000 %}
+                    <i class="fa-solid fa-triangle-exclamation"></i> {{ log.carbon_dioxide }}
+                {% else %}
+                    {{ log.carbon_dioxide|default_if_none:'' }}
+                {% endif %}
+                </td>
                 <td></td>
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
                 <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->

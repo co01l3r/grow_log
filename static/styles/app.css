@@ -729,6 +729,31 @@ tr:nth-child(2) td[colspan="2"] {
     border-radius: 15%;
 }
 
+/* Colors for co2 ranges */
+.carbon-dioxide-low {
+    color: lightblue;
+}
+
+.carbon-dioxide-ideal {
+}
+
+.carbon-dioxide-high {
+    color: darkred;
+}
+
+.carbon-dioxide-human-health-danger {
+    color: red;
+    padding-right: 9px;
+}
+
+.carbon-dioxide-human-health-danger-high {
+    background: linear-gradient(to left, transparent, #FF4136, #FF4136, transparent);
+    color: yellow;
+    opacity: 0.7;
+    border-radius: 15%;
+    padding-right: 9px;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body {
     background: -webkit-linear-gradient(left, #25c481, #25b7c4);
