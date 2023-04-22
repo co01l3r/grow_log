@@ -192,7 +192,7 @@ class LogModelTestCase(TestCase):
     def test_get_previous_log(self):
         previous_log = self.log_2.get_previous_log()
         self.assertEqual(previous_log, self.log)
-        
+
 
 # Nutrient model test cases
 class NutrientTestCase(TestCase):

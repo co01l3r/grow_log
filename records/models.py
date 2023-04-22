@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 import uuid
 
 from django.db import models
@@ -92,6 +92,8 @@ class Log(models.Model):
     Methods:
         get_day_in_cycle (int):         Returns the day in the cycle.
         get_phase_day_in_cycle (int):   Returns the day in the phase of cycle.
+        get_previous_log (int):         Returns the previous log object based on the ID of the current log object.
+                                        If no previous logs exist, returns None.
         __str__ (str):                  Returns name or genetics and day position for the cycle.
                                         Formatted as "[cycle name or genetics] - [day_in_cycle]".
     """
@@ -145,8 +147,8 @@ class Log(models.Model):
         day_in_phase: int = list(logs_of_same_phase).index(self) + 1
         return int(day_in_phase)
 
-    def get_previous_log(self):
-        previous_logs = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
+    def get_previous_log(self) -> Optional['Log']:
+        previous_logs: models.QuerySet = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
         if previous_logs.exists():
             return previous_logs.first()
         return None
