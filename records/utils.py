@@ -45,7 +45,7 @@ def fill_and_submit_log_form(cycle: 'models.Cycle', initial_data: Dict[str, str]
     log.light_height = initial_data.get('light_height')
     log.light_power = initial_data.get('light_power')
     log.calibration = initial_data.get('calibration')
-    log.water = initial_data.get('water')
+    log.carbon_dioxide = initial_data.get('water')
     log.comment = initial_data.get('comment')
 
     if request:

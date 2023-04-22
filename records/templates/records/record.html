@@ -60,7 +60,7 @@
                 <th>Light Height</th>
                 <th>Light Power</th>
                 <th>Calib.</th>
-                <th>Water</th>
+                <th>co2</th>
                 <th>Irrigation</th>
                 <th>Recipe</th>
                 <th>Note</th>
@@ -75,7 +75,7 @@
                 <th>cm</th>
                 <th>%</th>
                 <th></th>
-                <th>Litres</th>
+                <th>PPM</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -242,7 +242,7 @@
                 {% else %}
                 <td><i class="fa-solid fa-xmark"></i></td>
                 {% endif %}
-                <td>{{ log.water|default_if_none:'' }}</td>
+                <td>{{ log.carbon_dioxide|default_if_none:'' }}</td>
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
                 <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->
                 {% if log.nutrient_logs.exists and not log.date == today %}

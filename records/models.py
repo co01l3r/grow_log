@@ -121,7 +121,7 @@ class Log(models.Model):
     light_power = models.IntegerField(blank=True, null=True, choices=LIGHT_POWER_CHOICES)
     calibration = models.BooleanField(default=False, blank=True, null=True)
     featured_image = models.ImageField(null=True, blank=True)
-    water = models.IntegerField(blank=True, null=True)
+    carbon_dioxide = models.IntegerField(blank=True, null=True)
     comment = models.TextField(blank=True, null=True)
 
     class Meta:

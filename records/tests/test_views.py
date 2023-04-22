@@ -120,7 +120,7 @@ class CreateLogTestCase(TestCase):
             'light_height': 50,
             'light_power': 50,
             'calibration': False,
-            'water': '',
+            'carbon_dioxide': '',
             'comment': 'test comment',
         }
         response = self.client.post(self.url, data=data)
@@ -139,7 +139,7 @@ class CreateLogTestCase(TestCase):
         self.assertEqual(log.light_height, 50)
         self.assertEqual(log.light_power, 50)
         self.assertFalse(log.calibration)
-        self.assertIsNone(log.water)
+        self.assertIsNone(log.carbon_dioxide)
         self.assertEqual(log.comment, 'test comment')
 
     def test_create_log_with_invalid_data(self):
@@ -155,7 +155,7 @@ class CreateLogTestCase(TestCase):
             'light_height': 'invalid_light_height',
             'light_power': 'invalid_light_power',
             'calibration': False,
-            'water': '',
+            'carbon_dioxide': '',
             'comment': 'test comment',
         }
         response = self.client.post(self.url, data=data)
@@ -174,7 +174,7 @@ class CreateLogTestCase(TestCase):
             'light_height': '',
             'light_power': '',
             'calibration': False,
-            'water': '',
+            'carbon_dioxide': '',
             'comment': '',
         }
         response = self.client.post(self.url, data=data)
@@ -194,7 +194,7 @@ class CreateLogTestCase(TestCase):
             'light_height': '',
             'light_power': '',
             'calibration': False,
-            'water': '',
+            'carbon_dioxide': '',
             'comment': '',
         }
         response = self.client.post(self.url, data=data)
@@ -212,7 +212,7 @@ class CreateLogTestCase(TestCase):
         self.assertIsNone(log.light_height)
         self.assertIsNone(log.light_power)
         self.assertFalse(log.calibration)
-        self.assertIsNone(log.water)
+        self.assertIsNone(log.carbon_dioxide)
         self.assertEqual(log.comment, '')
 
 
@@ -235,7 +235,7 @@ class EditLogViewTestCase(TestCase):
             light_height=30,
             light_power=100,
             calibration=True,
-            water=500,
+            carbon_dioxide=500,
             comment='Test Comment',
         )
         self.url = reverse('edit_log', args=[self.cycle.pk, self.log.pk])
@@ -251,7 +251,7 @@ class EditLogViewTestCase(TestCase):
             'light_height': 40,
             'light_power': 75,
             'calibration': False,
-            'water': 700,
+            'carbon_dioxide': 700,
             'comment': 'New Comment',
         }
 
@@ -271,7 +271,7 @@ class EditLogViewTestCase(TestCase):
         self.assertEqual(self.log.light_height, 40)
         self.assertEqual(self.log.light_power, 75)
         self.assertFalse(self.log.calibration)
-        self.assertEqual(self.log.water, 700)
+        self.assertEqual(self.log.carbon_dioxide, 700)
         self.assertEqual(self.log.comment, 'New Comment')
 
     def test_edit_log_view_with_invalid_data(self):
@@ -291,7 +291,7 @@ class EditLogViewTestCase(TestCase):
         self.assertEqual(self.log.light_height, 30)
         self.assertEqual(self.log.light_power, 100)
         self.assertTrue(self.log.calibration)
-        self.assertEqual(self.log.water, 500)
+        self.assertEqual(self.log.carbon_dioxide, 500)
         self.assertEqual(self.log.comment, 'Test Comment')
 
 
@@ -300,7 +300,7 @@ class DeleteLogTestCase(TestCase):
         self.cycle = Cycle.objects.create(genetics='Sour Diesel', fixture='LED')
         self.log = Log.objects.create(cycle=self.cycle, phase='day 1', temperature_day=24.0, temperature_night=20.0,
                                       humidity_day=70, humidity_night=60, ph=6.0, ec=1.2, irrigation='drip',
-                                      light_height=50, light_power=100, calibration=True, water=200,
+                                      light_height=50, light_power=100, calibration=True, carbon_dioxide=200,
                                       comment='This is a test log')
 
     def test_delete_log(self):

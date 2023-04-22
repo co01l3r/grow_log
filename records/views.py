@@ -201,7 +201,7 @@ def create_log(request: HttpRequest, pk: str) -> HttpResponse:
                 'light_height': last_log.light_height,
                 'light_power': last_log.light_power,
                 'calibration': False,
-                'water': None,
+                'carbon_dioxide': last_log.carbon_dioxide,
                 'comment': '',
             }
             fill_and_submit_log_form(cycle, initial_data, request)
