@@ -60,7 +60,8 @@
                 <th>Light Height</th>
                 <th>Light Power</th>
                 <th>Calib.</th>
-                <th>CO2</th>
+                <th>co2</th>
+                <th>Reservoir</th>
                 <th>Irrigation</th>
                 <th>Recipe</th>
                 <th>Note</th>
@@ -76,6 +77,7 @@
                 <th>%</th>
                 <th></th>
                 <th>PPM</th>
+                <th>litres</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -171,7 +173,7 @@
                 ">
                     {{ log.temperature_night|default_if_none:''|floatformat:1 }}
                 </td>
-<!--display 'humidity_day' in color based on value-->
+                <!--display 'humidity_day' in color based on value-->
                 <td class="
                     {% if log.humidity_day is not none %}
                         {% if log.humidity_day <= 45 %} hum-low {% endif %}
@@ -243,6 +245,7 @@
                 <td><i class="fa-solid fa-xmark"></i></td>
                 {% endif %}
                 <td>{{ log.carbon_dioxide|default_if_none:'' }}</td>
+                <td></td>
                 <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
                 <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->
                 {% if log.nutrient_logs.exists and not log.date == today %}
@@ -324,12 +327,6 @@
 <i class="fa-solid fa-plus"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
-
-{% if previous_log %}
-    <h2>Previous Log:</h2>
-    <p>Temperature Day: {{ previous_log.temperature_day }}</p>
-    <!-- Add other log fields as needed -->
-{% endif %}
 
 
 {% endblock %}
