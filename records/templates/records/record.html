@@ -339,15 +339,6 @@
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
 
-
-{% for log in cycle.logs.all %}
-<tr>
-    <td>height: <td>{{ log.light_height|default_if_none:'' }}</td></td>
-    <br>
-    <td>PREVIOUS: {{ log.get_previous_log.temperature_day|default_if_none:''|floatformat:1 }}</td>
-</tr>
-{% endfor %}
-
 {% endblock %}
 </body>
 </html>

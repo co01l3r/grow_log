@@ -189,6 +189,10 @@ class LogModelTestCase(TestCase):
         self.assertEqual(self.log_2.get_phase_day_in_cycle(), 1)
         self.assertEqual(self.log_3.get_phase_day_in_cycle(), 2)
 
+    def test_get_previous_log(self):
+        previous_log = self.log_2.get_previous_log()
+        self.assertEqual(previous_log, self.log)
+        
 
 # Nutrient model test cases
 class NutrientTestCase(TestCase):
