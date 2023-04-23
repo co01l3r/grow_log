@@ -697,6 +697,7 @@ tr:nth-child(2) td[colspan="2"] {
 /* Colors for temperature ranges */
 .temp-low {
     color: lightblue;
+    padding-right: 15px;
 }
 
 .temp-ideal {
@@ -707,10 +708,8 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 .temp-danger {
-    background: linear-gradient(to left, transparent, #FF4136, #FF4136, transparent);
-    color: yellow;
-    opacity: 0.7;
-    border-radius: 20%;
+    color: orangered;
+    padding-right: 15px;
 }
 
 /* Colors for humidity ranges */
@@ -746,7 +745,7 @@ tr:nth-child(2) td[colspan="2"] {
     padding-right: 9px;
 }
 
-.carbon-dioxide-human-health-danger-high {
+.carbon-dioxide-human-life-danger {
     background: linear-gradient(to left, transparent, #FF4136, #FF4136, transparent);
     color: yellow;
     opacity: 0.7;
