@@ -138,20 +138,23 @@
                 <td class="
                     {% if log.temperature_day is not none %}
                         {% if log.phase == 'seedling' %}
-                            {% if log.temperature_day <= 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 22 and log.temperature_day <= 25 %} temp-ideal {% endif %}
+                            {% if log.temperature_day <= 15 %} temp-freezing {% endif %}
+                            {% if log.temperature_day > 15 and log.temperature_day <= 18 %} temp-low {% endif %}
+                            {% if log.temperature_day > 18 and log.temperature_day <= 25 %} temp-ideal {% endif %}
                             {% if log.temperature_day >= 26 and log.temperature_day <= 28 %} temp-high {% endif %}
                             {% if log.temperature_day > 28 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'vegetative' %}
-                            {% if log.temperature_day <= 18 %} temp-low {% endif %}
+                            {% if log.temperature_day <= 15 %} temp-freezing {% endif %}
+                            {% if log.temperature_day > 15 and log.temperature_day <= 18 %} temp-low {% endif %}
                             {% if log.temperature_day >= 22 and log.temperature_day <= 28 %} temp-ideal {% endif %}
                             {% if log.temperature_day > 28 and log.temperature_day <= 30 %} temp-high {% endif %}
                             {% if log.temperature_day > 30 %} temp-danger {% endif %}
                         {% endif %}
                         {% if log.phase == 'bloom' %}
-                            {% if log.temperature_day <= 18 %} temp-low {% endif %}
-                            {% if log.temperature_day >= 22 and log.temperature_day <= 26 %} temp-ideal {% endif %}
+                            {% if log.temperature_day <= 15 %} temp-freezing {% endif %}
+                            {% if log.temperature_day > 15 and log.temperature_day <= 18 %} temp-low {% endif %}
+                            {% if log.temperature_day > 18 and log.temperature_day <= 26 %} temp-ideal {% endif %}
                                 {% if log.carbon_dioxide >= 1500 %}
                             {% if log.temperature_day > 26 and log.temperature_day <= 33 %} temp-high {% endif %}
                             {% if log.temperature_day > 33 %} temp-danger {% endif %}
@@ -242,8 +245,10 @@
                 <!--display 'temperature_night' in color based on value-->
                 <td class="
                     {% if log.temperature_night is not none %}
-                        {% if log.temperature_night <= 18 %} temp-low {% endif %}
-                        {% if log.temperature_night >= 25 %} temp-high {% endif %}
+                        {% if log.temperature_night <= 15 %} temp-freezing {% endif %}
+                        {% if log.temperature_night > 15 and log.temperature_night <= 18 %} temp-low {% endif %}
+                        {% if log.temperature_night > 22 and log.temperature_night < 25 %} temp-ideal {% endif %}
+                        {% if log.temperature_night >= 26 and log.temperature_night < 28 %} temp-high {% endif %}
                         {% if log.temperature_night >= 28 %} temp-danger {% endif %}
                     {% endif %}
                 ">
@@ -266,27 +271,93 @@
                 </td>
                 <!--display 'humidity_day' in color based on value-->
                 <td class="
-                    {% if log.humidity_day is not none %}
-                        {% if log.humidity_day <= 45 %} hum-low {% endif %}
-                        {% if log.humidity_day >= 68 %} hum-high {% endif %}
-                        {% if log.humidity_day >= 75 %} hum-danger {% endif %}
+                     {% if log.humidity_day is not none %}
+                        {% if log.phase == 'seedling' %}
+                            {% if log.humidity_day <= 30 %} hum-critical-low {% endif %}
+                            {% if log.humidity_day > 30 and log.humidity_day < 60 %} hum-low {% endif %}
+                            {% if log.humidity_day >= 60 and log.humidity_day <= 70 %} hum-ideal {% endif %}
+                            {% if log.humidity_day > 70 and log.humidity_day < 75 %} hum-high {% endif %}
+                            {% if log.humidity_day >= 75 %} hum-critical-high {% endif %}
+                        {% endif %}
+                        {% if log.phase == 'vegetative' %}
+                            {% if log.humidity_day <= 30 %} hum-critical-low {% endif %}
+                            {% if log.humidity_day > 30 and log.humidity_day < 55 %} hum-low {% endif %}
+                            {% if log.humidity_day >= 55 and log.humidity_day <= 65 %} hum-ideal {% endif %}
+                            {% if log.humidity_day > 65 and log.humidity_day < 75 %} hum-high {% endif %}
+                            {% if log.humidity_day >= 75 %} hum-critical-high {% endif %}
+                        {% endif %}
+                        {% if log.phase == 'bloom' %}
+                            {% if log.humidity_day <= 30 %} hum-critical-low {% endif %}
+                            {% if log.humidity_day > 30 and log.humidity_day <= 45 %} hum-low {% endif %}
+                            {% if log.humidity_day > 45 and log.humidity_day <= 55 %} hum-ideal {% endif %}
+                            {% if log.humidity_day > 55 and log.humidity_day < 75 %} hum-high {% endif %}
+                            {% if log.humidity_day >= 75 %} hum-critical-high {% endif %}
+                        {% endif %}
                     {% endif %}
                 ">
-                    <span id="humidity_day{{ log.id }}">
-                        {{ log.humidity_day|default_if_none:'' }}
-                    </span>
+                    <!--add 'humidity_day' icon for critical values-->
+                    {% if log.humidity_day is not none %}
+                        {% if log.humidity_day <= 30 %}
+                        <span id="humidity_day{{ log.id }}">
+                            <i class="fa-solid fa-exclamation"></i>
+                            {{ log.humidity_day|default_if_none:'' }}
+                        </span>
+                        {% elif log.humidity_day >= 75 %}
+                        <span id="humidity_day{{ log.id }}">
+                            <i class="fa-solid fa-fan"></i>
+                            {{ log.humidity_day|default_if_none:''}}
+                        </span>
+                        {% else %}
+                        <span id="humidity_day{{ log.id }}">
+                            {{ log.humidity_day|default_if_none:'' }}
+                        </span>
+                        {% endif %}
+                    {% endif %}
                 </td>
                 <!--display 'humidity_night' in color based on value-->
                 <td class="
-                    {% if log.humidity_night is not none %}
-                        {% if log.humidity_night <= 45 %} hum-low {% endif %}
-                        {% if log.humidity_night >= 68 %} hum-high {% endif %}
-                        {% if log.humidity_night >= 75 %} hum-danger {% endif %}
+                     {% if log.humidity_night is not none %}
+                        {% if log.phase == 'seedling' %}
+                            {% if log.humidity_night <= 30 %} hum-critical-low {% endif %}
+                            {% if log.humidity_night > 30 and log.humidity_night < 60 %} hum-low {% endif %}
+                            {% if log.humidity_night >= 60 and log.humidity_night <= 70 %} hum-ideal {% endif %}
+                            {% if log.humidity_night > 70 and log.humidity_night < 75 %} hum-high {% endif %}
+                            {% if log.humidity_night >= 75 %} hum-critical-high {% endif %}
+                        {% endif %}
+                        {% if log.phase == 'vegetative' %}
+                            {% if log.humidity_night <= 30 %} hum-critical-low {% endif %}
+                            {% if log.humidity_night > 30 and log.humidity_night < 55 %} hum-low {% endif %}
+                            {% if log.humidity_night >= 55 and log.humidity_night <= 65 %} hum-ideal {% endif %}
+                            {% if log.humidity_night > 65 and log.humidity_night < 75 %} hum-high {% endif %}
+                            {% if log.humidity_night >= 75 %} hum-critical-high {% endif %}
+                        {% endif %}
+                        {% if log.phase == 'bloom' %}
+                            {% if log.humidity_night <= 30 %} hum-critical-low {% endif %}
+                            {% if log.humidity_night > 30 and log.humidity_night <= 45 %} hum-low {% endif %}
+                            {% if log.humidity_night > 45 and log.humidity_night <= 55 %} hum-ideal {% endif %}
+                            {% if log.humidity_night > 55 and log.humidity_night < 75 %} hum-high {% endif %}
+                            {% if log.humidity_night >= 75 %} hum-critical-high {% endif %}
+                        {% endif %}
                     {% endif %}
                 ">
-                    <span id="humidity_night{{ log.id }}">
-                        {{ log.humidity_night|default_if_none:'' }}
-                    </span>
+                    <!--add 'humidity_night' icon for critical values-->
+                    {% if log.humidity_night is not none %}
+                        {% if log.humidity_night <= 30 %}
+                        <span id="humidity_night{{ log.id }}">
+                            <i class="fa-solid fa-exclamation"></i>
+                            {{ log.humidity_night|default_if_none:'' }}
+                        </span>
+                        {% elif log.humidity_night >= 75 %}
+                        <span id="humidity_night{{ log.id }}">
+                            <i class="fa-solid fa-fan"></i>
+                            {{ log.humidity_night|default_if_none:''}}
+                        </span>
+                        {% else %}
+                        <span id="humidity_night{{ log.id }}">
+                            {{ log.humidity_night|default_if_none:'' }}
+                        </span>
+                        {% endif %}
+                    {% endif %}
                 </td>
                 <!--display 'ph' in color based on acidic/alkaline chart-->
                 <td class="
@@ -395,7 +466,9 @@
                     {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
                 </span></td>
+
                 <td><span id="carbon_dioxide{{ log.id }}"></span></td>
+
                 <td style="font-size: 10px"><span id="irrigation{{ log.id }}">
                     {{ log.irrigation|default_if_none:'' }}
                 </span></td>
@@ -492,6 +565,7 @@
 <i class="fa-solid fa-fan"></i>
 <i class="fa-solid fa-wind"></i>
 <i class="fa-solid fa-exclamation"></i>
+<i class="fa-solid fa-droplet-slash"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 

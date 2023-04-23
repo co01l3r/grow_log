@@ -695,9 +695,13 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 /* Colors for temperature ranges */
-.temp-low {
+.temp-freezing {
     color: lightblue;
     padding-right: 15px;
+}
+
+.temp-low {
+    color: lightblue;
 }
 
 .temp-ideal {
@@ -713,19 +717,25 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 /* Colors for humidity ranges */
+.hum-critical-low {
+    color: lightblue;
+    padding-right: 8px;
+}
+
 .hum-low {
     color: lightblue;
+}
+
+.hum-ideal {
 }
 
 .hum-high {
     color: darkred;
 }
 
-.hum-danger {
-    background: linear-gradient(to left, transparent, #FF4136, #FF4136, transparent);
-    color: yellow;
-    opacity: 0.7;
-    border-radius: 15%;
+.hum-critical-high {
+    color: red;
+    padding-right: 15px;
 }
 
 /* Colors for co2 ranges */
