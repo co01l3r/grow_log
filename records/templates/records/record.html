@@ -304,7 +304,7 @@
                         </span>
                         {% elif log.humidity_day >= 75 %}
                         <span id="humidity_day{{ log.id }}">
-                            <i class="fa-solid fa-fan"></i>
+                            <span style="font-size: 10px;"><i class="fa-solid fa-wind"></i></span>
                             {{ log.humidity_day|default_if_none:''}}
                         </span>
                         {% else %}
@@ -344,14 +344,13 @@
                     {% if log.humidity_night is not none %}
                         {% if log.humidity_night <= 30 %}
                         <span id="humidity_night{{ log.id }}">
-                            <i class="fa-solid fa-exclamation"></i>
+                            <span style="font-size: 10px;"><i class="fa-solid fa-droplet-slash"></i></span>
                             {{ log.humidity_night|default_if_none:'' }}
                         </span>
                         {% elif log.humidity_night >= 75 %}
                         <span id="humidity_night{{ log.id }}">
-                            <i class="fa-solid fa-fan"></i>
+                            <span style="font-size: 10px;"><i class="fa-solid fa-droplet"></i></span>
                             {{ log.humidity_night|default_if_none:''}}
-                        </span>
                         {% else %}
                         <span id="humidity_night{{ log.id }}">
                             {{ log.humidity_night|default_if_none:'' }}
@@ -394,14 +393,14 @@
                 {% if log.get_previous_log.light_height > log.light_height %}
                 <td style="padding-right: 15px;">
                     <span id="light_height{{ log.id }}">
-                        <i class="fa-solid fa-arrow-down"></i>
+                        <span style="font-size: 11px;"><i class="fa-solid fa-arrow-down"></i></span>
                         {{ log.light_height|default_if_none:'' }}
                     </span>
                 </td>
                 {% elif log.get_previous_log.light_height < log.light_height %}
                 <td style="padding-right: 15px;">
                     <span id="light_height{{ log.id }}">
-                        <i class="fa-solid fa-arrow-up"></i>
+                        <span style="font-size: 11px;"><i class="fa-solid fa-arrow-up"></i></span>
                         {{ log.light_height|default_if_none:'' }}
                     </span>
                 </td>
@@ -566,6 +565,7 @@
 <i class="fa-solid fa-wind"></i>
 <i class="fa-solid fa-exclamation"></i>
 <i class="fa-solid fa-droplet-slash"></i>
+<i class="fa-solid fa-water"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
