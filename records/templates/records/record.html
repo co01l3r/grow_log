@@ -167,16 +167,16 @@
                     <!--seedling-->
                     {% if log.phase == 'seedling' %}
                         {% if log.temperature_day <= 15 %}
-                            <span id="temperature{{ log.id }}">
+                            <span id="temperature_day{{ log.id }}">
                                 <i class="fa-regular fa-snowflake"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                         {% elif log.temperature_day > 28 %}
-                            <span id="temperature{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
+                            <span id="temperature_day{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                         {% else %}
-                            <span id="temperature{{ log.id }}">
+                            <span id="temperature_day{{ log.id }}">
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                         {% endif %}
