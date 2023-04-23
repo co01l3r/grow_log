@@ -15,7 +15,6 @@
     </div>
 
     <div class="tbl-header">
-        <thead>
         <tr>
             <th class="cyc-info"><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }}</th>
             <!--display genetics if name provided-->
@@ -23,13 +22,15 @@
             <th class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</th>
             {% endif %}
             <th class="cyc-info"><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|title }},</th>
-            <!--display 'behavioral_response', 'seed_type', 'grow_medium' only if exists-->
+            <!--display 'behavioral_response' if exists-->
             {% if cycle.behavioral_response %}
             <th class="cyc-info">{{ cycle.behavioral_response|title }},</th>
             {% endif %}
+            <!--display 'seed_type' if exists-->
             {% if cycle.seed_type %}
             <th class="cyc-info">{{ cycle.seed_type|title }}</th>
             {% endif %}
+            <!--display 'grow_medium' if exists-->
             {% if cycle.grow_medium %}
             <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
             {% endif %}
@@ -44,7 +45,6 @@
                       onclick="window.open(this.getAttribute('data-href'), '_blank')"><i
                     class="fa-solid fa-cannabis"></i></span></th>
         </tr>
-        </thead>
     </div>
 
     <br>
@@ -153,8 +153,8 @@
                             {% if log.temperature_day <= 18 %} temp-low {% endif %}
                             {% if log.temperature_day >= 22 and log.temperature_day <= 26 %} temp-ideal {% endif %}
                                 {% if log.carbon_dioxide >= 1500 %}
-                            {% if log.temperature_day > 26 and log.temperature_day <= 35 %} temp-high {% endif %}
-                            {% if log.temperature_day > 35 %} temp-danger {% endif %}
+                            {% if log.temperature_day > 26 and log.temperature_day <= 33 %} temp-high {% endif %}
+                            {% if log.temperature_day > 33 %} temp-danger {% endif %}
                                 {% else %}
                             {% if log.temperature_day > 26 and log.temperature_day <= 28 %} temp-high {% endif %}
                             {% if log.temperature_day > 28 %} temp-danger {% endif %}
@@ -356,6 +356,20 @@
 <i class="fa-solid fa-plus"></i>
 <i class="fa-solid fa-arrow-up"></i>
 <i class="fa-solid fa-arrow-down"></i>
+<i class="fa-brands fa-gripfire"></i>
+<i class="fa-regular fa-snowflake"></i>
+<i class="fa-solid fa-temperature-arrow-up"></i>
+<i class="fa-solid fa-temperature-arrow-down"></i>
+<i class="fa-solid fa-virus-covid"></i>
+<i class="fa-solid fa-virus"></i>
+<i class="fa-solid fa-viruses"></i>
+<i class="fa-solid fa-bug"></i>
+<i class="fa-solid fa-bugs"></i>
+<i class="fa-solid fa-spider"></i>
+<i class="fa-solid fa-mosquito"></i>
+<i class="fa-solid fa-fan"></i>
+<i class="fa-solid fa-wind"></i>
+<i class="fa-solid fa-exclamation"></i>
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 

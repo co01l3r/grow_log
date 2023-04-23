@@ -248,7 +248,7 @@ class NutrientLog(models.Model):
         return f"{self.nutrient} - {self.concentration}"
 
     def save(self, *args, **kwargs) -> None:
-        existing_logs = NutrientLog.objects.filter(log_id=self.log_id, nutrient=self.nutrient)
+        existing_logs: models.QuerySet = NutrientLog.objects.filter(log_id=self.log_id, nutrient=self.nutrient)
         if existing_logs.exists():
             self.concentration += sum(log.concentration for log in existing_logs)
             existing_logs.delete()

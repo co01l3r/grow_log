@@ -101,11 +101,12 @@ class LogModelTestCase(TestCase):
             irrigation="Test Irrigation",
             light_height=100,
             light_power=25,
-            calibration=True
+            calibration=True,
+            carbon_dioxide=1500
         )
         self.log_2 = Log.objects.create(
             cycle=self.cycle,
-            phase="flowering",
+            phase="bloom",
             temperature_day=24.0,
             temperature_night=21.0,
             humidity_day=55,
@@ -159,6 +160,9 @@ class LogModelTestCase(TestCase):
 
     def test_log_has_correct_phase(self):
         self.assertEqual(self.log.phase, "vegetative")
+
+    def test_log_has_correct_carbon_dioxide(self):
+        self.assertEqual(self.log.carbon_dioxide, 1500)
 
     def test_log_has_correct_temperatures(self):
         self.assertEqual(self.log.temperature_day, 25.0)
