@@ -166,8 +166,9 @@
                 {% if log.temperature_day is not none %}
                     <!--seedling-->
                     {% if log.phase == 'seedling' %}
-                        {% if log.temperature_day <= 18 %}
-                            <span id="temperature{{ log.id }}"><i class="fa-regular fa-snowflake"></i>
+                        {% if log.temperature_day <= 15 %}
+                            <span id="temperature{{ log.id }}">
+                                <i class="fa-regular fa-snowflake"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                         {% elif log.temperature_day > 28 %}
@@ -182,12 +183,14 @@
                     {% endif %}
                     <!--vegetative-->
                     {% if log.phase == 'vegetative' %}
-                        {% if log.temperature_day <= 18 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-regular fa-snowflake"></i>
+                        {% if log.temperature_day <= 15 %}
+                            <span id="temperature_day{{ log.id }}">
+                                <i class="fa-regular fa-snowflake"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                         {% elif log.temperature_day > 30 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
+                            <span id="temperature_day{{ log.id }}">
+                                <i class="fa-brands fa-gripfire"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                         {% else %}
@@ -200,12 +203,14 @@
                     {% if log.phase == 'bloom' %}
                         <!--with high co2 levels-->
                         {% if log.carbon_dioxide >= 1500 %}
-                            {% if log.temperature_day <= 18 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-regular fa-snowflake"></i>
+                            {% if log.temperature_day <= 15 %}
+                            <span id="temperature_day{{ log.id }}">
+                                <i class="fa-regular fa-snowflake"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                             {% elif log.temperature_day > 33 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
+                            <span id="temperature_day{{ log.id }}">
+                                <i class="fa-brands fa-gripfire"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                             {% else %}
@@ -215,12 +220,14 @@
                             {% endif %}
                         {% else %}
                         <!--with regular co2 levels-->
-                            {% if log.temperature_day <= 18 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-regular fa-snowflake"></i>
+                            {% if log.temperature_day <= 15 %}
+                            <span id="temperature_day{{ log.id }}">
+                                <i class="fa-regular fa-snowflake"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                             {% elif log.temperature_day > 28 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
+                            <span id="temperature_day{{ log.id }}">
+                                <i class="fa-brands fa-gripfire"></i>
                                 {{ log.temperature_day|default_if_none:''|floatformat:1 }}
                             </span>
                             {% else %}
@@ -241,12 +248,14 @@
                     {% endif %}
                 ">
                     <!--add 'temperature_nigh' icon if temp is critical-->
-                    {% if log.temperature_night <= 18 %}
-                        <span id="temperature_nigh{{ log.id }}"><i class="fa-regular fa-snowflake"></i>
+                    {% if log.temperature_night <= 15 %}
+                        <span id="temperature_nigh{{ log.id }}">
+                            <i class="fa-regular fa-snowflake"></i>
                             {{ log.temperature_night|default_if_none:''|floatformat:1 }}
                         </span>
                     {% elif log.temperature_night >= 28 %}
-                        <span id="temperature_nigh{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
+                        <span id="temperature_nigh{{ log.id }}">
+                            <i class="fa-brands fa-gripfire"></i>
                             {{ log.temperature_night|default_if_none:''|floatformat:1 }}
                         </span>
                     {% else %}
@@ -263,7 +272,9 @@
                         {% if log.humidity_day >= 75 %} hum-danger {% endif %}
                     {% endif %}
                 ">
-                    {{ log.humidity_day|default_if_none:'' }}
+                    <span id="humidity_day{{ log.id }}">
+                        {{ log.humidity_day|default_if_none:'' }}
+                    </span>
                 </td>
                 <!--display 'humidity_night' in color based on value-->
                 <td class="
@@ -273,7 +284,9 @@
                         {% if log.humidity_night >= 75 %} hum-danger {% endif %}
                     {% endif %}
                 ">
-                    {{ log.humidity_night|default_if_none:'' }}
+                    <span id="humidity_night{{ log.id }}">
+                        {{ log.humidity_night|default_if_none:'' }}
+                    </span>
                 </td>
                 <!--display 'ph' in color based on acidic/alkaline chart-->
                 <td class="
@@ -287,7 +300,9 @@
                         {% if log.ph >= 10 %} ph-color-violet {% endif %}
                        {% endif %}
                     ">
-                    {{ log.ph|default_if_none:'' }}
+                    <span id="ph{{ log.id }}">
+                        {{ log.ph|default_if_none:'' }}
+                    </span>
                 </td>
                 <!--display 'ec' in color based on conductivity chart-->
                 <td class="
@@ -300,42 +315,68 @@
                         {% if log.ec >= 2.0 %} ec-extreme {% endif %}
                        {% endif %}
                 ">
-                    {{ log.ec|default_if_none:'' }}
+                    <span id="ec{{ log.id }}">
+                        {{ log.ec|default_if_none:'' }}
+                    </span>
                 </td>
                 <!--display 'light_height' changes graphically in comparison to the previous log-->
                 {% if log.get_previous_log.light_height > log.light_height %}
-                <td style="padding-right: 15px;"><i class="fa-solid fa-arrow-down"></i>
-                    {{ log.light_height|default_if_none:'' }}
+                <td style="padding-right: 15px;">
+                    <span id="light_height{{ log.id }}">
+                        <i class="fa-solid fa-arrow-down"></i>
+                        {{ log.light_height|default_if_none:'' }}
+                    </span>
                 </td>
                 {% elif log.get_previous_log.light_height < log.light_height %}
-                <td style="padding-right: 15px;"><i class="fa-solid fa-arrow-up"></i>
-                    {{ log.light_height|default_if_none:'' }}
+                <td style="padding-right: 15px;">
+                    <span id="light_height{{ log.id }}">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        {{ log.light_height|default_if_none:'' }}
+                    </span>
                 </td>
                 {% else %}
-                <td>{{ log.light_height|default_if_none:'' }}</td>
+                <td>
+                    <span id="light_height{{ log.id }}">
+                        {{ log.light_height|default_if_none:'' }}
+                    </span>
+                </td>
                 {% endif %}
                 <!--display 'light_power' graphically-->
                 {% if log.light_power == 25 %}
-                <td><i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
-                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+                <td><span id="light_power{{ log.id }}">
+                    <i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
+                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                </span></td>
                 {% elif log.light_power == 50 %}
-                <td><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
-                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+                <td><span id="light_power{{ log.id }}">
+                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
+                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                </span></td>
                 {% elif log.light_power == 75 %}
-                <td><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
-                        class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+                <td><span id="light_power{{ log.id }}">
+                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
+                        class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                </span></td>
                 {% elif log.light_power == 100 %}
-                <td><i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
-                        class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i></td>
+                <td><span id="light_power{{ log.id }}">
+                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
+                        class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i>
+                </span></td>
                 {% else %}
-                <td><i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
-                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></td>
+                <td><span id="light_power{{ log.id }}">
+                    <i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
+                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                </span></td>
                 {% endif %}
                 <!--display 'calibration' graphically-->
                 {% if log.calibration %}
-                <td><i class="fa-solid fa-check"></i></td>
+                <td><span id="calibration{{ log.id }}">
+                    <i class="fa-solid fa-check"></i>
+                </span></td>
                 {% else %}
-                <td style="size: 9px;"><i class="fa-solid fa-xmark"></i></td>
+                <td style="size: 9px;"><span id="calibration{{ log.id }}">
+                    <i class="fa-solid fa-xmark"></i>
+                </span></td>
                 {% endif %}
                 <!--display 'carbon_dioxide' in color based on known ideal co2 levels for indoor growing and human health-->
                 <td class="
@@ -346,16 +387,18 @@
                         {% if log.carbon_dioxide >= 5000 and log.carbon_dioxide < 35000  %} carbon-dioxide-human-health-danger {% endif %}
                         {% if log.carbon_dioxide >= 35000 %} carbon-dioxide-human-life-danger {% endif %}
                     {% endif %}
-                ">
+                "><span id="carbon_dioxide{{ log.id }}">
                     <!--add a danger icon when co2 levels exceed human limits-->
                     {% if log.carbon_dioxide >= 5000 %}
                     <i class="fa-solid fa-triangle-exclamation"></i> {{ log.carbon_dioxide|default_if_none:'' }}
                     {% else %}
                     {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
-                </td>
-                <td></td>
-                <td style="font-size: 10px">{{ log.irrigation|default_if_none:'' }}</td>
+                </span></td>
+                <td><span id="carbon_dioxide{{ log.id }}"></span></td>
+                <td style="font-size: 10px"><span id="irrigation{{ log.id }}">
+                    {{ log.irrigation|default_if_none:'' }}
+                </span></td>
                 <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->
                 {% if log.nutrient_logs.exists and not log.date == today %}
                 <td style="text-align: center; vertical-align: middle;">
