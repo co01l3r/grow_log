@@ -300,6 +300,17 @@ def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpRespo
     return render(request, 'records/nutrient_log_form.html', context)
 
 
+def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log_pk: int) -> HttpResponse:
+    try:
+        nutrient_log = get_object_or_404(NutrientLog, pk=nutrient_log_pk, log__pk=log_pk)
+        nutrient_log.delete()
+        messages.success(request, 'Nutrient log deleted successfully')
+    except:
+        messages.error(request, 'An error occurred while deleting the nutrient log')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 # other views
 def phase_summary(request, pk):
     # TODO: tests or delete it
