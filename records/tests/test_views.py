@@ -1,8 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from records.models import Cycle, Log
-from records.forms import CycleForm
+from records.models import Cycle, Log, Nutrient, NutrientLog
+from records.forms import CycleForm, NutrientLogForm
 
 
 # record views test cases
@@ -309,6 +309,48 @@ class DeleteLogTestCase(TestCase):
         self.assertFalse(Log.objects.filter(pk=self.log.pk).exists())
         self.assertRedirects(response, reverse('record', args=[self.cycle.pk]))
 
+
 # nutrient views test cases
 # nutrientLog views test cases
+class CreateNutrientLogTestCase(TestCase):
+    def setUp(self):
+        self.cycle = Cycle.objects.create(name='test cycle')
+        self.log = Log.objects.create(cycle=self.cycle)
+        self.nutrient = Nutrient.objects.create(name='test nutrient', brand='test brand')
+        self.form_data = {
+            'log': self.log.id,
+            'nutrient': self.nutrient.id,
+            'concentration': 10,
+        }
+
+    def test_create_nutrient_log_post(self):
+        url = reverse('create_nutrient_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk})
+        response = self.client.post(url, data=self.form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(NutrientLog.objects.count(), 1)
+        nutrient_log = NutrientLog.objects.first()
+        self.assertEqual(nutrient_log.log, self.log)
+        self.assertEqual(nutrient_log.nutrient, self.nutrient)
+        self.assertEqual(nutrient_log.concentration, 10)
+
+    def test_create_nutrient_log_get(self):
+        url = reverse('create_nutrient_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.context['form'], NutrientLogForm)
+        self.assertEqual(response.context['cycle'], self.cycle)
+        self.assertQuerysetEqual(response.context['existing_nutrient_logs'], [])
+
+    def test_create_nutrient_log_with_existing_log(self):
+        NutrientLog.objects.create(log=self.log, nutrient=self.nutrient, concentration=5)
+        url = reverse('create_nutrient_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk})
+        response = self.client.post(url, data=self.form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(NutrientLog.objects.count(), 1)
+        nutrient_log = NutrientLog.objects.first()
+        self.assertEqual(nutrient_log.log, self.log)
+        self.assertEqual(nutrient_log.nutrient, self.nutrient)
+        self.assertEqual(nutrient_log.concentration, 15)
+
+
 # other views test cases
