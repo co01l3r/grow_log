@@ -352,5 +352,12 @@ class CreateNutrientLogTestCase(TestCase):
         self.assertEqual(nutrient_log.nutrient, self.nutrient)
         self.assertEqual(nutrient_log.concentration, 15)
 
+    def test_delete_nutrient_log(self):
+        nutrient_log = NutrientLog.objects.create(log=self.log, nutrient=self.nutrient, concentration=5)
+        url = reverse('delete_nutrient_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk, 'nutrient_log_pk': nutrient_log.pk})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(NutrientLog.objects.count(), 0)
+
 
 # other views test cases
