@@ -317,8 +317,24 @@ def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpRespo
 
 
 def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log_pk: int) -> HttpResponse:
+    """
+    A view that handles the deletion of a NutrientLog object for a specified Cycle and Log.
+
+    Parameters:
+        request (HttpRequest):
+            The HTTP request object.
+        pk (str):
+            The primary key of the cycle to which the log belongs.
+        log_pk (int):
+            The primary key of the log for which to delete the nutrient log.
+        nutrient_log_pk (int):
+            The primary key of the nutrient log to delete.
+
+    Returns:
+        A redirect HttpResponse object that redirects the user back to form.
+    """
     try:
-        nutrient_log = get_object_or_404(NutrientLog, pk=nutrient_log_pk, log__pk=log_pk)
+        nutrient_log: NutrientLog = get_object_or_404(NutrientLog, pk=nutrient_log_pk, log__pk=log_pk)
         nutrient_log.delete()
         messages.success(request, 'Nutrient log deleted successfully')
     except:
