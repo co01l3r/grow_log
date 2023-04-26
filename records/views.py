@@ -3,6 +3,7 @@ from datetime import date
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, JsonResponse
+from django.db.models import QuerySet
 
 from .models import Cycle, Log, Nutrient, NutrientLog
 from .forms import CycleForm, LogForm, NutrientLogForm
@@ -281,20 +282,35 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 # nutrient views
 # nutrientLog views
 def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
-    cycle = get_object_or_404(Cycle, pk=pk)
-    log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
-    existing_nutrient_logs = log.nutrient_logs.all()
+    """
+    A view that handles the creation of a new NutrientLog object for a specified Cycle and Log.
+
+    Parameters:
+        request (HttpRequest):
+            The HTTP request object.
+        pk (str):
+            The primary key of the cycle to which the log belongs.
+        log_pk (int):
+            The primary key of the log for which to create the nutrient log.
+
+    Returns:
+        A redirect HttpResponse object that redirects the user back to the form for the
+        NutrientLog object.
+    """
+    cycle: Cycle = get_object_or_404(Cycle, pk=pk)
+    log: Log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+    existing_nutrient_logs: QuerySet = log.nutrient_logs.all()
 
     if request.method == 'POST':
-        form = NutrientLogForm(request.POST)
+        form: NutrientLogForm = NutrientLogForm(request.POST)
         if form.is_valid():
-            nutrient_log = form.save(commit=False)
+            nutrient_log: NutrientLog = form.save(commit=False)
             nutrient_log.log = log
             nutrient_log.save()
             messages.success(request, 'Nutrient log created successfully')
             return HttpResponseRedirect(request.path_info)
     else:
-        form = NutrientLogForm()
+        form: NutrientLogForm = NutrientLogForm()
 
     context = {'form': form, 'cycle': cycle, 'existing_nutrient_logs': existing_nutrient_logs}
     return render(request, 'records/nutrient_log_form.html', context)
