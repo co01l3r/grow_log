@@ -465,6 +465,7 @@
                     {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
                 </span></td>
+                <td></td>
                 <!--display 'irrigation' in color if changed to the previous Log if exists-->
                 <td class="
                     {% if log.get_previous_log.irrigation is not none %}
