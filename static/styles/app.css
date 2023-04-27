@@ -600,6 +600,11 @@ tr:nth-child(2) td[colspan="2"] {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
+.irrigation-changed {
+    color: black;
+    opacity: 40%;
+}
+
 /* nutrient type color representation */
 .medium_conditioner {
     color: mediumpurple;

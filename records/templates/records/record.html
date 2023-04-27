@@ -465,10 +465,14 @@
                     {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
                 </span></td>
-
-                <td><span id="carbon_dioxide{{ log.id }}"></span></td>
-
-                <td style="font-size: 10px"><span id="irrigation{{ log.id }}">
+                <!--display 'irrigation' in color if changed to the previous Log if exists-->
+                <td class="
+                    {% if log.get_previous_log.irrigation is not none %}
+                        {% if log.irrigation is not none %}
+                            {% if log.irrigation != log.get_previous_log.irrigation %} irrigation-changed {% endif %}
+                        {% endif %}
+                    {% endif %}
+                " style="font-size: 10px"><span id="irrigation{{ log.id }}">
                     {{ log.irrigation|default_if_none:'' }}
                 </span></td>
                 <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->
@@ -566,6 +570,15 @@
 <i class="fa-solid fa-exclamation"></i>
 <i class="fa-solid fa-droplet-slash"></i>
 <i class="fa-solid fa-water"></i>
+<i class="fa-solid fa-link"></i>
+<i class="fa-solid fa-vial-virus"></i>
+<i class="fa-solid fa-venus"></i>
+<i class="fa-solid fa-venus-mars"></i>
+<i class="fa-solid fa-plant-wilt"></i>
+<i class="fa-solid fa-mars-and-venus"></i>
+<i class="fa-solid fa-flask-vial"></i>
+<i class="fa-solid fa-house"></i>
+
 
 <a href="{% url 'phase_summary' pk=cycle.id %}">Wrap Up</a>
 
