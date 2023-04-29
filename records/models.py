@@ -276,6 +276,10 @@ class ReservoirLog(models.Model):
         return f"{self.status} - {self.water}"
 
     def save(self, *args, **kwargs):
+        if self.waste_water is None:
+            self.status = 'refill'
+        else:
+            self.status = 'refresh'
         try:
             existing_log = ReservoirLog.objects.get(log=self.log)
             existing_log.water += self.water
@@ -283,7 +287,6 @@ class ReservoirLog(models.Model):
                 existing_log.waste_water = existing_log.waste_water + self.waste_water if existing_log.waste_water is not None else self.waste_water
             existing_log.ro = self.ro
             existing_log.status = self.status
-            # Call the superclass save() method to update the existing object
             super(ReservoirLog, existing_log).save(*args, **kwargs)
         except ReservoirLog.DoesNotExist:
             super(ReservoirLog, self).save(*args, **kwargs)
