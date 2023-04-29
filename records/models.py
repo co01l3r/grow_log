@@ -269,8 +269,9 @@ class ReservoirLog(models.Model):
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='reservoir_logs')
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
-    ro = models.BooleanField(choices=RO_OPTIONS, default='yes', max_length=3)
-    status = models.CharField(choices=RESERVOIR_STATUS, max_length=7)
+    ro = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
+    status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7)
 
     def __str__(self) -> str:
         return f"{self.status} - {self.water}"
+
