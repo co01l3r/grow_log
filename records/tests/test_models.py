@@ -275,4 +275,4 @@ class NutrientLogTestCase(TestCase):
         self.assertEqual(logs[1].nutrient, self.nutrient2)
         self.assertEqual(logs[2].nutrient, nutrient3)
 
-# Reservoir model test cases
+# ReservoirLog model test cases

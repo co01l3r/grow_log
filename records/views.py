@@ -343,7 +343,7 @@ def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-# Reservoir views
+# ReservoirLog views
 # other views
 def phase_summary(request, pk):
     # TODO: tests or delete it

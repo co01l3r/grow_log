@@ -81,4 +81,4 @@ class NutrientLogForm(forms.ModelForm):
         self.fields['nutrient'].widget.attrs.update({'class': 'form-control'})
         self.fields['concentration'].widget.attrs.update({'class': 'form-control'})
 
-# Reservoir modelForm
+# ReservoirLog modelForm

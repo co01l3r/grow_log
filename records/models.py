@@ -255,8 +255,8 @@ class NutrientLog(models.Model):
         super().save(*args, **kwargs)
 
 
-# Reservoir model
-class Reservoir(models.Model):
+# ReservoirLog model
+class ReservoirLog(models.Model):
     RO_OPTIONS: List[Tuple[str, str]] = [
         ('yes', 'Yes'),
         ('no', 'No'),
@@ -266,7 +266,7 @@ class Reservoir(models.Model):
         ('refresh', 'Refresh'),
         ('refill', 'Refill'),
     ]
-    log = models.ForeignKey('Log', on_delete=models.CASCADE)
+    log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='reservoir_logs')
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
     ro = models.BooleanField(choices=RO_OPTIONS, default='yes', max_length=3)
