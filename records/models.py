@@ -253,3 +253,24 @@ class NutrientLog(models.Model):
             self.concentration += sum(log.concentration for log in existing_logs)
             existing_logs.delete()
         super().save(*args, **kwargs)
+
+
+# Reservoir model
+class Reservoir(models.Model):
+    RO_OPTIONS: List[Tuple[str, str]] = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        ('mix', 'Mix'),
+    ]
+    RESERVOIR_STATUS: List[Tuple[str, str]] = [
+        ('refresh', 'Refresh'),
+        ('refill', 'Refill'),
+    ]
+    log = models.ForeignKey('Log', on_delete=models.CASCADE)
+    water = models.IntegerField()
+    waste_water = models.IntegerField(blank=True, null=True)
+    ro = models.BooleanField(choices=RO_OPTIONS, default='yes', max_length=3)
+    status = models.CharField(choices=RESERVOIR_STATUS, max_length=7)
+
+    def __str__(self) -> str:
+        return f"{self.status} - {self.water}"
