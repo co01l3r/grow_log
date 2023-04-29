@@ -97,7 +97,7 @@
                 {% else %}
             <tr>
                 {% endif %}
-                <!--display log position formatted as: day_in_cycle (day_in_phase) phase-->
+                <!--display log position formatted as: day_in_cycle (day_in_phase) phase and today indication-->
                 {% if log.date == today %}
                 <td style="text-align: left;">
                     {% if log.get_day_in_cycle == log.get_phase_day_in_cycle %}
@@ -117,6 +117,7 @@
                     <div class="online-icon"> </div>
                 </td>
                 {% else %}
+                <!--display log position formatted as: day_in_cycle (day_in_phase) phase-->
                 <td style="text-align: left;">
                     {% if log.get_day_in_cycle == log.get_phase_day_in_cycle %}
                     {{ log.get_day_in_cycle }}
