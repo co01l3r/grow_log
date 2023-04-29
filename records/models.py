@@ -270,7 +270,7 @@ class ReservoirLog(models.Model):
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
     ro = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
-    status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7)
+    status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7, editable=False)
 
     def __str__(self) -> str:
         return f"{self.status} - {self.water}"
