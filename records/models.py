@@ -280,13 +280,14 @@ class ReservoirLog(models.Model):
             self.status = 'refill'
         else:
             self.status = 'refresh'
+
         try:
             existing_log = ReservoirLog.objects.get(log=self.log)
             existing_log.water += self.water
             if self.waste_water is not None:
-                existing_log.waste_water = existing_log.waste_water + self.waste_water if existing_log.waste_water is not None else self.waste_water
+                existing_log.waste_water = (existing_log.waste_water or 0) + self.waste_water
             existing_log.ro = self.ro
             existing_log.status = self.status
             super(ReservoirLog, existing_log).save(*args, **kwargs)
         except ReservoirLog.DoesNotExist:
-            super(ReservoirLog, self).save(*args, **kwargs)
+            super().save(*args, **kwargs)
