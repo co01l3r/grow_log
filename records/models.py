@@ -267,7 +267,7 @@ class ReservoirLog(models.Model):
         ('refill', 'Refill'),
     ]
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='reservoir_logs')
-    status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7)
+    status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7, editable=False)
     ro = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
@@ -280,9 +280,15 @@ class ReservoirLog(models.Model):
             existing_log = ReservoirLog.objects.get(log=self.log)
             existing_log.water += self.water
             if self.waste_water is not None:
-                existing_log.waste_water = (existing_log.waste_water or 0) + self.waste_water
+                existing_log.waste_water = self.waste_water
+                existing_log.status = 'refresh'
+            else:
+                existing_log.waste_water = (existing_log.waste_water or 0)
+                if existing_log.waste_water == 0:
+                    existing_log.status = 'refill'
             existing_log.ro = self.ro
-            existing_log.status = self.status
             super(ReservoirLog, existing_log).save(*args, **kwargs)
         except ReservoirLog.DoesNotExist:
+            if self.waste_water is not None:
+                self.status = 'refresh'
             super().save(*args, **kwargs)
