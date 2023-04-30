@@ -4,9 +4,47 @@
 <body>
 {% block content %}
 <section>
+    <!--display title only if feeding logs for the Log exists-->
+    {% if existing_reservoir_logs or existing_nutrient_logs %}
+    <h2>Existing Recipe</h2>
+    {% endif %}
+
+    <!--display 'existing_nutrient_logs' if exist for the Log-->
+    {% if existing_reservoir_logs %}
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr>
+                <th>Water Amount</th>
+                <th>Reverse Osmosis</th>
+                <th>Waste</th>
+                <th></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div>
+        <table id="record-content-table" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+            {% for reservoir_log in existing_reservoir_logs %}
+            <tr>
+                <td>{{ reservoir_log.water|default_if_none:0 }}</td>
+                <td>{{ reservoir_log.ro }}</td>
+                <td>{{ reservoir_log.waste_water }}</td>
+                <td><span class="delete-icon"
+                          onclick="">
+                <i class="fa-regular fa-circle-xmark"></i>
+                </span></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <br>
     <!--display 'existing_nutrient_logs' if exist for the Log-->
     {% if existing_nutrient_logs %}
-    <h2>Existing Recipe</h2>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>

@@ -84,6 +84,8 @@ class NutrientLogForm(forms.ModelForm):
 
 # ReservoirLog modelForm
 class ReservoirLogForm(forms.ModelForm):
+    water = forms.DecimalField(initial=0)
+
     class Meta:
         model = ReservoirLog
         fields = ['ro', 'water', 'waste_water']
