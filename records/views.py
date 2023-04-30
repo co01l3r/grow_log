@@ -1,12 +1,12 @@
 from datetime import date
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, JsonResponse
 from django.db.models import QuerySet
 
 from .models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
-from .forms import CycleForm, LogForm, NutrientLogForm
+from .forms import CycleForm, LogForm, NutrientLogForm, ReservoirLogForm
 from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 
 
@@ -58,7 +58,11 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
     logs = Log.objects.filter(cycle=cycle)
     today = date.today()
 
-    context = {'cycle': cycle, 'logs': logs, 'today': today}
+    context = {
+        'cycle': cycle,
+        'logs': logs,
+        'today': today
+    }
     return render(request, 'records/record.html', context)
 
 
@@ -112,7 +116,10 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
     else:
         form = CycleForm(instance=cycle)
 
-    context = {'form': form, 'cycle': cycle}
+    context = {
+        'form': form,
+        'cycle': cycle
+    }
     return render(request, 'records/record_form.html', context)
 
 
@@ -209,7 +216,11 @@ def create_log(request: HttpRequest, pk: str) -> HttpResponse:
             return redirect('record', pk=cycle.pk)
         else:
             form = LogForm()
-            context = {'form': form, 'cycle': cycle}
+
+            context = {
+                'form': form,
+                'cycle': cycle
+            }
             return render(request, 'records/log_form.html', context)
 
 
@@ -280,40 +291,50 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 
 
 # nutrient views
-# nutrientLog views
-def create_nutrient_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
-    """
-    A view that handles the creation of a new NutrientLog object for a specified Cycle and Log.
+# nutrientLog & reservoirLog views
+def create_feeding_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
+    try:
+        cycle: Cycle = get_object_or_404(Cycle, pk=pk)
+        log: Log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+        existing_nutrient_logs: QuerySet[NutrientLog] = log.nutrient_logs.all()
+        existing_reservoir_logs: QuerySet[ReservoirLog] = log.reservoir_logs.all()
 
-    Parameters:
-        request (HttpRequest):
-            The HTTP request object.
-        pk (str):
-            The primary key of the cycle to which the log belongs.
-        log_pk (int):
-            The primary key of the log for which to create the nutrient log.
+        if request.method == 'POST':
+            nutrient_log_form: NutrientLogForm = NutrientLogForm(request.POST)
+            reservoir_log_form: ReservoirLogForm = ReservoirLogForm(request.POST)
 
-    Returns:
-        A redirect HttpResponse object that redirects the user back to the form for the
-        NutrientLog object.
-    """
-    cycle: Cycle = get_object_or_404(Cycle, pk=pk)
-    log: Log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
-    existing_nutrient_logs: QuerySet = log.nutrient_logs.all()
+            if nutrient_log_form.is_valid():
+                nutrient_log: NutrientLog = nutrient_log_form.save(commit=False)
+                nutrient_log.log = log
+                nutrient_log.save()
+                messages.success(request, 'Nutrient log created successfully')
+                return HttpResponseRedirect(request.path_info)
 
-    if request.method == 'POST':
-        form: NutrientLogForm = NutrientLogForm(request.POST)
-        if form.is_valid():
-            nutrient_log: NutrientLog = form.save(commit=False)
-            nutrient_log.log = log
-            nutrient_log.save()
-            messages.success(request, 'Nutrient log created successfully')
-            return HttpResponseRedirect(request.path_info)
-    else:
-        form: NutrientLogForm = NutrientLogForm()
+            if reservoir_log_form.is_valid():
+                reservoir_log: ReservoirLog = reservoir_log_form.save(commit=False)
+                reservoir_log.log = log
+                reservoir_log.save()
+                messages.success(request, 'Reservoir log created successfully.')
+                return HttpResponseRedirect(request.path_info)
+        else:
+            nutrient_log_form: NutrientLogForm = NutrientLogForm()
+            reservoir_log_form: ReservoirLogForm = ReservoirLogForm()
 
-    context = {'form': form, 'cycle': cycle, 'existing_nutrient_logs': existing_nutrient_logs}
-    return render(request, 'records/nutrient_log_form.html', context)
+        context = {
+            'nutrient_log_form': nutrient_log_form,
+            'reservoir_log_form': reservoir_log_form,
+            'cycle': cycle,
+            'existing_nutrient_logs': existing_nutrient_logs,
+            'existing_reservoir_logs': existing_reservoir_logs
+        }
+        return render(request, 'records/nutrient_log_form.html', context)
+
+    except (Cycle.DoesNotExist, Log.DoesNotExist):
+        messages.error(request, 'Cycle or Log does not exist')
+        return HttpResponseRedirect(reverse('home'))
+    except Exception as e:
+        messages.error(request, f'An error occurred while creating nutrient log: {str(e)}')
+        return HttpResponseRedirect(request.path_info)
 
 
 def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log_pk: int) -> HttpResponse:
@@ -343,7 +364,6 @@ def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-# ReservoirLog views
 # other views
 def phase_summary(request, pk):
     # TODO: tests or delete it

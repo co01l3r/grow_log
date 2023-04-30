@@ -15,7 +15,7 @@ urlpatterns = [
     path('record/<uuid:pk>/edit-log/<int:log_pk>/', views.edit_log, name='edit_log'),
     path('record/<uuid:pk>/delete-log/<int:log_pk>/', views.delete_log, name='delete_log'),
 
-    path('record/<uuid:pk>/log/<int:log_pk>/nutrient-log/', views.create_nutrient_log, name='create_nutrient_log'),
+    path('record/<uuid:pk>/log/<int:log_pk>/nutrient-log/', views.create_feeding_log, name='create_feeding_log'),
     path('record/<uuid:pk>/log/<int:log_pk>/delete-nutrient-log/<int:nutrient_log_pk>/', views.delete_nutrient_log,
          name='delete_nutrient_log'),
 ]
