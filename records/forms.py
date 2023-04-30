@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Cycle, Log, Nutrient, NutrientLog
+from .models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
 
 
 # record modelForm
@@ -81,4 +81,15 @@ class NutrientLogForm(forms.ModelForm):
         self.fields['nutrient'].widget.attrs.update({'class': 'form-control'})
         self.fields['concentration'].widget.attrs.update({'class': 'form-control'})
 
+
 # ReservoirLog modelForm
+class ReservoirLogForm(forms.ModelForm):
+    class Meta:
+        model = ReservoirLog
+        fields = ['ro', 'water', 'waste_water']
+
+    def __init__(self, *args: tuple, **kwargs: dict) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['ro'].widget.attrs.update({'class': 'form-control'})
+        self.fields['water'].widget.attrs.update({'class': 'form-control'})
+        self.fields['waste_water'].widget.attrs.update({'class': 'form-control'})
