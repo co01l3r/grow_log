@@ -293,6 +293,24 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
 # nutrient views
 # nutrientLog & reservoirLog views
 def create_feeding_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
+    """
+    Create a nutrient or reservoir log for a given cycle and log.
+
+    Parameters:
+        request (HttpRequest):
+            An HttpRequest object that contains metadata about the request.
+        pk (str):
+            The string representation of the UUID primary key of the Cycle to which the log belongs.
+        log_pk (int):
+            An integer representing the primary key of the log to edit.
+
+    Returns:
+        HttpResponse: The HTTP response that renders the nutrient or reservoir log form.
+
+    Raises:
+        Http404: If either the cycle or the log does not exist.
+        Exception: If any other error occurs while creating the nutrient or reservoir log.
+    """
     try:
         cycle: Cycle = get_object_or_404(Cycle, pk=pk)
         log: Log = get_object_or_404(Log, pk=log_pk, cycle=cycle)

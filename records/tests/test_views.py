@@ -1,8 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from records.models import Cycle, Log, Nutrient, NutrientLog
-from records.forms import CycleForm, NutrientLogForm
+from records.models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
+from records.forms import CycleForm, NutrientLogForm, ReservoirLogForm
 
 
 # record views test cases
@@ -316,7 +316,7 @@ class CreateNutrientLogTestCase(TestCase):
         self.cycle = Cycle.objects.create(name='test cycle')
         self.log = Log.objects.create(cycle=self.cycle)
         self.nutrient = Nutrient.objects.create(name='test nutrient', brand='test brand')
-        self.form_data = {
+        self.nutrient_log_form_data = {
             'log': self.log.id,
             'nutrient': self.nutrient.id,
             'concentration': 10,
@@ -324,7 +324,7 @@ class CreateNutrientLogTestCase(TestCase):
 
     def test_create_nutrient_log_post(self):
         url = reverse('create_feeding_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk})
-        response = self.client.post(url, data=self.form_data)
+        response = self.client.post(url, data=self.nutrient_log_form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(NutrientLog.objects.count(), 1)
         nutrient_log = NutrientLog.objects.first()
@@ -343,7 +343,7 @@ class CreateNutrientLogTestCase(TestCase):
     def test_create_nutrient_log_with_existing_log(self):
         NutrientLog.objects.create(log=self.log, nutrient=self.nutrient, concentration=5)
         url = reverse('create_feeding_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk})
-        response = self.client.post(url, data=self.form_data)
+        response = self.client.post(url, data=self.nutrient_log_form_data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(NutrientLog.objects.count(), 1)
         nutrient_log = NutrientLog.objects.first()
@@ -358,5 +358,50 @@ class CreateNutrientLogTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(NutrientLog.objects.count(), 0)
 
+
+# reservoirLog views test cases
+class CreateReservoirLogTestCase(TestCase):
+    def setUp(self):
+        self.cycle = Cycle.objects.create(name='test cycle')
+        self.log = Log.objects.create(cycle=self.cycle)
+        self.log2 = Log.objects.create(cycle=self.cycle)
+        self.reservoir_log_form_data1 = {
+            'log': self.log.id,
+            'status': 'refresh',
+            'ro': 'yes',
+            'water': 5,
+            'waste_water': 3,
+        }
+        self.reservoir_log_form_data2 = {
+            'log': self.log2.id,
+            'status': 'refill',
+            'ro': 'yes',
+            'water': 5,
+            'waste_water': '',
+        }
+
+    def test_create_reservoir_log_with_valid_form_data(self):
+        form = ReservoirLogForm(data=self.reservoir_log_form_data1)
+        self.assertTrue(form.is_valid())
+        response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, self.log.pk]), data=form.data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_create_reservoir_log_with_invalid_form_data(self):
+        form = ReservoirLogForm(data={'log': self.log.id, 'status': 'invalid_status'})
+        self.assertFalse(form.is_valid())
+        response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, self.log.pk]), data=form.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_reservoir_log_with_missing_required_field(self):
+        form = ReservoirLogForm(data={'log': self.log.id, 'status': 'refill'})
+        self.assertFalse(form.is_valid())
+        response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, self.log.pk]), data=form.data)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_reservoir_log_with_invalid_log(self):
+        form = ReservoirLogForm(data=self.reservoir_log_form_data2)
+        self.assertTrue(form.is_valid())
+        response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, 999]), data=form.data)
+        self.assertEqual(response.status_code, 302)
 
 # other views test cases
