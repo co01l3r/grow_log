@@ -345,7 +345,7 @@ def create_feeding_log(request: HttpRequest, pk: str, log_pk: int) -> HttpRespon
             'existing_nutrient_logs': existing_nutrient_logs,
             'existing_reservoir_logs': existing_reservoir_logs
         }
-        return render(request, 'records/nutrient_log_form.html', context)
+        return render(request, 'records/feeding_log_form.html', context)
 
     except (Cycle.DoesNotExist, Log.DoesNotExist):
         messages.error(request, 'Cycle or Log does not exist')
