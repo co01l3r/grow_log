@@ -351,7 +351,7 @@ def create_feeding_log(request: HttpRequest, pk: str, log_pk: int) -> HttpRespon
         messages.error(request, 'Cycle or Log does not exist')
         return HttpResponseRedirect(reverse('home'))
     except Exception as e:
-        messages.error(request, f'An error occurred while creating nutrient log: {str(e)}')
+        messages.error(request, f'An error occurred while creating feeding log: {str(e)}')
         return HttpResponseRedirect(request.path_info)
 
 
