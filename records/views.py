@@ -349,7 +349,7 @@ def create_feeding_log(request: HttpRequest, pk: str, log_pk: int) -> HttpRespon
 
     except (Cycle.DoesNotExist, Log.DoesNotExist):
         messages.error(request, 'Cycle or Log does not exist')
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('/'))
     except Exception as e:
         messages.error(request, f'An error occurred while creating feeding log: {str(e)}')
         return HttpResponseRedirect(request.path_info)
