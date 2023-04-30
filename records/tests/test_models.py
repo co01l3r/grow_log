@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from records.models import Cycle, Log, Nutrient, NutrientLog
+from records.models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
 
 
 # Cycle model test cases
@@ -275,4 +275,32 @@ class NutrientLogTestCase(TestCase):
         self.assertEqual(logs[1].nutrient, self.nutrient2)
         self.assertEqual(logs[2].nutrient, nutrient3)
 
+
 # ReservoirLog model test cases
+class ReservoirLogTestCase(TestCase):
+    def setUp(self):
+        cycle = Cycle.objects.create(name="Test Cycle")
+        self.log = Log.objects.create(cycle=cycle)
+        self.reservoir_log = ReservoirLog.objects.create(log=self.log, water=50)
+
+    def test_reservoir_log_creation(self):
+        self.assertEqual(self.reservoir_log.water, 50)
+        self.assertEqual(self.reservoir_log.ro, 'yes')
+        self.assertEqual(self.reservoir_log.status, 'refill')
+        self.assertIsNone(self.reservoir_log.waste_water)
+
+    def test_reservoir_log_update(self):
+        self.reservoir_log.water = 100
+        self.reservoir_log.save()
+        self.reservoir_log.refresh_from_db()
+        self.assertEqual(self.reservoir_log.water, 150)
+        self.assertEqual(self.reservoir_log.status, 'refill')
+
+        self.reservoir_log.waste_water = 20
+        self.reservoir_log.save()
+        self.reservoir_log.refresh_from_db()
+        self.assertEqual(self.reservoir_log.waste_water, 20)
+        self.assertEqual(self.reservoir_log.status, 'refresh')
+        self.assertEqual(self.reservoir_log.ro, 'yes')
+
+        self.assertEqual(self.reservoir_log.status, 'refresh')
