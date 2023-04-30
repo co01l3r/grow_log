@@ -466,7 +466,24 @@
                     {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
                 </span></td>
-                <td></td>
+
+                <!--display 'water' with status icon based on if 'waste_water' value exist-->
+                <td>
+                    {% if log.reservoir_logs.all %}
+                        {% for rlog in log.reservoir_logs.all %}
+                            {% if rlog.waste_water %}
+                                <span id="reservoir_logs.all{{ log.id }}">
+                                    <i class="fa-solid fa-recycle"></i> {{ rlog.water }}
+                                </span>
+                            {% else %}
+                                <span id="reservoir_logs.all{{ log.id }}">
+                                    <i class="fa-solid fa-water"></i> {{ rlog.water }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+
                 <!--display 'irrigation' in color if changed to the previous Log if exists-->
                 <td class="
                     {% if log.get_previous_log.irrigation is not none %}

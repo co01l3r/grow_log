@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, JsonResponse
 from django.db.models import QuerySet
 
-from .models import Cycle, Log, Nutrient, NutrientLog
+from .models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
 from .forms import CycleForm, LogForm, NutrientLogForm
 from .utils import calculate_average_veg_day_temp, fill_and_submit_log_form
 
