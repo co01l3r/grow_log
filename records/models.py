@@ -270,9 +270,24 @@ class ReservoirLog(models.Model):
     reverse_osmosis = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
-    ro_amount = models.IntegerField()
-    not_ro_amount = models.IntegerField()
+    ro_amount = models.IntegerField(blank=True, null=True, editable=False)
 
     def __str__(self) -> str:
         return f"{self.status} - {self.water}"
 
+    def save(self, *args, **kwargs):
+        try:
+            existing_log = ReservoirLog.objects.get(log=self.log)
+            existing_log.water += self.water
+            if self.waste_water is not None:
+                existing_log.waste_water = (existing_log.waste_water or 0) + self.waste_water
+                existing_log.status = 'refresh'
+            else:
+                existing_log.waste_water = (existing_log.waste_water or 0)
+                if existing_log.waste_water == 0:
+                    existing_log.status = 'refill'
+            super(ReservoirLog, existing_log).save(*args, **kwargs)
+        except ReservoirLog.DoesNotExist:
+            if self.waste_water is not None:
+                self.status = 'refresh'
+            super().save(*args, **kwargs)
