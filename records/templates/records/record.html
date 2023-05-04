@@ -223,7 +223,7 @@
                             </span>
                             {% endif %}
                         {% else %}
-                        <!--with regular co2 levels-->
+                            <!--with regular co2 levels-->
                             {% if log.temperature_day <= 15 %}
                             <span id="temperature_day{{ log.id }}">
                                 <i class="fa-regular fa-snowflake"></i>
@@ -507,7 +507,7 @@
                         Show
                     </button>
                     <button class="plus-btn" style="margin: auto; margin-bottom: 4px"
-                            onclick="location.href='{% url 'create_nutrient_log' pk=log.cycle.pk log_pk=log.pk %}'">
+                            onclick="location.href='{% url 'create_feeding_log' pk=log.cycle.pk log_pk=log.pk %}'">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </td>
