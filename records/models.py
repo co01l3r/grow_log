@@ -276,9 +276,19 @@ class ReservoirLog(models.Model):
         return f"{self.status} - {self.water}"
 
     def save(self, *args, **kwargs):
+        if self.reverse_osmosis == 'yes':
+            if self.ro_amount is None:
+                self.ro_amount = self.water
+            else:
+                self.ro_amount += self.water
         try:
             existing_log = ReservoirLog.objects.get(log=self.log)
             existing_log.water += self.water
+            if self.reverse_osmosis == 'yes':
+                if existing_log.ro_amount is None:
+                    existing_log.ro_amount = self.water
+                else:
+                    existing_log.ro_amount += self.water
             if self.waste_water is not None:
                 existing_log.waste_water = (existing_log.waste_water or 0) + self.waste_water
                 existing_log.status = 'refresh'
@@ -291,3 +301,4 @@ class ReservoirLog(models.Model):
             if self.waste_water is not None:
                 self.status = 'refresh'
             super().save(*args, **kwargs)
+            
