@@ -16,7 +16,7 @@
             <thead>
             <tr>
                 <th>Water Amount</th>
-                <th>Reverse Osmosis</th>
+                <th>RO ratio %</th>
                 <th>Waste</th>
                 <th></th>
             </tr>
@@ -29,9 +29,8 @@
             {% for reservoir_log in existing_reservoir_logs %}
             <tr>
                 <td>{{ reservoir_log.water|default_if_none:0 }}</td>
-                <td>{{ reservoir_log.ro }}</td>
-                <td>{{ reservoir_log.waste_water }}</td>
-                <td> ro amount: {{ reservoir_log.ro_amount }}</td>
+                <td>{{ reservoir_log.ro_water_ratio|floatformat:0 }}</td>
+                <td>{{ reservoir_log.waste_water|default_if_none:'' }}</td>
                 <td><span class="delete-icon"
                           onclick="">
                 <i class="fa-regular fa-circle-xmark"></i>

@@ -301,4 +301,11 @@ class ReservoirLog(models.Model):
             if self.waste_water is not None:
                 self.status = 'refresh'
             super().save(*args, **kwargs)
-            
+
+    def ro_water_ratio(self) -> Optional[float]:
+        if self.ro_amount is None:
+            return None
+        else:
+            return round(self.ro_amount / self.water * 100, 2)
+
+
