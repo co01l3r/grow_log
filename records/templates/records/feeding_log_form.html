@@ -29,7 +29,7 @@
             {% for reservoir_log in existing_reservoir_logs %}
             <tr>
                 <td>{{ reservoir_log.water|default_if_none:0 }}</td>
-                <td>{{ reservoir_log.ro_water_ratio|floatformat:0 }}</td>
+                <td>{{ reservoir_log.get_ro_water_ratio|floatformat:0 }}</td>
                 <td>{{ reservoir_log.waste_water|default_if_none:'' }}</td>
                 <td><span class="delete-icon"
                           onclick="">

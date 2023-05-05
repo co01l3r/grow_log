@@ -1,4 +1,4 @@
-from typing import List, Tuple, Optional, Union, Type
+from typing import List, Tuple, Optional
 import uuid
 
 from django.db import models
@@ -287,7 +287,8 @@ class ReservoirLog(models.Model):
             self._update_existing_log(existing_log)
             super(ReservoirLog, existing_log).save(*args, **kwargs)
         except ReservoirLog.DoesNotExist:
-            self._create_new_log()
+            if self.waste_water is not None:
+                self.status = 'refresh'
             super().save(*args, **kwargs)
 
     def _update_existing_log(self, existing_log: 'ReservoirLog') -> None:
@@ -295,10 +296,6 @@ class ReservoirLog(models.Model):
             self._update_existing_ro_amount(existing_log)
         if self.waste_water is not None:
             self._update_existing_waste_water(existing_log)
-
-    def _create_new_log(self) -> None:
-        if self.waste_water is not None:
-            self.status = 'refresh'
 
     def _update_existing_ro_amount(self, existing_log: 'ReservoirLog') -> None:
         if existing_log.ro_amount is None:
@@ -313,10 +310,8 @@ class ReservoirLog(models.Model):
         elif existing_log.waste_water == 0:
             existing_log.status = 'refill'
 
-    def ro_water_ratio(self) -> Optional[float]:
+    def get_ro_water_ratio(self) -> Optional[float]:
         if self.ro_amount is None:
             return None
         else:
             return round(self.ro_amount / self.water * 100, 2)
-
-
