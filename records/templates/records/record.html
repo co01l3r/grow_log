@@ -415,18 +415,21 @@
                 <!--display 'light_power' graphically-->
                 {% if log.light_power == 25 %}
                 <td><span id="light_power{{ log.id }}">
-                    <i class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
-                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                    <i class="fa-solid fa-lightbulb"></i><span style="opacity: 0.7;"><i
+                        class="fa-regular fa-lightbulb"></i><i
+                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></span>
                 </span></td>
                 {% elif log.light_power == 50 %}
                 <td><span id="light_power{{ log.id }}">
-                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
-                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><span
+                        style="opacity: 0.7;"><i
+                        class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></span>
                 </span></td>
                 {% elif log.light_power == 75 %}
                 <td><span id="light_power{{ log.id }}">
                     <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
-                        class="fa-solid fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
+                        class="fa-solid fa-lightbulb"></i><span style="opacity: 0.7;"><i
+                        class="fa-regular fa-lightbulb"></i></span>
                 </span></td>
                 {% elif log.light_power == 100 %}
                 <td><span id="light_power{{ log.id }}">
@@ -434,7 +437,7 @@
                         class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i>
                 </span></td>
                 {% else %}
-                <td><span id="light_power{{ log.id }}">
+                <td><span id="light_power{{ log.id }}" style="opacity: 0.7;">
                     <i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
                 </span></td>
@@ -472,11 +475,11 @@
                         {% for rlog in log.reservoir_logs.all %}
                             {% if rlog.waste_water %}
                                 <span id="reservoir_logs.all{{ log.id }}">
-                                    <i class="fa-solid fa-recycle"></i> {{ rlog.water }}
+                                    <i class="fa-solid fa-recycle" style="font-size: 11px;"></i> {{ rlog.water }}
                                 </span>
                             {% else %}
                                 <span id="reservoir_logs.all{{ log.id }}">
-                                    <i class="fa-solid fa-water"></i> {{ rlog.water }}
+                                    <i class="fa-solid fa-water" style="font-size: 11px;"></i> {{ rlog.water }}
                                 </span>
                             {% endif %}
                         {% endfor %}
