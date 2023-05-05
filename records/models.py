@@ -270,7 +270,7 @@ class ReservoirLog(models.Model):
     reverse_osmosis = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
-    ro_amount = models.IntegerField(blank=True, null=True, editable=False)
+    ro_amount = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, editable=False)
 
     def __str__(self) -> str:
         return f"{self.status} - {self.water}"
