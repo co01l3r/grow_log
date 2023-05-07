@@ -72,6 +72,16 @@ class LogForm(forms.ModelForm):
 # nutrient modelForm
 # nutrientLog modelForm
 class NutrientLogForm(forms.ModelForm):
+    """
+    A form for creating a NutrientLog instance.
+
+    Fields:
+        nutrient (ForeignKey): A foreign key referencing the `Nutrient` model this nutrient log corresponds to.
+        concentration (IntegerField): An integer representing the concentration of the nutrient for this log.
+
+    Methods:
+        __init__: Initializes the form with proper attributes and classes for styling.
+    """
     class Meta:
         model = NutrientLog
         fields = ['nutrient', 'concentration']
@@ -84,7 +94,17 @@ class NutrientLogForm(forms.ModelForm):
 
 # ReservoirLog modelForm
 class ReservoirLogForm(forms.ModelForm):
-    water = forms.DecimalField(initial=0)
+    """
+    A form for creating a ReservoirLog instance.
+
+    Fields:
+        reverse_osmosis (CharField): A character field representing whether reverse osmosis is used or not.
+        water (IntegerField): An optional integer field representing the amount of water.
+        waste_water (IntegerField): An optional integer field representing the amount of waste water.
+
+    Methods:
+        __init__: Initializes the form with proper attributes and classes for styling.
+    """
 
     class Meta:
         model = ReservoirLog

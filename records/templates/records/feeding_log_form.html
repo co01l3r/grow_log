@@ -50,8 +50,8 @@
             <tbody>
             {% for reservoir_log in existing_reservoir_logs %}
             <tr>
-                <td>{{ reservoir_log.water }}</td>
-                <td>{{ reservoir_log.get_percent_ro_ratio|default_if_none:''}}</td>
+                <td>{{ reservoir_log.water|default_if_none:'' }}</td>
+                <td>{{ reservoir_log.get_percent_ro_ratio|default_if_none:'' }}</td>
                 <td>{{ reservoir_log.waste_water|default_if_none:'' }}</td>
                 <td></td>
                 <td><span class="delete-icon"
