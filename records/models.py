@@ -222,11 +222,18 @@ class NutrientLog(models.Model):
                          then by bud_strengthener, then by bud_enlarger, then by bud_taste.
 
     Methods:
-        save(*args, **kwargs): Overrides the default save method. If a `NutrientLog` already exists for the same `Log`
-                               and `Nutrient`, the concentrations are added together and the existing logs are
-                               deleted before saving the new `NutrientLog` instance.
-        __str__ (str):         Returns the name and concentration of the nutrient log as a string.
-                                formatted as "[nutrient] - [concentration]".
+        save(*args, **kwargs):                              Overrides the default save method. If a `NutrientLog`
+                                                            already exists for the same `Log` and `Nutrient`, the
+                                                            concentrations are added together and the existing logs
+                                                            are deleted before saving the new `NutrientLog` instance.
+
+        __str__ (str):                                      Returns the name and concentration of the nutrient log as
+                                                            a string. formatted as "[nutrient] - [concentration]".
+
+        get_nutrient_usage_per_liter (Optional[float]):     Calculates the nutrient usage per liter for the current
+                                                            `NutrientLog` instance, if possible. Returns the nutrient
+                                                            usage per liter as a float rounded to two decimal places,
+                                                            or `None` if the required data is missing.
     """
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='nutrient_logs')
     nutrient = models.ForeignKey(Nutrient, on_delete=models.CASCADE)
@@ -253,6 +260,21 @@ class NutrientLog(models.Model):
             self.concentration += sum(log.concentration for log in existing_logs)
             existing_logs.delete()
         super().save(*args, **kwargs)
+
+    def get_nutrient_usage_per_liter(self) -> Optional[float]:
+        try:
+            reservoir_log = self.log.reservoir_logs.first()
+            if reservoir_log:
+                water = reservoir_log.water
+                if water:
+                    usage = self.concentration / water
+                    return round(usage, 2)
+                else:
+                    return None
+            else:
+                return None
+        except ReservoirLog.DoesNotExist:
+            return None
 
 
 # ReservoirLog model
