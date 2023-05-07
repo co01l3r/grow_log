@@ -18,6 +18,8 @@ urlpatterns = [
     path('record/<uuid:pk>/log/<int:log_pk>/feeding-log/', views.create_feeding_log, name='create_feeding_log'),
     path('record/<uuid:pk>/log/<int:log_pk>/delete-nutrient-log/<int:nutrient_log_pk>/', views.delete_nutrient_log,
          name='delete_nutrient_log'),
+    path('record/<uuid:pk>/log/<int:log_pk>/delete-reservoir-log/<int:reservoir_log_pk>/', views.delete_reservoir_log,
+         name='delete_reservoir_log'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

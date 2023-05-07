@@ -382,6 +382,33 @@ def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+def delete_reservoir_log(request: HttpRequest, pk: str, log_pk: int, reservoir_log_pk: int) -> HttpResponse:
+    """
+    A view that handles the deletion of a NutrientLog object for a specified Cycle and Log.
+
+    Parameters:
+        request (HttpRequest):
+            The HTTP request object.
+        pk (str):
+            The primary key of the cycle to which the log belongs.
+        log_pk (int):
+            The primary key of the log for which to delete the nutrient log.
+        reservoir_log_pk (int):
+            The primary key of the reservoir log to delete.
+
+    Returns:
+        A redirect HttpResponse object that redirects the user back to form.
+    """
+    try:
+        reservoir_log: NutrientLog = get_object_or_404(ReservoirLog, pk=reservoir_log_pk, log__pk=log_pk)
+        reservoir_log.delete()
+        messages.success(request, 'Reservoir log deleted successfully')
+    except:
+        messages.error(request, 'An error occurred while deleting the nutrient log')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 # other views
 def phase_summary(request, pk):
     # TODO: tests or delete it
