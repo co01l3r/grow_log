@@ -269,12 +269,9 @@ class NutrientLog(models.Model):
                 if water:
                     usage = self.concentration / water
                     return round(usage, 2)
-                else:
-                    return None
-            else:
-                return None
         except ReservoirLog.DoesNotExist:
-            return None
+            pass
+        return ''
 
 
 # ReservoirLog model
