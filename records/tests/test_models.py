@@ -254,6 +254,7 @@ class NutrientLogTestCase(TestCase):
         self.log = Log.objects.create(cycle=cycle, phase="vegetative")
         self.nutrient1 = Nutrient.objects.create(name="Test Nutrient 1", brand="Test Brand 1")
         self.nutrient2 = Nutrient.objects.create(name="Test Nutrient 2", brand="Test Brand 2")
+        self.reservoir_log = ReservoirLog.objects.create(log=self.log, water=500)
         self.nutrient_log = NutrientLog.objects.create(log=self.log, nutrient=self.nutrient1, concentration=100)
 
     def test_nutrient_log_str(self):
@@ -274,6 +275,9 @@ class NutrientLogTestCase(TestCase):
         self.assertEqual(logs[0].nutrient, self.nutrient1)
         self.assertEqual(logs[1].nutrient, self.nutrient2)
         self.assertEqual(logs[2].nutrient, nutrient3)
+
+    def test_get_nutrient_usage_per_liter(self):
+        self.assertEqual(self.nutrient_log.get_nutrient_usage_per_liter(), 0.2)
 
 
 # ReservoirLog model test cases
