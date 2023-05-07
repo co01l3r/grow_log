@@ -267,7 +267,7 @@ class NutrientLog(models.Model):
             if reservoir_log:
                 water = reservoir_log.water
                 if water:
-                    usage = self.concentration / water
+                    usage: float = self.concentration / water
                     return round(usage, 2)
         except ReservoirLog.DoesNotExist:
             pass
@@ -284,7 +284,7 @@ class ReservoirLog(models.Model):
         log (ForeignKey): A foreign key to the Log model, representing the log entry that this reservoir log belongs to.
         status (CharField): A character field representing the status of the reservoir.
         reverse_osmosis (CharField): A character field representing whether reverse osmosis is used or not.
-        water (IntegerField): An integer field representing the amount of water.
+        water (IntegerField): An optional integer field representing the amount of water.
         waste_water (IntegerField): An optional integer field representing the amount of waste water.
         ro_amount (IntegerField): An optional integer field representing the amount of water that underwent reverse osmosis.
 
@@ -309,7 +309,7 @@ class ReservoirLog(models.Model):
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='reservoir_logs')
     status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7, editable=False)
     reverse_osmosis = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
-    water = models.IntegerField()
+    water = models.IntegerField(blank=True, null=True)
     waste_water = models.IntegerField(blank=True, null=True)
     ro_amount = models.IntegerField(blank=True, null=True, editable=False)
 
@@ -326,7 +326,7 @@ class ReservoirLog(models.Model):
             self.ro_amount = None
 
         try:
-            existing_log = ReservoirLog.objects.get(log=self.log)
+            existing_log: models.QuerySet = ReservoirLog.objects.get(log=self.log)
             existing_log.water += self.water
             self._update_existing_log(existing_log)
             super(ReservoirLog, existing_log).save(*args, **kwargs)

@@ -524,6 +524,10 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 /* others */
+.line {
+    opacity: 10%;
+}
+
 .edit-link {
     text-decoration: none;
     color: black;
@@ -623,7 +627,7 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 .bud_enlarger {
-    color: yellowgreen;
+    color: darkorange;
 }
 
 .bud_taste {
