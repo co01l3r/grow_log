@@ -360,6 +360,6 @@ class ReservoirLog(models.Model):
 
     def get_percent_ro_ratio(self) -> Optional[float]:
         if self.ro_amount is not None and self.water != 0:
-            return round(self.ro_amount / self.water * 100, 2)
+            return round(self.ro_amount / self.water * 100)
         else:
             return None
