@@ -281,7 +281,7 @@ class ReservoirLog(models.Model):
         _update_existing_waste_water(self, existing_log: 'ReservoirLog') -> None:
             Helper method to update the waste water amount of an existing log.
         get_ro_water_ratio(self) -> Optional[float]:
-            Calculates and returns the ratio of water that underwent reverse osmosis to the total water amount.
+            Calculates and returns the ratio of water that underwent reverse osmosis to the total water amount in %.
     """
     RO_OPTIONS: List[Tuple[str, str]] = [
         ('yes', 'Yes'),
@@ -339,7 +339,7 @@ class ReservoirLog(models.Model):
         elif existing_log.waste_water == 0:
             existing_log.status = 'refill'
 
-    def get_ro_water_ratio(self) -> Optional[float]:
+    def get_percent_ro_ratio(self) -> Optional[float]:
         if self.ro_amount is not None and self.water != 0:
             return round(self.ro_amount / self.water * 100, 2)
         else:

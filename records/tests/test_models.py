@@ -286,11 +286,11 @@ class ReservoirLogTestCase(TestCase):
     def test_ro_water_ratio(self):
         self.reservoir_log.reverse_osmosis = 'no'
         self.reservoir_log.save()
-        self.assertIsNone(self.reservoir_log.get_ro_water_ratio())
+        self.assertIsNone(self.reservoir_log.get_percent_ro_ratio())
 
         self.reservoir_log.reverse_osmosis = 'yes'
         self.reservoir_log.save()
-        self.assertEqual(self.reservoir_log.get_ro_water_ratio(), 100.0)
+        self.assertEqual(self.reservoir_log.get_percent_ro_ratio(), 100.0)
 
     def test_save_method(self):
         self.assertEqual(self.reservoir_log.ro_amount, 50)
