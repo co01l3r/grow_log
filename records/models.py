@@ -222,7 +222,7 @@ class NutrientLog(models.Model):
                          then by bud_strengthener, then by bud_enlarger, then by bud_taste.
 
     Methods:
-        save(*args, **kwargs):                              Overrides the default save method. If a `NutrientLog`
+        save():                                             Overrides the default save method. If a `NutrientLog`
                                                             already exists for the same `Log` and `Nutrient`, the
                                                             concentrations are added together and the existing logs
                                                             are deleted before saving the new `NutrientLog` instance.
@@ -289,18 +289,14 @@ class ReservoirLog(models.Model):
         ro_amount (IntegerField): An optional integer field representing the amount of water that underwent reverse osmosis.
 
     Methods:
-        __str__(self) -> str:
-            Returns a string representation of the ReservoirLog object.
-        save(self, *args, **kwargs):
-            Overrides the default save method to update existing logs and calculate reverse osmosis usage.
-        _update_existing_log(self, existing_log: 'ReservoirLog') -> None:
-            Helper method to update an existing log.
-        _update_existing_ro_amount(self, existing_log: 'ReservoirLog') -> None:
-            Helper method to update the reverse osmosis amount of an existing log.
-        _update_existing_waste_water(self, existing_log: 'ReservoirLog') -> None:
-            Helper method to update the waste water amount of an existing log.
-        get_ro_water_ratio(self) -> Optional[float]:
-            Calculates and returns the ratio of water that underwent reverse osmosis to the total water amount in %.
+        __str__(str):                           Returns a string representation of the ReservoirLog object.
+        save():                                 Overrides the default save method to update existing logs and calculate
+                                                reverse osmosis usage.
+        _update_existing_log():                 Helper method to update an existing log.
+        _update_existing_ro_amount():           Helper method to update the reverse osmosis amount of an existing log.
+        _update_existing_waste_water():         Helper method to update the waste water amount of an existing log.
+        get_ro_water_ratio(Optional[float]):    Calculates and returns the ratio of water that underwent reverse
+                                                osmosis to the total water amount in %.
     """
     RO_OPTIONS: List[Tuple[str, str]] = [
         ('yes', 'Yes'),
