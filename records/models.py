@@ -257,6 +257,32 @@ class NutrientLog(models.Model):
 
 # ReservoirLog model
 class ReservoirLog(models.Model):
+    """
+    A model representing a log entry for a reservoir, storing information such as the amount of water, waste water,
+    reverse osmosis usage, and reservoir status.
+
+    Fields:
+        log (ForeignKey): A foreign key to the Log model, representing the log entry that this reservoir log belongs to.
+        status (CharField): A character field representing the status of the reservoir.
+        reverse_osmosis (CharField): A character field representing whether reverse osmosis is used or not.
+        water (IntegerField): An integer field representing the amount of water.
+        waste_water (IntegerField): An optional integer field representing the amount of waste water.
+        ro_amount (IntegerField): An optional integer field representing the amount of water that underwent reverse osmosis.
+
+    Methods:
+        __str__(self) -> str:
+            Returns a string representation of the ReservoirLog object.
+        save(self, *args, **kwargs):
+            Overrides the default save method to update existing logs and calculate reverse osmosis usage.
+        _update_existing_log(self, existing_log: 'ReservoirLog') -> None:
+            Helper method to update an existing log.
+        _update_existing_ro_amount(self, existing_log: 'ReservoirLog') -> None:
+            Helper method to update the reverse osmosis amount of an existing log.
+        _update_existing_waste_water(self, existing_log: 'ReservoirLog') -> None:
+            Helper method to update the waste water amount of an existing log.
+        get_ro_water_ratio(self) -> Optional[float]:
+            Calculates and returns the ratio of water that underwent reverse osmosis to the total water amount.
+    """
     RO_OPTIONS: List[Tuple[str, str]] = [
         ('yes', 'Yes'),
         ('no', 'No'),
@@ -270,7 +296,7 @@ class ReservoirLog(models.Model):
     reverse_osmosis = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
     water = models.IntegerField()
     waste_water = models.IntegerField(blank=True, null=True)
-    ro_amount = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, editable=False)
+    ro_amount = models.IntegerField(blank=True, null=True, editable=False)
 
     def __str__(self) -> str:
         return f"{self.status} - {self.water}"
@@ -281,6 +307,9 @@ class ReservoirLog(models.Model):
                 self.ro_amount = self.water
             else:
                 self.ro_amount += self.water
+        else:
+            self.ro_amount = None
+
         try:
             existing_log = ReservoirLog.objects.get(log=self.log)
             existing_log.water += self.water
@@ -311,7 +340,7 @@ class ReservoirLog(models.Model):
             existing_log.status = 'refill'
 
     def get_ro_water_ratio(self) -> Optional[float]:
-        if self.ro_amount is None:
-            return None
-        else:
+        if self.ro_amount is not None and self.water != 0:
             return round(self.ro_amount / self.water * 100, 2)
+        else:
+            return None

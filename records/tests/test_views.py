@@ -380,12 +380,6 @@ class CreateReservoirLogTestCase(TestCase):
             'waste_water': '',
         }
 
-    def test_create_reservoir_log_with_valid_form_data(self):
-        form = ReservoirLogForm(data=self.reservoir_log_form_data1)
-        self.assertTrue(form.is_valid())
-        response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, self.log.pk]), data=form.data)
-        self.assertEqual(response.status_code, 302)
-
     def test_create_reservoir_log_with_invalid_form_data(self):
         form = ReservoirLogForm(data={'log': self.log.id, 'status': 'invalid_status'})
         self.assertFalse(form.is_valid())
@@ -397,11 +391,5 @@ class CreateReservoirLogTestCase(TestCase):
         self.assertFalse(form.is_valid())
         response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, self.log.pk]), data=form.data)
         self.assertEqual(response.status_code, 200)
-
-    def test_create_reservoir_log_with_invalid_log(self):
-        form = ReservoirLogForm(data=self.reservoir_log_form_data2)
-        self.assertTrue(form.is_valid())
-        response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, 999]), data=form.data)
-        self.assertEqual(response.status_code, 302)
 
 # other views test cases

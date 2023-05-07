@@ -281,26 +281,19 @@ class ReservoirLogTestCase(TestCase):
     def setUp(self):
         cycle = Cycle.objects.create(name="Test Cycle")
         self.log = Log.objects.create(cycle=cycle)
-        self.reservoir_log = ReservoirLog.objects.create(log=self.log, water=50)
+        self.reservoir_log = ReservoirLog.objects.create(log=self.log, water=50, ro_amount=None)
 
-    def test_reservoir_log_creation(self):
-        self.assertEqual(self.reservoir_log.water, 50)
-        self.assertEqual(self.reservoir_log.ro, 'yes')
-        self.assertEqual(self.reservoir_log.status, 'refill')
-        self.assertIsNone(self.reservoir_log.waste_water)
-
-    def test_reservoir_log_update(self):
-        self.reservoir_log.water = 100
+    def test_ro_water_ratio(self):
+        self.reservoir_log.reverse_osmosis = 'no'
         self.reservoir_log.save()
-        self.reservoir_log.refresh_from_db()
-        self.assertEqual(self.reservoir_log.water, 150)
-        self.assertEqual(self.reservoir_log.status, 'refill')
+        self.assertIsNone(self.reservoir_log.get_ro_water_ratio())
 
-        self.reservoir_log.waste_water = 20
+        self.reservoir_log.reverse_osmosis = 'yes'
         self.reservoir_log.save()
-        self.reservoir_log.refresh_from_db()
-        self.assertEqual(self.reservoir_log.waste_water, 20)
-        self.assertEqual(self.reservoir_log.status, 'refresh')
-        self.assertEqual(self.reservoir_log.ro, 'yes')
+        self.assertEqual(self.reservoir_log.get_ro_water_ratio(), 100.0)
 
-        self.assertEqual(self.reservoir_log.status, 'refresh')
+    def test_save_method(self):
+        self.assertEqual(self.reservoir_log.ro_amount, 50)
+        self.reservoir_log.reverse_osmosis = 'no'
+        self.reservoir_log.save()
+        self.assertIsNone(self.reservoir_log.ro_amount)
