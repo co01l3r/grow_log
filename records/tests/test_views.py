@@ -1,4 +1,4 @@
-from django.test import Client, TestCase
+from django.test import Client, TestCase, RequestFactory
 from django.urls import reverse
 
 from records.models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
@@ -311,7 +311,7 @@ class DeleteLogTestCase(TestCase):
 
 # nutrient views test cases
 # nutrientLog views test cases
-class CreateNutrientLogTestCase(TestCase):
+class NutrientLogTestCase(TestCase):
     def setUp(self):
         self.cycle = Cycle.objects.create(name='test cycle')
         self.log = Log.objects.create(cycle=self.cycle)
@@ -360,7 +360,7 @@ class CreateNutrientLogTestCase(TestCase):
 
 
 # reservoirLog views test cases
-class CreateReservoirLogTestCase(TestCase):
+class ReservoirLogTestCase(TestCase):
     def setUp(self):
         self.cycle = Cycle.objects.create(name='test cycle')
         self.log = Log.objects.create(cycle=self.cycle)
@@ -391,5 +391,13 @@ class CreateReservoirLogTestCase(TestCase):
         self.assertFalse(form.is_valid())
         response = self.client.post(reverse('create_feeding_log', args=[self.cycle.pk, self.log.pk]), data=form.data)
         self.assertEqual(response.status_code, 200)
+
+    def test_delete_reservoir_log(self):
+        reservoir_log = ReservoirLog.objects.create(log=self.log, reverse_osmosis='yes', water=10, ro_amount=10)
+        url = reverse('delete_reservoir_log', kwargs={'pk': self.cycle.pk, 'log_pk': self.log.pk, 'reservoir_log_pk': reservoir_log.pk})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(ReservoirLog.objects.count(), 0)
+
 
 # other views test cases
