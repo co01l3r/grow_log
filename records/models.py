@@ -146,8 +146,11 @@ class Log(models.Model):
             print(f"An error occurred: {str(e)}")
 
     def get_phase_day_in_cycle(self) -> int:
-        logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
-        day_in_phase: int = list(logs_of_same_phase).index(self) + 1
+        try:
+            logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
+            day_in_phase: int = list(logs_of_same_phase).index(self) + 1
+        except ValueError:
+            day_in_phase = 1
         return int(day_in_phase)
 
     def get_previous_log(self) -> Optional['Log']:
