@@ -23,7 +23,6 @@ class CycleFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_invalid_form(self):
-        # Testing with missing required fields
         form = CycleForm(data={
             'name': 'Test Cycle',
             'genetics': '',
@@ -73,3 +72,27 @@ class LogFormTest(TestCase):
         self.assertEqual(log.light_height, 50)
         self.assertEqual(str(log.light_power), '75')
         self.assertEqual(log.calibration, True)
+
+
+# nutrientForm test case
+# nutrientLogForm test case
+class NutrientLogFormTest(TestCase):
+    def setUp(self):
+        self.nutrient = Nutrient.objects.create(name='Test Nutrient')
+        self.valid_data = {
+            'nutrient': self.nutrient.id,
+            'concentration': 10,
+        }
+        self.invalid_data = {
+            'nutrient': self.nutrient.id,
+            'concentration': 'abc',
+        }
+
+    def test_valid_form(self):
+        form = NutrientLogForm(data=self.valid_data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_form(self):
+        form = NutrientLogForm(data=self.invalid_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Enter a whole number.', form.errors['concentration'])
