@@ -378,7 +378,7 @@ def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log
         request (HttpRequest):
             The HTTP request object.
         pk (str):
-            The primary key of the cycle to which the log belongs.
+            The string representation of the UUID primary key of the Cycle to which the log belongs.
         log_pk (int):
             The primary key of the log for which to delete the nutrient log.
         nutrient_log_pk (int):
@@ -405,7 +405,7 @@ def delete_reservoir_log(request: HttpRequest, pk: str, log_pk: int, reservoir_l
         request (HttpRequest):
             The HTTP request object.
         pk (str):
-            The primary key of the cycle to which the log belongs.
+            The string representation of the UUID primary key of the Cycle to which the log belongs.
         log_pk (int):
             The primary key of the log for which to delete the nutrient log.
         reservoir_log_pk (int):
