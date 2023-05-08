@@ -154,7 +154,12 @@ class Log(models.Model):
         return int(day_in_phase)
 
     def get_previous_log(self) -> Optional['Log']:
-        previous_logs: models.QuerySet = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
+        try:
+            previous_logs: models.QuerySet = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
+        except Exception as e:
+            print(f"An error occurred while getting previous logs: {e}")
+            return None
+
         if previous_logs.exists():
             return previous_logs.first()
         return None
