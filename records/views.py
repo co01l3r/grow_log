@@ -148,8 +148,8 @@ def delete_record(request: HttpRequest, pk: str) -> HttpResponse:
         cycle = get_object_or_404(Cycle, id=pk)
         cycle.delete()
         messages.success(request, 'Cycle deleted successfully')
-    except:
-        messages.error(request, 'An error occurred while deleting the cycle')
+    except Exception as e:
+        messages.error(request, f'An error occurred while deleting the cycle: {str(e)}')
     return redirect('records')
 
 
@@ -285,8 +285,8 @@ def delete_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
         cycle_id = log.cycle.id
         log.delete()
         messages.success(request, 'Log deleted successfully')
-    except:
-        messages.error(request, 'An error occurred while deleting the log')
+    except Exception as e:
+        messages.error(request, f'An error occurred while deleting the log: {str(e)}')
     return redirect('record', pk=cycle_id)
 
 
@@ -376,8 +376,8 @@ def delete_nutrient_log(request: HttpRequest, pk: str, log_pk: int, nutrient_log
         nutrient_log: NutrientLog = get_object_or_404(NutrientLog, pk=nutrient_log_pk, log__pk=log_pk)
         nutrient_log.delete()
         messages.success(request, 'Nutrient log deleted successfully')
-    except:
-        messages.error(request, 'An error occurred while deleting the nutrient log')
+    except Exception as e:
+        messages.error(request, f'An error occurred while deleting the nutrient log: {str(e)}')
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -403,8 +403,8 @@ def delete_reservoir_log(request: HttpRequest, pk: str, log_pk: int, reservoir_l
         reservoir_log: NutrientLog = get_object_or_404(ReservoirLog, pk=reservoir_log_pk, log__pk=log_pk)
         reservoir_log.delete()
         messages.success(request, 'Reservoir log deleted successfully')
-    except:
-        messages.error(request, 'An error occurred while deleting the nutrient log')
+    except Exception as e:
+        messages.error(request, f'An error occurred while deleting the reservoir log: {str(e)}')
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
