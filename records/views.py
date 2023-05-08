@@ -2,7 +2,7 @@ from datetime import date
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, HttpResponseNotFound
 from django.db.models import QuerySet
 
 from .models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
@@ -57,7 +57,11 @@ def record(request: HttpRequest, pk: str) -> HttpResponse:
             objects as context. If the Cycle object with the given pk is not
             found in the database, a 404 HTTP response will be returned.
     """
-    cycle = get_object_or_404(Cycle, id=pk)
+    try:
+        cycle = Cycle.objects.get(id=pk)
+    except Cycle.DoesNotExist:
+        return HttpResponseNotFound("Cycle not found")
+
     logs = Log.objects.filter(cycle=cycle)
     today = date.today()
 
