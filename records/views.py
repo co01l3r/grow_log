@@ -106,7 +106,10 @@ def create_or_edit_record(request: HttpRequest, pk: str = None) -> HttpResponse:
             If the form submission is not successful, the function re-renders the
             'records/record_form.html' template with an error message.
     """
-    cycle = get_object_or_404(Cycle, id=pk) if pk else None
+    try:
+        cycle = Cycle.objects.get(id=pk) if pk else None
+    except Cycle.DoesNotExist:
+        return HttpResponseNotFound("Cycle not found")
 
     if request.method == 'POST':
         form = CycleForm(request.POST, instance=cycle)
