@@ -1,5 +1,5 @@
 from typing import List, Tuple, Optional
-import uuid
+import uuid, logging
 
 from django.db import models
 from django.db.models import Case, Value, When
@@ -143,7 +143,7 @@ class Log(models.Model):
             day_in_cycle: int = list(all_logs).index(self) + 1
             return int(day_in_cycle)
         except Exception as e:
-            print(f"An error occurred: {str(e)}")
+            logging.exception(f"An error occurred: {e}")
 
     def get_phase_day_in_cycle(self) -> int:
         try:
@@ -157,7 +157,7 @@ class Log(models.Model):
         try:
             previous_logs: models.QuerySet = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
         except Exception as e:
-            print(f"An error occurred while getting previous logs: {e}")
+            logging.exception(f"An error occurred while getting previous logs: {e}")
             return None
 
         if previous_logs.exists():
@@ -372,5 +372,5 @@ class ReservoirLog(models.Model):
             else:
                 return None
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logging.exception(f"An error occurred: {e}")
             return None
