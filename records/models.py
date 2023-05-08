@@ -366,7 +366,11 @@ class ReservoirLog(models.Model):
             existing_log.status = 'refill'
 
     def get_percent_ro_ratio(self) -> Optional[int]:
-        if self.ro_amount is not None and self.water != 0:
-            return round(self.ro_amount / self.water * 100)
-        else:
+        try:
+            if self.ro_amount is not None and self.water != 0:
+                return round(self.ro_amount / self.water * 100)
+            else:
+                return None
+        except Exception as e:
+            print(f"An error occurred: {e}")
             return None
