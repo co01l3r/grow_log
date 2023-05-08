@@ -96,3 +96,31 @@ class NutrientLogFormTest(TestCase):
         form = NutrientLogForm(data=self.invalid_data)
         self.assertFalse(form.is_valid())
         self.assertIn('Enter a whole number.', form.errors['concentration'])
+
+
+# reservoirLogForm test case
+class ReservoirLogFormTest(TestCase):
+    def setUp(self):
+        self.valid_data = {
+            'reverse_osmosis': 'yes',
+            'water': 100,
+            'waste_water': 10,
+        }
+        self.invalid_data = {
+            'reverse_osmosis': '',
+            'water': 'abc',
+            'waste_water': 'xyz',
+        }
+
+    def test_valid_form(self):
+        form = ReservoirLogForm(data=self.valid_data)
+        if not form.is_valid():
+            print(form.errors)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_form(self):
+        form = ReservoirLogForm(data=self.invalid_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('This field is required.', form.errors['reverse_osmosis'])
+        self.assertIn('Enter a whole number.', form.errors['water'])
+        self.assertIn('Enter a whole number.', form.errors['waste_water'])
