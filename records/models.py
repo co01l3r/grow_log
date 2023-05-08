@@ -138,9 +138,12 @@ class Log(models.Model):
         ]
 
     def get_day_in_cycle(self) -> int:
-        all_logs: models.QuerySet = Log.objects.filter(cycle=self.cycle).order_by('date', 'id')
-        day_in_cycle: int = list(all_logs).index(self) + 1
-        return int(day_in_cycle)
+        try:
+            all_logs: models.QuerySet = Log.objects.filter(cycle=self.cycle).order_by('date', 'id')
+            day_in_cycle: int = list(all_logs).index(self) + 1
+            return int(day_in_cycle)
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
 
     def get_phase_day_in_cycle(self) -> int:
         logs_of_same_phase: models.QuerySet = Log.objects.filter(cycle=self.cycle, phase=self.phase)
