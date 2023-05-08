@@ -2,7 +2,8 @@ from datetime import date
 
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseBadRequest, HttpResponseRedirect, HttpRequest, HttpResponse, HttpResponseNotFound, \
+    Http404
 from django.db.models import QuerySet
 
 from .models import Cycle, Log, Nutrient, NutrientLog, ReservoirLog
@@ -251,8 +252,12 @@ def edit_log(request: HttpRequest, pk: str, log_pk: int) -> HttpResponse:
         Otherwise, if the request method is 'POST' and the form is valid, the log record is updated and a redirect
         to the record view is returned. Otherwise, if the request method is 'GET', the edit log form is displayed.
     """
-    cycle = get_object_or_404(Cycle, pk=pk)
-    log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+    try:
+        cycle = get_object_or_404(Cycle, pk=pk)
+        log = get_object_or_404(Log, pk=log_pk, cycle=cycle)
+    except Http404:
+        return HttpResponseNotFound()
+
     form = LogForm(request.POST or None, instance=log)
 
     if request.method == 'POST':
