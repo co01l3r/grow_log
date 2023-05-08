@@ -27,7 +27,10 @@ def records(request: HttpRequest) -> HttpResponse:
             'records/records.html' template with the retrieved Cycle objects as
             context.
     """
-    cycles = Cycle.objects.all()
+    try:
+        cycles = Cycle.objects.all()
+    except Cycle.DoesNotExist:
+        cycles = []
 
     context = {'cycles': cycles}
     return render(request, 'records/records.html', context)
