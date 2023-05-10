@@ -375,7 +375,7 @@ class ReservoirLog(models.Model):
         existing_log.ro_amount += self.water if self.water is not None else 0
 
     def _update_existing_waste_water(self, existing_log: 'ReservoirLog') -> None:
-        existing_log.waste_water = (existing_log.waste_water or 0) + self.waste_water
+        existing_log.waste_water = (existing_log.waste_water or 0) + (self.waste_water or 0)
         if self.waste_water != 0:
             existing_log.status = 'refresh'
         elif existing_log.waste_water == 0:
