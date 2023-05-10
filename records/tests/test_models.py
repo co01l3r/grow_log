@@ -197,6 +197,15 @@ class LogModelTestCase(TestCase):
         previous_log = self.log_2.get_previous_log()
         self.assertEqual(previous_log, self.log)
 
+    def test_get_days_since_calibration(self):
+        self.log_3.calibration = False
+        self.log_3.save()
+        self.log_2.calibration = False
+        self.log_2.save()
+
+        self.assertIsNone(self.log.get_days_since_calibration())
+        self.assertEqual(self.log_3.get_days_since_calibration(), 2)
+
 
 # Nutrient model test cases
 class NutrientTestCase(TestCase):

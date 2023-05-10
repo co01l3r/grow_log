@@ -159,7 +159,7 @@ class Log(models.Model):
         try:
             previous_logs: models.QuerySet = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
         except Exception as e:
-            logging.exception(f"An error occurred while getting previous logs: {e}")
+            logging.exception(f"An error occurred: {e}")
             return None
 
         if previous_logs.exists():
@@ -167,13 +167,17 @@ class Log(models.Model):
         return None
 
     def get_days_since_calibration(self) -> Optional[int]:
-        consecutive_false_count: int = 0
-        for log in self.cycle.logs.filter(pk__lte=self.pk).order_by('-id'):
-            if log.calibration == False:
-                consecutive_false_count += 1
-            elif log.calibration == True:
-                break
-        return consecutive_false_count if consecutive_false_count > 0 else None
+        try:
+            consecutive_false_count: int = 0
+            for log in self.cycle.logs.filter(pk__lte=self.pk).order_by('-id'):
+                if log.calibration == False:
+                    consecutive_false_count += 1
+                elif log.calibration == True:
+                    break
+            return consecutive_false_count if consecutive_false_count > 0 else None
+        except Exception as e:
+            logging.exception(f"An error occurred: {e}")
+            return None
 
     def __str__(self) -> str:
         day_in_cycle = self.get_day_in_cycle()
