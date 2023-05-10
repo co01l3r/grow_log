@@ -398,11 +398,11 @@
                     {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
                 </span></td>
-                <!--display 'water' with status icon based on if 'waste_water' value exist-->
+                <!--display 'water' with status icon based on 'status' value-->
                 <td style="padding-right: 15px;">
                     {% for rlog in log.reservoir_logs.all %}
                     <span id="reservoir_logs.all{{ log.id }}">
-                        {% if rlog.waste_water %}
+                        {% if rlog.status == 'refresh' %}
                             <i class="fa-solid fa-recycle" style="font-size: 11px;"></i>
                         {% else %}
                             <i class="fa-solid fa-water" style="font-size: 11px;"></i>
