@@ -347,13 +347,13 @@ class ReservoirLog(models.Model):
             if self.ro_amount is None:
                 self.ro_amount = self.water
             else:
-                self.ro_amount += self.water
+                self.ro_amount += self.water if self.water is not None else 0
         else:
             self.ro_amount = None
 
         try:
             existing_log: models.QuerySet = ReservoirLog.objects.get(log=self.log)
-            existing_log.water += self.water
+            existing_log.water += self.water if self.water is not None else 0
             self._update_existing_log(existing_log)
             super(ReservoirLog, existing_log).save(*args, **kwargs)
         except ReservoirLog.DoesNotExist:
@@ -371,10 +371,8 @@ class ReservoirLog(models.Model):
             self._update_existing_waste_water(existing_log)
 
     def _update_existing_ro_amount(self, existing_log: 'ReservoirLog') -> None:
-        if existing_log.ro_amount is None:
-            existing_log.ro_amount = self.water
-        else:
-            existing_log.ro_amount += self.water
+        existing_log.ro_amount = existing_log.ro_amount or 0
+        existing_log.ro_amount += self.water if self.water is not None else 0
 
     def _update_existing_waste_water(self, existing_log: 'ReservoirLog') -> None:
         existing_log.waste_water = (existing_log.waste_water or 0) + self.waste_water
