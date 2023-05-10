@@ -270,11 +270,11 @@ th:first-child {
 }
 
 .cyc-info {
-    padding: 5px 15px;
+    padding: 3px;
     text-align: left;
     font-weight: 400;
-    font-size: 30px;
-    color: #fff;
+    font-size: 15px;
+    color: black;
 }
 
 td {
