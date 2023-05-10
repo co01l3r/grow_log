@@ -145,7 +145,7 @@ class Log(models.Model):
             day_in_cycle: int = list(all_logs).index(self) + 1
             return int(day_in_cycle)
         except Exception as e:
-            logging.exception(f"An error occurred: {e}")
+            logging.exception(f"Unable to count the day in cycle value: {e}")
 
     def get_phase_day_in_cycle(self) -> int:
         try:
@@ -159,7 +159,7 @@ class Log(models.Model):
         try:
             previous_logs: models.QuerySet = self.cycle.logs.filter(id__lt=self.id).order_by('-id')
         except Exception as e:
-            logging.exception(f"An error occurred: {e}")
+            logging.exception(f"Unable to fetch the previous 'Log': {e}")
             return None
 
         if previous_logs.exists():
@@ -297,7 +297,6 @@ class NutrientLog(models.Model):
                     return round(usage, 2)
         except ReservoirLog.DoesNotExist:
             pass
-        return ''
 
 
 # ReservoirLog model

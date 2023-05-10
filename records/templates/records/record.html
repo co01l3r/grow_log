@@ -6,7 +6,7 @@
 {% block content %}
 <section>
     <div class="cycle-info">
-        <!--display genetics if name not provided-->
+        <!--display 'genetics' if 'name' not provided-->
         {% if cycle.name %}
             <h1>{{ cycle.name }}</h1>
         {% else %}
@@ -17,7 +17,7 @@
     <!--header displaying 'Cycle' object data-->
     <div class="tbl-header">
         <span class="cyc-info"><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }}</span>
-        <!--display genetics if name provided-->
+        <!--display 'genetics' if 'name' provided-->
         {% if cycle.name %}
         <span class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</span>
         {% endif %}
@@ -40,7 +40,7 @@
         <span><span class="edit-icon" data-href="{% url 'edit_record' cycle.pk %}"
                   onclick="window.open(this.getAttribute('data-href'), '_self')"><i
                 class="fa-solid fa-pen"></i></span></span>
-        <!--display help icon that redirects user to plant def. chart-->
+        <!--display icon that redirects user to plant def. chart-->
         <span><span class="help-icon"
                   data-href="https://loudclouds.co/wp-content/uploads/2016/07/marijuana-deficiency-chart-jorge-cervantes.jpg"
                   onclick="window.open(this.getAttribute('data-href'), '_blank')"><i
@@ -98,7 +98,7 @@
                 {% else %}
             <tr>
                 {% endif %}
-                <!--display log position formatted as: day_in_cycle (day_in_phase) phase and today indication-->
+                <!--display log position formatted as: day_in_cycle (day_in_phase) phase and if 'today' indication-->
                 {% if log.date == today %}
                 <td style="text-align: left;">
                     {% if log.get_day_in_cycle == log.get_phase_day_in_cycle %}
@@ -167,7 +167,7 @@
                         {% endif %}
                     {% endif %}
                 ">
-                <!--add 'temperature_day' icon if temp is critical-->
+                <!--add representative icon if temp is critical-->
                 {% if log.temperature_day is not none %}
                     <span id="temperature_day{{ log.id }}">
                         {% if log.phase == 'seedling' %}
@@ -216,7 +216,7 @@
                         {% if log.temperature_night >= 28 %} temp-danger {% endif %}
                     {% endif %}
                 ">
-                    <!--add icon if temp is critical-->
+                    <!--add representative icon if temp is critical-->
                     <span id="temperature_nigh{{ log.id }}">
                         {% if log.temperature_night <= 15 %}
                             <i class="fa-regular fa-snowflake"></i>
@@ -252,7 +252,7 @@
                         {% endif %}
                     {% endif %}
                 ">
-                    <!--add icon for critical values-->
+                    <!--add representative icon for critical values-->
                     {% if log.humidity_day is not none %}
                         <span id="humidity_day{{ log.id }}">
                             {% if log.humidity_day <= 30 %}
@@ -290,7 +290,7 @@
                         {% endif %}
                     {% endif %}
                 ">
-                    <!--add icon for critical values-->
+                    <!--add representative icon for critical values-->
                     {% if log.humidity_night is not none %}
                         <span id="humidity_night{{ log.id }}">
                             {% if log.humidity_night <= 30 %}
