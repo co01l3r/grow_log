@@ -8,9 +8,9 @@
     <div class="cycle-info">
         <!--display genetics if name not provided-->
         {% if cycle.name %}
-        <h1>{{ cycle.name }}</h1>
+            <h1>{{ cycle.name }}</h1>
         {% else %}
-        <h1>{{ cycle.genetics }}</h1>
+            <h1>{{ cycle.genetics }}</h1>
         {% endif %}
     </div>
 
@@ -19,31 +19,32 @@
             <th class="cyc-info"><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }}</th>
             <!--display genetics if name provided-->
             {% if cycle.name %}
-            <th class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</th>
+                <th class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</th>
             {% endif %}
-            <th class="cyc-info"><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|title }},</th>
+                <th class="cyc-info"><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|title }},</th>
             <!--display 'behavioral_response' if exists-->
             {% if cycle.behavioral_response %}
-            <th class="cyc-info">{{ cycle.behavioral_response|title }},</th>
+                <th class="cyc-info">{{ cycle.behavioral_response|title }},</th>
             {% endif %}
             <!--display 'seed_type' if exists-->
             {% if cycle.seed_type %}
-            <th class="cyc-info">{{ cycle.seed_type|title }}</th>
+                <th class="cyc-info">{{ cycle.seed_type|title }}</th>
             {% endif %}
             <!--display 'grow_medium' if exists-->
             {% if cycle.grow_medium %}
-            <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
+                <th class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</th>
             {% endif %}
-            <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
-            <!--display buttons for additional options to manipulate the 'Cycle' data-->
-            <th><span class="edit-icon" data-href="{% url 'edit_record' cycle.pk %}"
-                      onclick="window.open(this.getAttribute('data-href'), '_self')"><i
-                    class="fa-solid fa-pen"></i></span></th>
-
-            <th><span class="help-icon"
-                      data-href="https://loudclouds.co/wp-content/uploads/2016/07/marijuana-deficiency-chart-jorge-cervantes.jpg"
-                      onclick="window.open(this.getAttribute('data-href'), '_blank')"><i
-                    class="fa-solid fa-cannabis"></i></span></th>
+            <!--display 'fixture'-->
+                <th class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</th>
+            <!--display edit button for the 'Cycle' object-->
+                <th><span class="edit-icon" data-href="{% url 'edit_record' cycle.pk %}"
+                          onclick="window.open(this.getAttribute('data-href'), '_self')"><i
+                        class="fa-solid fa-pen"></i></span></th>
+            <!--display help icon that redirects user to plant def. chart-->
+                <th><span class="help-icon"
+                          data-href="https://loudclouds.co/wp-content/uploads/2016/07/marijuana-deficiency-chart-jorge-cervantes.jpg"
+                          onclick="window.open(this.getAttribute('data-href'), '_blank')"><i
+                        class="fa-solid fa-cannabis"></i></span></th>
         </tr>
     </div>
 
@@ -335,9 +336,9 @@
                 <td class="{% if log.get_previous_log.light_height > log.light_height or log.get_previous_log.light_height < log.light_height %} padding-right-15px {% endif %}">
                     <span id="light_height{{ log.id }}">
                         {% if log.get_previous_log.light_height > log.light_height %}
-                        <span class="arrow-down"><i class="fa-solid fa-arrow-down"></i></span>
+                            <span class="arrow-down"><i class="fa-solid fa-arrow-down"></i></span>
                         {% elif log.get_previous_log.light_height < log.light_height %}
-                        <span class="arrow-up"><i class="fa-solid fa-arrow-up"></i></span>
+                            <span class="arrow-up"><i class="fa-solid fa-arrow-up"></i></span>
                         {% endif %}
                         {{ log.light_height|default_if_none:'' }}
                     </span>
@@ -375,9 +376,9 @@
                 ">
                     <span id="calibration{{ log.id }}">
                         {% if log.calibration %}
-                        <i class="fa-solid fa-check"></i>
+                            <i class="fa-solid fa-check"></i>
                         {% else %}
-                        <i class="fa-solid fa-xmark"></i>
+                            <i class="fa-solid fa-xmark"></i>
                         {% endif %}
                     </span>
                 </td>
@@ -393,9 +394,9 @@
                 "><span id="carbon_dioxide{{ log.id }}">
                     <!--add a danger icon when co2 levels exceed human limits-->
                     {% if log.carbon_dioxide >= 5000 %}
-                    <i class="fa-solid fa-triangle-exclamation"></i> {{ log.carbon_dioxide|default_if_none:'' }}
+                        <i class="fa-solid fa-triangle-exclamation"></i> {{ log.carbon_dioxide|default_if_none:'' }}
                     {% else %}
-                    {{ log.carbon_dioxide|default_if_none:'' }}
+                        {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
                 </span></td>
                 <!--display 'water' with status icon based on 'status' value-->
@@ -455,7 +456,7 @@
                 {% if log.date == today %}
                 <td class="comment-cell" {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {% if log.comment %}
-                    {{ log.comment|truncatechars:5|default_if_none:'' }}
+                        {{ log.comment|truncatechars:5|default_if_none:'' }}
                     |
                     {% endif %}
                     <span class="edit-icon"
@@ -474,7 +475,9 @@
             {% endfor %}
             </tbody>
         </table>
-<button id="add-row-btn" class="create-log-btn" onclick="create_log('{{ cycle.pk }}')">Add</button>
+        <!--create new 'Log' object button-->
+        <button id="add-row-btn" class="create-log-btn" onclick="create_log('{{ cycle.pk }}')">Add</button>
+    </div>
 </section>
 <!--playground area-->
 {% if avg_day_temp %}
