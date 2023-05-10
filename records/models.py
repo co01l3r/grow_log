@@ -364,7 +364,6 @@ class ReservoirLog(models.Model):
             super().save(*args, **kwargs)
         except Exception as e:
             logging.exception(f"An error occurred: {e}")
-            return None
 
     def _update_existing_log(self, existing_log: 'ReservoirLog') -> None:
         if self.reverse_osmosis == 'yes':
