@@ -145,7 +145,7 @@ class Log(models.Model):
             day_in_cycle: int = list(all_logs).index(self) + 1
             return int(day_in_cycle)
         except Exception as e:
-            logging.exception(f"Unable to count the day in cycle value: {e}")
+            logging.exception(f"Unable to get the day in cycle value: {e}")
 
     def get_phase_day_in_cycle(self) -> int:
         try:
@@ -176,7 +176,7 @@ class Log(models.Model):
                     break
             return consecutive_false_count if consecutive_false_count > 0 else None
         except Exception as e:
-            logging.exception(f"An error occurred: {e}")
+            logging.exception(f"An error occurred during the calculation: {e}")
             return None
 
     def __str__(self) -> str:
@@ -388,5 +388,5 @@ class ReservoirLog(models.Model):
             else:
                 return None
         except Exception as e:
-            logging.exception(f"An error occurred: {e}")
+            logging.exception(f"An error occurred during the calculation: {e}")
             return None
