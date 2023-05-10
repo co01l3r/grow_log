@@ -170,9 +170,9 @@ class Log(models.Model):
         try:
             consecutive_false_count: int = 0
             for log in self.cycle.logs.filter(pk__lte=self.pk).order_by('-id'):
-                if log.calibration == False:
+                if not log.calibration:
                     consecutive_false_count += 1
-                elif log.calibration == True:
+                elif log.calibration:
                     break
             return consecutive_false_count if consecutive_false_count > 0 else None
         except Exception as e:
