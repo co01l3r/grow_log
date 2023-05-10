@@ -167,79 +167,41 @@
                 ">
                 <!--add 'temperature_day' icon if temp is critical-->
                 {% if log.temperature_day is not none %}
-                    <!--seedling-->
-                    {% if log.phase == 'seedling' %}
-                        {% if log.temperature_day <= 15 %}
-                            <span id="temperature_day{{ log.id }}">
-                                <i class="fa-regular fa-snowflake"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                        {% elif log.temperature_day > 28 %}
-                            <span id="temperature_day{{ log.id }}"><i class="fa-brands fa-gripfire"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                        {% else %}
-                            <span id="temperature_day{{ log.id }}">
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                        {% endif %}
-                    {% endif %}
-                    <!--vegetative-->
-                    {% if log.phase == 'vegetative' %}
-                        {% if log.temperature_day <= 15 %}
-                            <span id="temperature_day{{ log.id }}">
-                                <i class="fa-regular fa-snowflake"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                        {% elif log.temperature_day > 30 %}
-                            <span id="temperature_day{{ log.id }}">
-                                <i class="fa-brands fa-gripfire"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                        {% else %}
-                            <span id="temperature_day{{ log.id }}">
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                        {% endif %}
-                    {% endif %}
-                    <!--bloom-->
-                    {% if log.phase == 'bloom' %}
-                        <!--with high co2 levels-->
-                        {% if log.carbon_dioxide >= 1500 %}
+                    <span id="temperature_day{{ log.id }}">
+                        {% if log.phase == 'seedling' %}
+                            <!--seedling-->
                             {% if log.temperature_day <= 15 %}
-                            <span id="temperature_day{{ log.id }}">
                                 <i class="fa-regular fa-snowflake"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                            {% elif log.temperature_day > 33 %}
-                            <span id="temperature_day{{ log.id }}">
-                                <i class="fa-brands fa-gripfire"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                            {% else %}
-                            <span id="temperature_day{{ log.id }}">
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
-                            {% endif %}
-                        {% else %}
-                            <!--with regular co2 levels-->
-                            {% if log.temperature_day <= 15 %}
-                            <span id="temperature_day{{ log.id }}">
-                                <i class="fa-regular fa-snowflake"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
                             {% elif log.temperature_day > 28 %}
-                            <span id="temperature_day{{ log.id }}">
                                 <i class="fa-brands fa-gripfire"></i>
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
+                            {% endif %}
+                        {% elif log.phase == 'vegetative' %}
+                            <!--vegetative-->
+                            {% if log.temperature_day <= 15 %}
+                                <i class="fa-regular fa-snowflake"></i>
+                            {% elif log.temperature_day > 30 %}
+                                <i class="fa-brands fa-gripfire"></i>
+                            {% endif %}
+                        {% elif log.phase == 'bloom' %}
+                            <!--bloom-->
+                            {% if log.carbon_dioxide >= 1500 %}
+                                <!--with high co2 levels-->
+                                {% if log.temperature_day <= 15 %}
+                                    <i class="fa-regular fa-snowflake"></i>
+                                {% elif log.temperature_day > 33 %}
+                                    <i class="fa-brands fa-gripfire"></i>
+                                {% endif %}
                             {% else %}
-                            <span id="temperature_day{{ log.id }}">
-                                {{ log.temperature_day|default_if_none:''|floatformat:1 }}
-                            </span>
+                                <!--with regular co2 levels-->
+                                {% if log.temperature_day <= 15 %}
+                                    <i class="fa-regular fa-snowflake"></i>
+                                {% elif log.temperature_day > 28 %}
+                                    <i class="fa-brands fa-gripfire"></i>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
-                    {% endif %}
+                        {{ log.temperature_day|default_if_none:''|floatformat:1 }}
+                    </span>
                 {% endif %}
                 </td>
                 <!--display 'temperature_night' in color based on value-->
@@ -369,7 +331,7 @@
                         {{ log.ec|default_if_none:'' }}
                     </span>
                 </td>
-                <!--display 'light_height' changes graphically in comparison to the previous log-->
+                <!--display 'light_height' changes graphically in comparison to the 'get_previous_log' value-->
                 <td class="{% if log.get_previous_log.light_height > log.light_height or log.get_previous_log.light_height < log.light_height %} padding-right-15px {% endif %}">
                     <span id="light_height{{ log.id }}">
                         {% if log.get_previous_log.light_height > log.light_height %}
@@ -450,7 +412,7 @@
                     </span>
                     {% endfor %}
                 </td>
-                <!--display 'irrigation' in color if changed to the previous Log if exists-->
+                <!--display 'irrigation' in color if changed to the 'get_previous_log.irrigation' value-->
                 <td class="
                     {% if log.get_previous_log.irrigation is not none %}
                         {% if log.irrigation is not none %}
@@ -489,7 +451,7 @@
                 {% else %}
                 <td></td>
                 {% endif %}
-                <!--display additional options only if today in 'note' column besides comment-->
+                <!--display additional options only if 'today' in 'note' column besides comment-->
                 {% if log.date == today %}
                 <td class="comment-cell" {% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {% if log.comment %}
