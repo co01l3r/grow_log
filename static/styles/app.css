@@ -524,6 +524,10 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 /* others */
+.padding-right-15px {
+    padding-right: 15px;
+}
+
 .warning {
     color: red;
 }

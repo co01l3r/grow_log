@@ -390,59 +390,41 @@
                     </span>
                 </td>
                 <!--display 'light_height' changes graphically in comparison to the previous log-->
-                {% if log.get_previous_log.light_height > log.light_height %}
-                <td style="padding-right: 15px;">
+                <td class="{% if log.get_previous_log.light_height > log.light_height or log.get_previous_log.light_height < log.light_height %} padding-right-15px {% endif %}">
                     <span id="light_height{{ log.id }}">
-                        <span style="font-size: 11px;"><i class="fa-solid fa-arrow-down"></i></span>
+                        {% if log.get_previous_log.light_height > log.light_height %}
+                        <span class="arrow-down"><i class="fa-solid fa-arrow-down"></i></span>
+                        {% elif log.get_previous_log.light_height < log.light_height %}
+                        <span class="arrow-up"><i class="fa-solid fa-arrow-up"></i></span>
+                        {% endif %}
                         {{ log.light_height|default_if_none:'' }}
                     </span>
                 </td>
-                {% elif log.get_previous_log.light_height < log.light_height %}
-                <td style="padding-right: 15px;">
-                    <span id="light_height{{ log.id }}">
-                        <span style="font-size: 11px;"><i class="fa-solid fa-arrow-up"></i></span>
-                        {{ log.light_height|default_if_none:'' }}
-                    </span>
-                </td>
-                {% else %}
-                <td>
-                    <span id="light_height{{ log.id }}">
-                        {{ log.light_height|default_if_none:'' }}
-                    </span>
-                </td>
-                {% endif %}
                 <!--display 'light_power' graphically-->
-                {% if log.light_power == 25 %}
-                <td><span id="light_power{{ log.id }}">
-                    <i class="fa-solid fa-lightbulb"></i><span style="opacity: 0.7;"><i
+                <td>
+                  <span id="light_power{{ log.id }}">
+                    {% if log.light_power == 25 %}
+                      <i class="fa-solid fa-lightbulb"></i><span style="opacity: 0.7;"><i
                         class="fa-regular fa-lightbulb"></i><i
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></span>
-                </span></td>
-                {% elif log.light_power == 50 %}
-                <td><span id="light_power{{ log.id }}">
-                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><span
+                    {% elif log.light_power == 50 %}
+                      <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><span
                         style="opacity: 0.7;"><i
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i></span>
-                </span></td>
-                {% elif log.light_power == 75 %}
-                <td><span id="light_power{{ log.id }}">
-                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
+                    {% elif log.light_power == 75 %}
+                      <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
                         class="fa-solid fa-lightbulb"></i><span style="opacity: 0.7;"><i
                         class="fa-regular fa-lightbulb"></i></span>
-                </span></td>
-                {% elif log.light_power == 100 %}
-                <td><span id="light_power{{ log.id }}">
-                    <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
+                    {% elif log.light_power == 100 %}
+                      <i class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i><i
                         class="fa-solid fa-lightbulb"></i><i class="fa-solid fa-lightbulb"></i>
-                </span></td>
-                {% else %}
-                <td><span id="light_power{{ log.id }}" style="opacity: 0.7;">
-                    <i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
+                    {% else %}
+                      <i class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i><i
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
-                </span></td>
-                {% endif %}
-
-                <!--display 'calibration' graphically in color based on 'get_days_since_calibration' value-->
+                    {% endif %}
+                  </span>
+                </td>
+                <!--display 'calibration' graphically and in color based on 'get_days_since_calibration' value-->
                 <td class="
                     {% if log.get_days_since_calibration is not none %}
                         {% if log.get_days_since_calibration > 30 %} warning {% endif %}
@@ -476,19 +458,17 @@
                 </span></td>
                 <!--display 'water' with status icon based on if 'waste_water' value exist-->
                 <td style="padding-right: 15px;">
-                    {% if log.reservoir_logs.all %}
-                        {% for rlog in log.reservoir_logs.all %}
-                            {% if rlog.waste_water %}
-                                <span id="reservoir_logs.all{{ log.id }}">
-                                    <i class="fa-solid fa-recycle" style="font-size: 11px;"></i> {{ rlog.water }}
-                                </span>
-                            {% else %}
-                                <span id="reservoir_logs.all{{ log.id }}">
-                                    <i class="fa-solid fa-water" style="font-size: 11px;"></i> {{ rlog.water }}
-                                </span>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                    {% for rlog in log.reservoir_logs.all %}
+                    <span id="reservoir_logs.all{{ log.id }}">
+                        {% if rlog.waste_water %}
+                            <i class="fa-solid fa-recycle" style="font-size: 11px;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-water" style="font-size: 11px;"></i>
+                        {% endif %}
+
+                        {{ rlog.water }}
+                    </span>
+                    {% endfor %}
                 </td>
                 <!--display 'irrigation' in color if changed to the previous Log if exists-->
                 <td class="
