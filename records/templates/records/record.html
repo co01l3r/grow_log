@@ -90,7 +90,6 @@
         <table id="record-content-table" cellpadding="0" cellspacing="0" border="0">
             <tbody>
             {% for log in cycle.logs.all %}
-
             <!--change the row background every 7th day-->
             {% if forloop.counter|divisibleby:7 %}
             <tr style="background-color: rgba(255,255,255,0.1)">

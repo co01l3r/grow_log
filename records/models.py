@@ -90,12 +90,14 @@ class Log(models.Model):
         ordering (List): The default ordering for logs, first by phase, then by date, then by id.
 
     Methods:
-        get_day_in_cycle (int):             Returns the day in the cycle.
-        get_phase_day_in_cycle (int):       Returns the day in the phase of cycle.
-        get_previous_log (Optional['Log']): Returns the previous log object based on the ID of the current log object,
-                                            if no previous logs exist, returns None.
-        __str__ (str):                      Returns name or genetics and day position for the cycle.
-                                            Formatted as "[cycle name or genetics] - [day_in_cycle]".
+        get_day_in_cycle (int):                     Returns the day in the cycle.
+        get_phase_day_in_cycle (int):               Returns the day in the phase of cycle.
+        get_previous_log (Optional['Log']):         Returns the previous log object based on the ID of the current
+                                                    log object, if no previous logs exist, returns None.
+        __str__ (str):                              Returns name or genetics and day position for the cycle.
+                                                    Formatted as "[cycle name or genetics] - [day_in_cycle]".
+        get_days_since_calibration(Optional[int]):  Returns the number of consecutive days that the equipment was not
+                                                    calibrated, up to the current log.
     """
     PHASE_CHOICES: List[Tuple[str, str]] = [
         ('seedling', 'Seedling'),
@@ -163,6 +165,15 @@ class Log(models.Model):
         if previous_logs.exists():
             return previous_logs.first()
         return None
+
+    def get_days_since_calibration(self) -> Optional[int]:
+        consecutive_false_count: int = 0
+        for log in self.cycle.logs.filter(pk__lte=self.pk).order_by('-id'):
+            if log.calibration == False:
+                consecutive_false_count += 1
+            elif log.calibration == True:
+                break
+        return consecutive_false_count if consecutive_false_count > 0 else None
 
     def __str__(self) -> str:
         day_in_cycle = self.get_day_in_cycle()
