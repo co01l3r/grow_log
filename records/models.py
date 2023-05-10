@@ -316,13 +316,15 @@ class ReservoirLog(models.Model):
 
     Methods:
         __str__(str):                           Returns a string representation of the ReservoirLog object.
+
+        get_ro_water_ratio(Optional[int]):      Calculates and returns the ratio of water that underwent reverse
+                                                osmosis to the total water amount in %.
+
         save():                                 Overrides the default save method to update existing logs and calculate
                                                 reverse osmosis usage.
         _update_existing_log():                 Helper method to update an existing log.
         _update_existing_ro_amount():           Helper method to update the reverse osmosis amount of an existing log.
         _update_existing_waste_water():         Helper method to update the waste water amount of an existing log.
-        get_ro_water_ratio(Optional[int]):      Calculates and returns the ratio of water that underwent reverse
-                                                osmosis to the total water amount in %.
     """
     RO_OPTIONS: List[Tuple[str, str]] = [
         ('yes', 'Yes'),
