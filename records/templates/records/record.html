@@ -14,6 +14,7 @@
         {% endif %}
     </div>
 
+    <!--header displaying 'Cycle' object data-->
     <div class="tbl-header">
         <span class="cyc-info"><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }}</span>
         <!--display genetics if name provided-->
@@ -47,6 +48,7 @@
     </div>
 
     <br>
+    <!--header displaying columns and units-->
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
@@ -85,6 +87,7 @@
         </table>
     </div>
 
+    <!--table body displaying rows-->
     <div id="record-content-div" class="tbl-content">
         <table id="record-content-table" cellpadding="0" cellspacing="0" border="0">
             <tbody>
@@ -184,14 +187,14 @@
                         {% elif log.phase == 'bloom' %}
                             <!--bloom-->
                             {% if log.carbon_dioxide >= 1500 %}
-                                <!--with high co2 levels-->
+                                <!--high co2 levels-->
                                 {% if log.temperature_day <= 15 %}
                                     <i class="fa-regular fa-snowflake"></i>
                                 {% elif log.temperature_day > 33 %}
                                     <i class="fa-brands fa-gripfire"></i>
                                 {% endif %}
                             {% else %}
-                                <!--with regular co2 levels-->
+                                <!--regular co2 levels-->
                                 {% if log.temperature_day <= 15 %}
                                     <i class="fa-regular fa-snowflake"></i>
                                 {% elif log.temperature_day > 28 %}
@@ -213,7 +216,7 @@
                         {% if log.temperature_night >= 28 %} temp-danger {% endif %}
                     {% endif %}
                 ">
-                    <!--add 'temperature_nigh' icon if temp is critical-->
+                    <!--add icon if temp is critical-->
                     <span id="temperature_nigh{{ log.id }}">
                         {% if log.temperature_night <= 15 %}
                             <i class="fa-regular fa-snowflake"></i>
@@ -249,7 +252,7 @@
                         {% endif %}
                     {% endif %}
                 ">
-                    <!--add 'humidity_day' icon for critical values-->
+                    <!--add icon for critical values-->
                     {% if log.humidity_day is not none %}
                         <span id="humidity_day{{ log.id }}">
                             {% if log.humidity_day <= 30 %}
@@ -287,7 +290,7 @@
                         {% endif %}
                     {% endif %}
                 ">
-                    <!--add 'humidity_night' icon for critical values-->
+                    <!--add icon for critical values-->
                     {% if log.humidity_night is not none %}
                         <span id="humidity_night{{ log.id }}">
                             {% if log.humidity_night <= 30 %}
@@ -299,7 +302,7 @@
                         </span>
                     {% endif %}
                 </td>
-                <!--display 'ph' in color based on acidic/alkaline chart-->
+                <!--display 'ph' in color based on standard acidic/alkaline chart-->
                 <td class="
                     {% if log.ph is not none %}
                         {% if log.ph < 2 %} ph-color-red {% endif %}
@@ -315,7 +318,7 @@
                         {{ log.ph|default_if_none:'' }}
                     </span>
                 </td>
-                <!--display 'ec' in color based on conductivity chart-->
+                <!--display 'ec' in color based on standard conductivity chart-->
                 <td class="
                     {% if log.ec is not none %}
                         {% if log.ec < 0.8 %} ec-low {% endif %}
@@ -365,7 +368,7 @@
                     {% endif %}
                   </span>
                 </td>
-                <!--display 'calibration' graphically and in color based on 'get_days_since_calibration' value-->
+                <!--display 'calibration' graphically, in color based on 'get_days_since_calibration' value-->
                 <td class="
                     {% if log.get_days_since_calibration is not none %}
                         {% if log.get_days_since_calibration > 30 %} warning {% endif %}
@@ -389,15 +392,17 @@
                         {% if log.carbon_dioxide >= 5000 and log.carbon_dioxide < 35000  %} carbon-dioxide-human-health-danger {% endif %}
                         {% if log.carbon_dioxide >= 35000 %} carbon-dioxide-human-life-danger {% endif %}
                     {% endif %}
-                "><span id="carbon_dioxide{{ log.id }}">
+                ">
+                    <span id="carbon_dioxide{{ log.id }}">
                     <!--add a danger icon when co2 levels exceed human limits-->
                     {% if log.carbon_dioxide >= 5000 %}
                         <i class="fa-solid fa-triangle-exclamation"></i> {{ log.carbon_dioxide|default_if_none:'' }}
                     {% else %}
                         {{ log.carbon_dioxide|default_if_none:'' }}
                     {% endif %}
-                </span></td>
-                <!--display 'water' with status icon based on 'status' value-->
+                    </span>
+                </td>
+                <!--display 'water' from child object (ReservoirLog) with icon based on 'status' value-->
                 <td style="padding-right: 15px;">
                     {% for rlog in log.reservoir_logs.all %}
                     <span id="reservoir_logs.all{{ log.id }}">
@@ -418,10 +423,12 @@
                             {% if log.irrigation != log.get_previous_log.irrigation %} irrigation-changed {% endif %}
                         {% endif %}
                     {% endif %}
-                " style="font-size: 10px"><span id="irrigation{{ log.id }}">
-                    {{ log.irrigation|default_if_none:'' }}
-                </span></td>
-                <!--display 'nutrient_log' for Log as interactive button if exists or as + button if not-->
+                " style="font-size: 10px">
+                    <span id="irrigation{{ log.id }}">
+                        {{ log.irrigation|default_if_none:'' }}
+                    </span>
+                </td>
+                <!--display 'nutrient_log' from child object (NutrientLog) as interactive button if exists or as + button if not-->
                 {% if log.nutrient_logs.exists and not log.date == today %}
                 <td style="text-align: center; vertical-align: middle;">
                     <button class="recipe-btn" style="margin: auto; margin-bottom: 4px"
@@ -450,19 +457,23 @@
                 {% else %}
                 <td></td>
                 {% endif %}
-                <!--display additional options only if 'today' in 'note' column besides comment-->
+                <!--display additional options only if 'today' is True, in 'note' column besides 'comment' value if exist-->
                 {% if log.date == today %}
-                <td class="comment-cell" {% if log.comment %}title="{{ log.comment }}" {% endif %}>
+                <td class="comment-cell"{% if log.comment %}title="{{ log.comment }}" {% endif %}>
                     {% if log.comment %}
                         {{ log.comment|truncatechars:5|default_if_none:'' }}
                     |
                     {% endif %}
+                    <!--edit icon button-->
                     <span class="edit-icon"
                           onclick="location.href='{% url 'edit_log' pk=log.cycle.id log_pk=log.id %}'"><i
-                            class="fa-solid fa-pen"></i></span>
+                            class="fa-solid fa-pen"></i>
+                    </span>
+                    <!--delete icon button-->
                     <span class="delete-icon"
                           onclick="if(confirm('Are you sure you want to delete day {{ log.get_day_in_cycle }} | {{ log.phase }} log?')) { window.location.href = '{% url 'delete_log' pk=log.cycle.id log_pk=log.id %}'; } else { return false; }"><i
-                            class="fa-regular fa-circle-xmark"></i></span>
+                            class="fa-regular fa-circle-xmark"></i>
+                    </span>
                 </td>
                 {% else %}
                 <td class="comment-cell"{% if log.comment %}title="{{ log.comment }}" {% endif %}>
