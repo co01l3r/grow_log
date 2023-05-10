@@ -441,16 +441,22 @@
                         class="fa-regular fa-lightbulb"></i><i class="fa-regular fa-lightbulb"></i>
                 </span></td>
                 {% endif %}
-                <!--display 'calibration' graphically-->
-                {% if log.calibration %}
-                <td><span id="calibration{{ log.id }}">
-                    <i class="fa-solid fa-check"></i>
-                </span></td>
-                {% else %}
-                <td style="size: 9px;"><span id="calibration{{ log.id }}">
-                    <i class="fa-solid fa-xmark"></i>
-                </span></td>
-                {% endif %}
+
+                <!--display 'calibration' graphically in color based on 'get_days_since_calibration' value-->
+                <td class="
+                    {% if log.get_days_since_calibration is not none %}
+                        {% if log.get_days_since_calibration > 30 %} warning {% endif %}
+                        {% if log.get_days_since_calibration > 60 %} danger {% endif %}
+                    {% endif %}
+                ">
+                    <span id="calibration{{ log.id }}">
+                        {% if log.calibration %}
+                        <i class="fa-solid fa-check"></i>
+                        {% else %}
+                        <i class="fa-solid fa-xmark"></i>
+                        {% endif %}
+                    </span>
+                </td>
                 <!--display 'carbon_dioxide' in color based on known ideal co2 levels for indoor growing and human health-->
                 <td class="
                     {% if log.carbon_dioxide is not none %}

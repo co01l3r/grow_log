@@ -524,6 +524,17 @@ tr:nth-child(2) td[colspan="2"] {
 }
 
 /* others */
+.warning {
+    color: red;
+}
+
+.danger {
+    background: linear-gradient(to left, transparent, #FF4136, #FF4136, transparent);
+    color: yellow;
+    opacity: 0.7;
+    border-radius: 15%;
+}
+
 .line {
     opacity: 10%;
 }
