@@ -253,21 +253,14 @@
                     {% endif %}
                 ">
                     <!--add 'temperature_nigh' icon if temp is critical-->
-                    {% if log.temperature_night <= 15 %}
-                        <span id="temperature_nigh{{ log.id }}">
+                    <span id="temperature_nigh{{ log.id }}">
+                        {% if log.temperature_night <= 15 %}
                             <i class="fa-regular fa-snowflake"></i>
-                            {{ log.temperature_night|default_if_none:''|floatformat:1 }}
-                        </span>
-                    {% elif log.temperature_night >= 28 %}
-                        <span id="temperature_nigh{{ log.id }}">
+                        {% elif log.temperature_night >= 28 %}
                             <i class="fa-brands fa-gripfire"></i>
-                            {{ log.temperature_night|default_if_none:''|floatformat:1 }}
-                        </span>
-                    {% else %}
-                        <span id="temperature_nigh{{ log.id }}">
-                            {{ log.temperature_night|default_if_none:''|floatformat:1 }}
-                        </span>
-                    {% endif %}
+                        {% endif %}
+                        {{ log.temperature_night|default_if_none:''|floatformat:1 }}
+                    </span>
                 </td>
                 <!--display 'humidity_day' in color based on value-->
                 <td class="
@@ -297,21 +290,14 @@
                 ">
                     <!--add 'humidity_day' icon for critical values-->
                     {% if log.humidity_day is not none %}
-                        {% if log.humidity_day <= 30 %}
                         <span id="humidity_day{{ log.id }}">
-                            <span style="font-size: 10px;"><i class="fa-solid fa-droplet-slash"></i></span>
+                            {% if log.humidity_day <= 30 %}
+                                <span style="font-size: 10px;"><i class="fa-solid fa-droplet-slash"></i></span>
+                            {% elif log.humidity_day >= 75 %}
+                                <span style="font-size: 10px;"><i class="fa-solid fa-droplet"></i></span>
+                            {% endif %}
                             {{ log.humidity_day|default_if_none:'' }}
                         </span>
-                        {% elif log.humidity_day >= 75 %}
-                        <span id="humidity_day{{ log.id }}">
-                            <span style="font-size: 10px;"><i class="fa-solid fa-droplet"></i></span>
-                            {{ log.humidity_day|default_if_none:'' }}
-                        </span>
-                        {% else %}
-                        <span id="humidity_day{{ log.id }}">
-                            {{ log.humidity_day|default_if_none:'' }}
-                        </span>
-                        {% endif %}
                     {% endif %}
                 </td>
                 <!--display 'humidity_night' in color based on value-->
@@ -342,20 +328,14 @@
                 ">
                     <!--add 'humidity_night' icon for critical values-->
                     {% if log.humidity_night is not none %}
-                        {% if log.humidity_night <= 30 %}
                         <span id="humidity_night{{ log.id }}">
-                            <span style="font-size: 10px;"><i class="fa-solid fa-droplet-slash"></i></span>
-                            {{ log.humidity_night|default_if_none:'' }}
+                            {% if log.humidity_night <= 30 %}
+                                <span style="font-size: 10px;"><i class="fa-solid fa-droplet-slash"></i></span>
+                            {% elif log.humidity_night >= 75 %}
+                                <span style="font-size: 10px;"><i class="fa-solid fa-droplet"></i></span>
+                            {% endif %}
+                            {{ log.humidity_night|default:'' }}
                         </span>
-                        {% elif log.humidity_night >= 75 %}
-                        <span id="humidity_night{{ log.id }}">
-                            <span style="font-size: 10px;"><i class="fa-solid fa-droplet"></i></span>
-                            {{ log.humidity_night|default_if_none:''}}
-                        {% else %}
-                        <span id="humidity_night{{ log.id }}">
-                            {{ log.humidity_night|default_if_none:'' }}
-                        </span>
-                        {% endif %}
                     {% endif %}
                 </td>
                 <!--display 'ph' in color based on acidic/alkaline chart-->
