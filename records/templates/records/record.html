@@ -100,37 +100,37 @@
                 {% if log.date == today %}
                 <td style="text-align: left;">
                     {% if log.get_day_in_cycle == log.get_phase_day_in_cycle %}
-                    {{ log.get_day_in_cycle }}
+                        {{ log.get_day_in_cycle }}
                     {% else %}
-                    {{ log.get_day_in_cycle }}
-                    ({{ log.get_phase_day_in_cycle }})
+                        {{ log.get_day_in_cycle }}
+                        ({{ log.get_phase_day_in_cycle }})
                     {% endif %}
 
                     {% if log.phase == "seedling" %}
-                    <i class="fa-solid fa-seedling"></i>
+                        <i class="fa-solid fa-seedling"></i>
                     {% elif log.phase == "vegetative" %}
-                    <i class="fa-solid fa-circle"></i>
+                        <i class="fa-solid fa-circle"></i>
                     {% elif log.phase == "bloom" %}
-                    <i class="fa-solid fa-circle-half-stroke"></i>
+                        <i class="fa-solid fa-circle-half-stroke"></i>
                     {% endif %}
-                    <div class="online-icon"> </div>
+                        <div class="online-icon"> </div>
                 </td>
                 {% else %}
                 <!--display log position formatted as: day_in_cycle (day_in_phase) phase-->
                 <td style="text-align: left;">
                     {% if log.get_day_in_cycle == log.get_phase_day_in_cycle %}
-                    {{ log.get_day_in_cycle }}
+                        {{ log.get_day_in_cycle }}
                     {% else %}
-                    {{ log.get_day_in_cycle }}
-                    ({{ log.get_phase_day_in_cycle }})
+                        {{ log.get_day_in_cycle }}
+                        ({{ log.get_phase_day_in_cycle }})
                     {% endif %}
 
                     {% if log.phase == "seedling" %}
-                    <i class="fa-solid fa-seedling"></i>
+                        <i class="fa-solid fa-seedling"></i>
                     {% elif log.phase == "vegetative" %}
-                    <i class="fa-solid fa-circle"></i>
+                        <i class="fa-solid fa-circle"></i>
                     {% elif log.phase == "bloom" %}
-                    <i class="fa-solid fa-circle-half-stroke"></i>
+                        <i class="fa-solid fa-circle-half-stroke"></i>
                     {% endif %}
                 </td>
                 {% endif %}
