@@ -22,9 +22,9 @@
         <span class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</span>
         {% endif %}
         <span class="cyc-info"><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|title }},</span>
-        <!--display 'behavioral_response' if exists-->
-        {% if cycle.behavioral_response %}
-        <span class="cyc-info">{{ cycle.behavioral_response|title }},</span>
+        <!--display 'reproductive_cycle' if exists-->
+        {% if cycle.reproductive_cycle %}
+        <span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
         {% endif %}
         <!--display 'seed_type' if exists-->
         {% if cycle.seed_type %}

@@ -56,8 +56,8 @@ class CycleModelTestCase(TestCase):
             cycle.full_clean()
         self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
 
-    def test_behavioral_response_choices(self):
-        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="led", behavioral_response="not-a-valid-choice")
+    def test_reproductive_cycle_choices(self):
+        cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="led", reproductive_cycle="not-a-valid-choice")
         with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
         self.assertIn("is not a valid choice", str(context.exception))

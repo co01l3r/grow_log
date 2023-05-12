@@ -11,7 +11,7 @@ class RecordsViewTestCase(TestCase):
         self.client = Client()
         self.cycle = Cycle.objects.create(
             name='Cycle 1', genetics='Updated Genetics', seedbank='Unknown',
-            fixture='Fixture 1', behavioral_response='auto-flowering',
+            fixture='Fixture 1', reproductive_cycle='auto-flowering',
             seed_type='feminized', grow_medium='soil',
         )
         self.url_records = reverse('records')
@@ -35,7 +35,7 @@ class RecordsViewTestCase(TestCase):
     def test_view_returns_correct_data(self):
         Cycle.objects.create(
             name='Cycle 2', genetics='Unknown', seedbank='Unknown',
-            fixture='Fixture 2', behavioral_response='photoperiodic',
+            fixture='Fixture 2', reproductive_cycle='photoperiodic',
             seed_type='regular', grow_medium='hydroponics',
         )
         response = self.client.get(self.url_records)
@@ -68,7 +68,7 @@ class RecordsViewTestCase(TestCase):
             'genetics': 'Updated Genetics',
             'seedbank': 'Updated Seedbank',
             'fixture': 'Updated Fixture',
-            'behavioral_response': 'photoperiodic',
+            'reproductive_cycle': 'photoperiodic',
             'seed_type': 'clones',
             'grow_medium': 'hydroponics',
             'name': 'Updated Name',
@@ -79,7 +79,7 @@ class RecordsViewTestCase(TestCase):
         self.assertEqual(cycle.genetics, 'Updated Genetics')
         self.assertEqual(cycle.seedbank, 'Updated Seedbank')
         self.assertEqual(cycle.fixture, 'Updated Fixture')
-        self.assertEqual(cycle.behavioral_response, 'photoperiodic')
+        self.assertEqual(cycle.reproductive_cycle, 'photoperiodic')
         self.assertEqual(cycle.seed_type, 'clones')
         self.assertEqual(cycle.grow_medium, 'hydroponics')
         self.assertEqual(cycle.name, 'Updated Name')

@@ -41,7 +41,7 @@ class Cycle(models.Model):
     genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
     fixture = models.CharField(max_length=200)
-    behavioral_response = models.CharField(max_length=30, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
+    reproductive_cycle = models.CharField(max_length=30, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
     seed_type = models.CharField(max_length=30, blank=True, null=True, choices=SEED_TYPE_CHOICES)
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)

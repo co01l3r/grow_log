@@ -22,11 +22,11 @@ class CycleForm(forms.ModelForm):
     """
     class Meta:
         model = Cycle
-        fields = ['name', 'genetics', 'seedbank', 'fixture', 'behavioral_response', 'seed_type', 'grow_medium']
+        fields = ['name', 'genetics', 'seedbank', 'fixture', 'reproductive_cycle', 'seed_type', 'grow_medium']
 
     def __init__(self, *args: tuple, **kwargs: dict) -> None:
         super(CycleForm, self).__init__(*args, **kwargs)
-        self.fields['behavioral_response'].widget.attrs.update({'class': 'form-control'})
+        self.fields['reproductive_cycle'].widget.attrs.update({'class': 'form-control'})
         self.fields['seed_type'].widget.attrs.update({'class': 'form-control'})
         self.fields['grow_medium'].widget.attrs.update({'class': 'form-control'})
 

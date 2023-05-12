@@ -13,7 +13,7 @@ class CycleFormTest(TestCase):
             'genetics': 'Test Genetics',
             'seedbank': 'Test Seedbank',
             'fixture': 'Test Fixture',
-            'behavioral_response': 'photoperiodic',
+            'reproductive_cycle': 'photoperiodic',
             'seed_type': 'feminized',
             'grow_medium': 'Test Medium'
         }
@@ -28,7 +28,7 @@ class CycleFormTest(TestCase):
             'genetics': '',
             'seedbank': 'Test Seedbank',
             'fixture': 'Test Fixture',
-            'behavioral_response': 'Test Response',
+            'reproductive_cycle': 'Test Response',
             'seed_type': '',
             'grow_medium': 'Test Medium'
         })
@@ -36,7 +36,7 @@ class CycleFormTest(TestCase):
 
     def test_form_widget_classes(self):
         form = CycleForm()
-        self.assertIn('form-control', str(form.fields['behavioral_response'].widget.attrs))
+        self.assertIn('form-control', str(form.fields['reproductive_cycle'].widget.attrs))
         self.assertIn('form-control', str(form.fields['seed_type'].widget.attrs))
         self.assertIn('form-control', str(form.fields['grow_medium'].widget.attrs))
 
