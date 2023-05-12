@@ -21,6 +21,7 @@ class Cycle(models.Model):
         reproductive_cycle (CharField): The type of plant reproductive cycle, either "auto-flowering", "photoperiodic".
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
+        hydro_system (CharField): The type of hydro system used for the growth, a string value up to 37 characters.
 
     Meta:
         ordering (List): A list of strings representing the fields to order the results by. The results will be
@@ -45,6 +46,19 @@ class Cycle(models.Model):
         ('feminized', 'Feminized'),
         ('clones', 'Clones'),
     ]
+    HYDRO_SYSTEM_OPTIONS: List[Tuple[str, str]] = [
+        ('dwc', 'Deep Water Culture (DWC)'),
+        ('rdwc', 'Recirculating Deep Water Culture (RDWC)'),
+        ('drip', 'Drip Irrigation'),
+        ('rdrip', 'Recirculating Drip Irrigation (RDI)'),
+        ('nft', 'Nutrient Film Technique (NFT)'),
+        ('ebb_and_Flow', 'Ebb and Flow'),
+        ('flood_and_drain', 'Flood and Drain'),
+        ('aeroponics', 'Aeroponics'),
+        ('aquaponics', 'Aquaponics'),
+        ('kratky_method', 'Kratky Method'),
+        ('vertical_farming', 'Vertical Farming'),
+    ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(auto_now_add=True)
     light_type = models.CharField(max_length=32, choices=LIGHT_TYPE_OPTIONS,  default='led')
@@ -55,6 +69,7 @@ class Cycle(models.Model):
     reproductive_cycle = models.CharField(max_length=30, choices=CYCLE_OPTIONS, default='photoperiodic')
     seed_type = models.CharField(max_length=30, choices=SEED_TYPE_CHOICES, default='feminized')
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
+    hydro_system = models.CharField(max_length=37, blank=True, null=True, choices=HYDRO_SYSTEM_OPTIONS)
 
     class Meta:
         ordering: List = [

@@ -17,6 +17,7 @@ class CycleForm(forms.ModelForm):
         reproductive_cycle (CharField): The type of plant reproductive cycle, either "auto-flowering", "photoperiodic".
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
+        hydro_system (CharField): The type of hydro system used for the growth, a string value up to 37 characters.
 
     Methods:
         __init__: Initializes the form with proper attributes and classes for styling.
