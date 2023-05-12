@@ -17,7 +17,7 @@ class Cycle(models.Model):
         name (CharField): The name given to the cycle, a string value up to 80 characters.
         genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.
         seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
-        reproductive_cycle (CharField): The type of plant reproductive cycle, a string value up to 30 characters.
+        reproductive_cycle (CharField): The type of plant reproductive cycle, either "auto-flowering", "photoperiodic".
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
 
@@ -28,7 +28,7 @@ class Cycle(models.Model):
     Methods:
         __str__ (str): Returns a string representation of the cycle object. Formatted as "[name or genetics] - Q[quarter]/[year]".
     """
-    BEHAVIORAL_RESPONSE_CHOICES: List[Tuple[str, str]] = [
+    CYCLE_OPTIONS: List[Tuple[str, str]] = [
         ('auto-flowering', 'Auto-flowering'),
         ('photoperiodic', 'Photoperiodic'),
     ]
@@ -43,7 +43,7 @@ class Cycle(models.Model):
     name = models.CharField(max_length=80, blank=True)
     genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
-    reproductive_cycle = models.CharField(max_length=30, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
+    reproductive_cycle = models.CharField(max_length=30, blank=True, null=True, choices=CYCLE_OPTIONS)
     seed_type = models.CharField(max_length=30, blank=True, null=True, choices=SEED_TYPE_CHOICES)
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
 
