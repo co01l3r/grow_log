@@ -11,14 +11,15 @@ class Cycle(models.Model):
     A model representing a cycle of a plant growth.
 
     Fields:
-        id (UUIDField): The primary key of the cycle, a UUID value. Required field.
+        id (UUIDField): The primary key of the cycle, a UUID value.
         date (DateField): The date when the cycle started, set automatically on creation.
-        genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters. Required field.
+        fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters.
+        name (CharField): The name given to the cycle, a string value up to 80 characters.
+        genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.
         seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
-        fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters. Required field.
+        reproductive_cycle (CharField): The type of plant reproductive cycle, a string value up to 30 characters.
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
-        name (CharField): The name given to the cycle, a string value up to 80 characters.
 
     Meta:
         ordering (List): A list of strings representing the fields to order the results by. The results will be
@@ -38,13 +39,13 @@ class Cycle(models.Model):
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(auto_now_add=True)
+    fixture = models.CharField(max_length=200)
+    name = models.CharField(max_length=80, blank=True)
     genetics = models.CharField(max_length=200)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
-    fixture = models.CharField(max_length=200)
     reproductive_cycle = models.CharField(max_length=30, blank=True, null=True, choices=BEHAVIORAL_RESPONSE_CHOICES)
     seed_type = models.CharField(max_length=30, blank=True, null=True, choices=SEED_TYPE_CHOICES)
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
-    name = models.CharField(max_length=80, blank=True)
 
     class Meta:
         ordering: List = [
