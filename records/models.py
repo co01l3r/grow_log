@@ -59,6 +59,7 @@ class Cycle(models.Model):
         ('kratky_method', 'Kratky Method'),
         ('vertical_farming', 'Vertical Farming'),
     ]
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(auto_now_add=True)
     light_type = models.CharField(max_length=32, choices=LIGHT_TYPE_OPTIONS,  default='led')
@@ -136,6 +137,7 @@ class Log(models.Model):
         (75, '75%'),
         (100, '100%'),
     ]
+
     cycle = models.ForeignKey(Cycle, on_delete=models.CASCADE, related_name='logs')
     date = models.DateField(auto_now_add=True)
     phase = models.CharField(max_length=12, choices=PHASE_CHOICES, default='vegetative')
@@ -240,6 +242,7 @@ class Nutrient(models.Model):
         ('bud_enlarger', 'Bud enlarger'),
         ('bud_taste', 'Bud taste'),
     ]
+
     name = models.CharField(max_length=80)
     brand = models.CharField(max_length=80)
     nutrient_type = models.CharField(max_length=18, blank=True, null=True, choices=NUTRIENT_TYPE_CHOICES)
@@ -358,6 +361,7 @@ class ReservoirLog(models.Model):
         ('refresh', 'Refresh'),
         ('refill', 'Refill'),
     ]
+
     log = models.ForeignKey(Log, on_delete=models.CASCADE, related_name='reservoir_logs')
     status = models.CharField(choices=RESERVOIR_STATUS, default='refill', max_length=7, editable=False)
     reverse_osmosis = models.CharField(choices=RO_OPTIONS, default='yes', max_length=3)
