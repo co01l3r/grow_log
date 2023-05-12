@@ -12,6 +12,7 @@ class CycleFormTest(TestCase):
             'name': 'Test Cycle',
             'genetics': 'Test Genetics',
             'seedbank': 'Test Seedbank',
+            'light_type': 'led',
             'fixture': 'Test Fixture',
             'reproductive_cycle': 'photoperiodic',
             'seed_type': 'feminized',
@@ -28,6 +29,7 @@ class CycleFormTest(TestCase):
             'genetics': '',
             'seedbank': 'Test Seedbank',
             'fixture': 'Test Fixture',
+            'light_type': 'x',
             'reproductive_cycle': 'Test Response',
             'seed_type': '',
             'grow_medium': 'Test Medium'

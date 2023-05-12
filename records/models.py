@@ -13,9 +13,10 @@ class Cycle(models.Model):
     Fields:
         id (UUIDField): The primary key of the cycle, a UUID value.
         date (DateField): The date when the cycle started, set automatically on creation.
-        fixture (CharField): The type of light fixture used for the growth, a string value up to 200 characters.
+        light_type(CharField): The type of light fixture used for the growth, a string value up to 32 characters
+        fixture (CharField): Fixture model used, a string value up to 80 characters.
         name (CharField): The name given to the cycle, a string value up to 80 characters.
-        genetics (CharField): The genetics of the plant being grown, a string value up to 200 characters.
+        genetics (CharField): The genetics of the plant being grown, a string value up to 150 characters.
         seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
         reproductive_cycle (CharField): The type of plant reproductive cycle, either "auto-flowering", "photoperiodic".
         seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
@@ -32,6 +33,13 @@ class Cycle(models.Model):
         ('auto-flowering', 'Auto-flowering'),
         ('photoperiodic', 'Photoperiodic'),
     ]
+    LIGHT_TYPE_OPTIONS: List[Tuple[str, str]] = [
+        ('led', 'Light-Emitting Diode (LED)'),
+        ('hps', 'High pressure sodium vapor (HPS)'),
+        ('cfl', 'Compact fluorescent (CFL)'),
+        ('hid', 'High-intensity discharge (HID)'),
+        ('cmh', 'Ceramic metal halide (CMH)'),
+    ]
     SEED_TYPE_CHOICES: List[Tuple[str, str]] = [
         ('regular', 'Regular'),
         ('feminized', 'Feminized'),
@@ -39,12 +47,13 @@ class Cycle(models.Model):
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(auto_now_add=True)
-    fixture = models.CharField(max_length=200)
+    light_type = models.CharField(max_length=32, choices=LIGHT_TYPE_OPTIONS,  default='led')
+    fixture = models.CharField(max_length=80, blank=True, null=True)
     name = models.CharField(max_length=80, blank=True)
-    genetics = models.CharField(max_length=200)
+    genetics = models.CharField(max_length=150)
     seedbank = models.CharField(max_length=80, blank=True, null=True)
-    reproductive_cycle = models.CharField(max_length=30, blank=True, null=True, choices=CYCLE_OPTIONS)
-    seed_type = models.CharField(max_length=30, blank=True, null=True, choices=SEED_TYPE_CHOICES)
+    reproductive_cycle = models.CharField(max_length=30, choices=CYCLE_OPTIONS, default='photoperiodic')
+    seed_type = models.CharField(max_length=30, choices=SEED_TYPE_CHOICES, default='feminized')
     grow_medium = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:

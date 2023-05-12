@@ -9,20 +9,22 @@ class CycleForm(forms.ModelForm):
     A form for creating or updating a Cycle instance.
 
     Fields:
-        name (CharField): The name of the cycle.
-        genetics (CharField): The genetics of the cycle.
-        seedbank (CharField): The seedbank of the cycle.
-        fixture (CharField): The fixture used for the cycle.
-        behavioral_response (ChoiceField): The behavioral response of the cycle.
-        seed_type (ChoiceField): The type of seed used for the cycle.
-        grow_medium (ChoiceField): The grow medium used for the cycle.
+        light_type(CharField): The type of light fixture used for the growth, a string value up to 32 characters
+        fixture (CharField): Fixture model used, a string value up to 80 characters.
+        name (CharField): The name given to the cycle, a string value up to 80 characters.
+        genetics (CharField): The genetics of the plant being grown, a string value up to 150 characters.
+        seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
+        reproductive_cycle (CharField): The type of plant reproductive cycle, either "auto-flowering", "photoperiodic".
+        seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
+        grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
 
     Methods:
         __init__: Initializes the form with proper attributes and classes for styling.
     """
     class Meta:
         model = Cycle
-        fields = ['name', 'genetics', 'fixture', 'reproductive_cycle', 'seed_type', 'seedbank', 'grow_medium']
+        exclude = ['id', 'date']
+        # fields = ['name', 'genetics', 'light_type', 'fixture', 'reproductive_cycle', 'seed_type', 'seedbank', 'grow_medium']
 
     def __init__(self, *args: tuple, **kwargs: dict) -> None:
         super(CycleForm, self).__init__(*args, **kwargs)

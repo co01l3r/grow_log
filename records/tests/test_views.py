@@ -11,7 +11,7 @@ class RecordsViewTestCase(TestCase):
         self.client = Client()
         self.cycle = Cycle.objects.create(
             name='Cycle 1', genetics='Updated Genetics', seedbank='Unknown',
-            fixture='Fixture 1', reproductive_cycle='auto-flowering',
+            light_type='led', fixture='Fixture 1', reproductive_cycle='auto-flowering',
             seed_type='feminized', grow_medium='soil',
         )
         self.url_records = reverse('records')
@@ -34,9 +34,14 @@ class RecordsViewTestCase(TestCase):
 
     def test_view_returns_correct_data(self):
         Cycle.objects.create(
-            name='Cycle 2', genetics='Unknown', seedbank='Unknown',
-            fixture='Fixture 2', reproductive_cycle='photoperiodic',
-            seed_type='regular', grow_medium='hydroponics',
+            name='Cycle 2',
+            genetics='Unknown',
+            seedbank='Unknown',
+            light_type='led',
+            fixture='Fixture 2',
+            reproductive_cycle='photoperiodic',
+            seed_type='regular',
+            grow_medium='hydroponics',
         )
         response = self.client.get(self.url_records)
         self.assertEqual(len(response.context['cycles']), 2)
@@ -67,6 +72,7 @@ class RecordsViewTestCase(TestCase):
         data = {
             'genetics': 'Updated Genetics',
             'seedbank': 'Updated Seedbank',
+            'light_type': 'led',
             'fixture': 'Updated Fixture',
             'reproductive_cycle': 'photoperiodic',
             'seed_type': 'clones',

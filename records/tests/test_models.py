@@ -39,10 +39,10 @@ class CycleModelTestCase(TestCase):
         self.assertIn('Ensure this value has at most', str(context.exception))
 
     def test_genetics_field_max_length(self):
-        cycle = Cycle(name="Cycle 1 - Q1", genetics="a" * 201)
+        cycle = Cycle(name="Cycle 1 - Q1", genetics="a" * 151)
         with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
-        self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
+        self.assertIn("Ensure this value has at most 150 characters", str(context.exception))
 
     def test_seedbank_field_max_length(self):
         cycle = Cycle(name="Cycle 1 - Q1", seedbank="a" * 81)
@@ -51,10 +51,10 @@ class CycleModelTestCase(TestCase):
         self.assertIn("Ensure this value has at most 80 characters", str(context.exception))
 
     def test_fixture_field_max_length(self):
-        cycle = Cycle(name="Cycle 1 - Q1", fixture="a" * 201)
+        cycle = Cycle(name="Cycle 1 - Q1", fixture="a" * 81)
         with self.assertRaises(ValidationError) as context:
             cycle.full_clean()
-        self.assertIn("Ensure this value has at most 200 characters", str(context.exception))
+        self.assertIn("Ensure this value has at most 80 characters", str(context.exception))
 
     def test_reproductive_cycle_choices(self):
         cycle = Cycle.objects.create(name="Cycle 1 - Q1", genetics="Sativa", fixture="led", reproductive_cycle="not-a-valid-choice")
