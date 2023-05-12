@@ -417,5 +417,5 @@ class ReservoirLog(models.Model):
             else:
                 return None
         except Exception as e:
-            logging.exception(f"An error occurred during the calculation: {e}")
+            logging.exception(f"Unable to calculate RO ratio: {e}")
             return None
