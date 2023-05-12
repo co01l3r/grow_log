@@ -13,15 +13,15 @@ class Cycle(models.Model):
     Fields:
         id (UUIDField): The primary key of the cycle, a UUID value.
         date (DateField): The date when the cycle started, set automatically on creation.
-        light_type(CharField): The type of light fixture used for the growth, a string value up to 32 characters
+        light_type(CharField): The type of light fixture used for the growth, from LIGHT_TYPE_OPTIONS.
         fixture (CharField): Fixture model used, a string value up to 80 characters.
         name (CharField): The name given to the cycle, a string value up to 80 characters.
         genetics (CharField): The genetics of the plant being grown, a string value up to 150 characters.
         seedbank (CharField): The seed bank where the seeds were purchased from, a string value up to 80 characters.
-        reproductive_cycle (CharField): The type of plant reproductive cycle, either "auto-flowering", "photoperiodic".
-        seed_type (CharField): The type of seeds used, either "regular", "feminized", or "clones".
+        reproductive_cycle (CharField): The type of plant reproductive cycle, from CYCLE_OPTIONS.
+        seed_type (CharField): The type of seeds used, from SEED_TYPE_CHOICES.
         grow_medium (CharField): The type of grow medium used for the growth, a string value up to 30 characters.
-        hydro_system (CharField): The type of hydro system used for the growth, a string value up to 37 characters.
+        hydro_system (CharField): The type of hydro system used for the growth, from HYDRO_SYSTEM_OPTIONS.
 
     Meta:
         ordering (List): A list of strings representing the fields to order the results by. The results will be
@@ -30,16 +30,16 @@ class Cycle(models.Model):
     Methods:
         __str__ (str): Returns a string representation of the cycle object. Formatted as "[name or genetics] - Q[quarter]/[year]".
     """
-    CYCLE_OPTIONS: List[Tuple[str, str]] = [
-        ('auto-flowering', 'Auto-flowering'),
-        ('photoperiodic', 'Photoperiodic'),
-    ]
     LIGHT_TYPE_OPTIONS: List[Tuple[str, str]] = [
         ('led', 'Light-Emitting Diode (LED)'),
         ('hps', 'High pressure sodium vapor (HPS)'),
         ('cfl', 'Compact fluorescent (CFL)'),
         ('hid', 'High-intensity discharge (HID)'),
         ('cmh', 'Ceramic metal halide (CMH)'),
+    ]
+    CYCLE_OPTIONS: List[Tuple[str, str]] = [
+        ('auto-flowering', 'Auto-flowering'),
+        ('photoperiodic', 'Photoperiodic'),
     ]
     SEED_TYPE_CHOICES: List[Tuple[str, str]] = [
         ('regular', 'Regular'),
@@ -97,7 +97,7 @@ class Log(models.Model):
     Fields:
         cycle (Cycle): The cycle associated with the log. Required field.
         date (DateField): The date when the log was created, set automatically on creation.
-        phase (str): The phase of the cycle associated with the log. Required field.
+        phase (str): The phase of the cycle associated with the log, from PHASE_CHOICES.
         temperature_day (DecimalField): The temperature during the day.
         temperature_night (DecimalField): The temperature during the night.
         humidity_day (IntegerField): The humidity during the day, as a percentage.
@@ -106,7 +106,7 @@ class Log(models.Model):
         ec (DecimalField): The electrical conductivity (EC) level for the day.
         irrigation (str): The irrigation applied during the day.
         light_height (IntegerField): The height of the light from the plants canopy during the day.
-        light_power (IntegerField): The power of the light during the day, as a percentage.
+        light_power (IntegerField): Percentage light power during the day, from LIGHT_POWER_CHOICES.
         calibration (bool): Whether the equipment was calibrated during the day.
         featured_image (ImageField): A photo associated with the log.
         carbon_dioxide (IntegerField): The amount of average co2 in the growing area during the day.
@@ -220,9 +220,9 @@ class Nutrient(models.Model):
     Model representing a nutrient used in growing.
 
     Fields:
-        name (CharField): The name of the nutrient. Required field.
-        brand (CharField): The brand of the nutrient. Required field.
-        nutrient_type (CharField): The type of the nutrient.
+        name (CharField): The name of the nutrient.
+        brand (CharField): The brand of the nutrient.
+        nutrient_type (CharField): The type of the nutrient, from NUTRIENT_TYPE_CHOICES.
         featured_image (ImageField): An image representing the nutrient.
         detail (TextField): Additional details about the nutrient.
 
@@ -335,8 +335,8 @@ class ReservoirLog(models.Model):
 
     Fields:
         log (ForeignKey): A foreign key to the Log model, representing the log entry that this reservoir log belongs to.
-        status (CharField): A character field representing the status of the reservoir.
-        reverse_osmosis (CharField): A character field representing whether reverse osmosis is used or not.
+        status (CharField): A character field representing the status of the reservoir, set automatically from RESERVOIR_STATUS.
+        reverse_osmosis (CharField): A character field representing whether reverse osmosis is used or not, from RO_OPTIONS.
         water (IntegerField): An optional integer field representing the amount of water.
         waste_water (IntegerField): An optional integer field representing the amount of waste water.
         ro_amount (IntegerField): An optional integer field representing the amount of water that underwent reverse osmosis.
