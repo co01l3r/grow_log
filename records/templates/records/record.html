@@ -25,7 +25,7 @@
         <!--display 'reproductive_cycle' with appropriate icon analogy-->
         {% if cycle.reproductive_cycle %}
             {% if cycle.reproductive_cycle == 'photoperiodic' %}
-                <span class="cyc-info-icons"><i class="fa-solid fa-camera-retro"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
+                <span class="cyc-info-icons"><i class="fa-solid fa-eye"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
             {% else %}
                 <span class="cyc-info-icons"><i class="fa-solid fa-sun"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
             {% endif %}
