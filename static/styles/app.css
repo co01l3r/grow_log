@@ -277,6 +277,10 @@ th:first-child {
     color: black;
 }
 
+.cyc-info-icons {
+    font-size: 14px;
+}
+
 td {
     padding-left: 10px;
     padding-top: 5px;

@@ -25,14 +25,20 @@
         <!--display 'reproductive_cycle' with appropriate icon analogy-->
         {% if cycle.reproductive_cycle %}
             {% if cycle.reproductive_cycle == 'photoperiodic' %}
-                <i class="fa-solid fa-camera-retro"></i><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
+                <span class="cyc-info-icons"><i class="fa-solid fa-camera-retro"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
             {% else %}
-                <i class="fa-solid fa-sun"></i></i><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
+                <span class="cyc-info-icons"><i class="fa-solid fa-sun"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
             {% endif %}
         {% endif %}
-        <!--display 'seed_type' if exists-->
+        <!--display 'seed_type' with appropriate icon analogy-->
         {% if cycle.seed_type %}
-        <span class="cyc-info">{{ cycle.seed_type|title }}</span>
+            {% if cycle.seed_type == 'regular' %}
+                <span class="cyc-info-icons"><i class="fa-solid fa-venus-mars"></i></span><span class="cyc-info">{{ cycle.seed_type|title }}</span>
+            {% elif cycle.seed_type == 'feminized' %}
+                <span class="cyc-info-icons"><i class="fa-solid fa-venus"></i></span><span class="cyc-info">{{ cycle.seed_type|title }}</span>
+            {% else %}
+                <span class="cyc-info-icons"><i class="fa-solid fa-seedling"></i></span><span class="cyc-info">{{ cycle.seed_type|title }}</span>
+            {% endif %}
         {% endif %}
         <!--display 'grow_medium' if exists-->
         {% if cycle.grow_medium %}
