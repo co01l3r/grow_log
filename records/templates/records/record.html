@@ -44,8 +44,8 @@
         {% if cycle.grow_medium %}
         <span class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</span>
         {% endif %}
-        <!--display 'fixture'-->
-        <span class="cyc-info"><strong>Fixture:</strong> {{ cycle.fixture|title }}</span>
+        <!--display 'light_type' | 'fixture'-->
+        <span class="cyc-info"><strong>Fixture:</strong> {{ cycle.light_type|upper }} | {{ cycle.fixture|title }}</span>
         <!--display edit button for the 'Cycle' object-->
         <span><span class="edit-icon" data-href="{% url 'edit_record' cycle.pk %}"
                   onclick="window.open(this.getAttribute('data-href'), '_self')"><i
