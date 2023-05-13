@@ -47,17 +47,17 @@ class Cycle(models.Model):
         ('clones', 'Clones'),
     ]
     HYDRO_SYSTEM_OPTIONS: List[Tuple[str, str]] = [
-        ('dwc', 'Deep Water Culture (DWC)'),
-        ('rdwc', 'Recirculating Deep Water Culture (RDWC)'),
-        ('drip', 'Drip Irrigation'),
-        ('rdrip', 'Recirculating Drip Irrigation (RDI)'),
-        ('nft', 'Nutrient Film Technique (NFT)'),
-        ('ebb & Flow', 'Ebb & Flow'),
-        ('flood & drain', 'Flood & Drain'),
+        ('DWC', 'Deep Water Culture (DWC)'),
+        ('RDWC', 'Recirculating Deep Water Culture (RDWC)'),
+        ('DRIP', 'Drip Irrigation'),
+        ('RDI', 'Recirculating Drip Irrigation (RDI)'),
+        ('NFT', 'Nutrient Film Technique (NFT)'),
+        ('Ebb&Flow', 'Ebb & Flow'),
+        ('Flood&Drain', 'Flood & Drain'),
         ('aeroponics', 'Aeroponics'),
         ('aquaponics', 'Aquaponics'),
-        ('kratky_method', 'Kratky Method'),
-        ('vertical_farming', 'Vertical Farming'),
+        ('kratky', 'Kratky Method'),
+        ('VF', 'Vertical Farming'),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
