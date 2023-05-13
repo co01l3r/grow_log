@@ -40,6 +40,10 @@
                 <span class="cyc-info-icons"><i class="fa-solid fa-seedling"></i></span><span class="cyc-info">{{ cycle.seed_type|title }}</span>
             {% endif %}
         {% endif %}
+        <!--display 'hydro_system' if exists-->
+        {% if cycle.hydro_system %}
+        <span class="cyc-info"><strong>System:</strong> {{ cycle.hydro_system|title }}</span>
+        {% endif %}
         <!--display 'grow_medium' if exists-->
         {% if cycle.grow_medium %}
         <span class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</span>
