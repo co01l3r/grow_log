@@ -14,7 +14,7 @@
         {% endif %}
     </div>
 
-    <!--header displaying 'Cycle' object data-->
+    <!--subheader that displays 'Cycle' object data-->
     <div class="tbl-header">
         <span class="cyc-info"><strong>Start:</strong> {{ cycle.date|date:"d/m/Y" }}</span>
         <!--display 'genetics' if 'name' provided-->
@@ -22,7 +22,7 @@
         <span class="cyc-info"><strong>Genetics:</strong> {{ cycle.genetics }}</span>
         {% endif %}
         <span class="cyc-info"><strong>Seedbank:</strong> {{ cycle.seedbank|default:"Unknown"|title }},</span>
-        <!--display 'reproductive_cycle' with appropriate icon analogy-->
+        <!--display 'reproductive_cycle' with icon analogy-->
         {% if cycle.reproductive_cycle %}
             {% if cycle.reproductive_cycle == 'photoperiodic' %}
                 <span class="cyc-info-icons"><i class="fa-solid fa-eye"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
@@ -30,7 +30,7 @@
                 <span class="cyc-info-icons"><i class="fa-solid fa-sun"></i></span><span class="cyc-info">{{ cycle.reproductive_cycle|title }},</span>
             {% endif %}
         {% endif %}
-        <!--display 'seed_type' with appropriate icon analogy-->
+        <!--display 'seed_type' with icon analogy-->
         {% if cycle.seed_type %}
             {% if cycle.seed_type == 'regular' %}
                 <span class="cyc-info-icons"><i class="fa-solid fa-venus-mars"></i></span><span class="cyc-info">{{ cycle.seed_type|title }}</span>
@@ -97,7 +97,7 @@
         </table>
     </div>
 
-    <!--table body displaying rows-->
+    <!--table body displaying rows and 'Log' object data-->
     <div id="record-content-div" class="tbl-content">
         <table id="record-content-table" cellpadding="0" cellspacing="0" border="0">
             <tbody>
@@ -226,7 +226,7 @@
                         {% if log.temperature_night >= 28 %} temp-danger {% endif %}
                     {% endif %}
                 ">
-                    <!--add representative icon if temp is critical-->
+                    <!--add representative icon if value is critical-->
                     <span id="temperature_nigh{{ log.id }}">
                         {% if log.temperature_night <= 15 %}
                             <i class="fa-regular fa-snowflake"></i>
