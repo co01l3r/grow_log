@@ -40,13 +40,15 @@
                 <span class="cyc-info-icons"><i class="fa-solid fa-seedling"></i></span><span class="cyc-info">{{ cycle.seed_type|title }}</span>
             {% endif %}
         {% endif %}
-        <!--display 'hydro_system' if exists-->
-        {% if cycle.hydro_system %}
-        <span class="cyc-info"><strong>System:</strong> {{ cycle.hydro_system }}</span>
-        {% endif %}
-        <!--display 'grow_medium' if exists-->
-        {% if cycle.grow_medium %}
-        <span class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</span>
+        <!--display 'hydro_system' and 'grow_medium' if both exists-->
+        {% if cycle.hydro_system and cycle.grow_medium %}
+            <span class="cyc-info"><strong>System & Medium:</strong> {{ cycle.hydro_system }} | {{ cycle.grow_medium|title }}</span>
+        <!--display 'grow_medium'-->
+        {% elif cycle.grow_medium and not cycle.hydro_system %}
+            <span class="cyc-info"><strong>Medium:</strong> {{ cycle.grow_medium|title }}</span>
+        <!--display 'hydro_system'-->
+        {% else %}
+            <span class="cyc-info"><strong>Hydro System:</strong> {{ cycle.hydro_system }}</span>
         {% endif %}
         <!--display 'light_type' | 'fixture'-->
         <span class="cyc-info"><strong>Fixture:</strong> {{ cycle.light_type|upper }} | {{ cycle.fixture|title }}</span>

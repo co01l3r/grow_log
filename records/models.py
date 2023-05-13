@@ -54,9 +54,9 @@ class Cycle(models.Model):
         ('NFT', 'Nutrient Film Technique (NFT)'),
         ('Ebb&Flow', 'Ebb & Flow'),
         ('Flood&Drain', 'Flood & Drain'),
-        ('aeroponics', 'Aeroponics'),
-        ('aquaponics', 'Aquaponics'),
-        ('kratky', 'Kratky Method'),
+        ('Aeroponics', 'Aeroponics'),
+        ('Aquaponics', 'Aquaponics'),
+        ('Kratky', 'Kratky Method'),
         ('VF', 'Vertical Farming'),
     ]
 
