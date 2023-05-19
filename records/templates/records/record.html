@@ -300,8 +300,8 @@
                         {% if log.phase == 'bloom' %}
                             {% if log.humidity_night <= 30 %} hum-critical-low {% endif %}
                             {% if log.humidity_night > 30 and log.humidity_night <= 45 %} hum-low {% endif %}
-                            {% if log.humidity_night > 45 and log.humidity_night <= 55 %} hum-ideal {% endif %}
-                            {% if log.humidity_night > 55 and log.humidity_night < 75 %} hum-high {% endif %}
+                            {% if log.humidity_night > 45 and log.humidity_night <= 65 %} hum-ideal {% endif %}
+                            {% if log.humidity_night > 65 and log.humidity_night < 75 %} hum-high {% endif %}
                             {% if log.humidity_night >= 75 %} hum-critical-high {% endif %}
                         {% endif %}
                     {% endif %}
